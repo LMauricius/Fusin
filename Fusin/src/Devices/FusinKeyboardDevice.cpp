@@ -1,0 +1,25 @@
+#include "FusinKeyboardDevice.h"
+#include "FusinGesture.h"
+
+#define FOR_LISTENERS(EXP) for (auto& it : mDeviceListeners) {it->EXP;} for (auto& it : mKeyboardDeviceListeners) {it->EXP;}
+#define FOR_KEYBOARD_LISTENERS(EXP) for (auto& it : mKeyboardDeviceListeners) {it->EXP;}
+
+namespace Fusin
+{
+	KeyboardDevice::KeyboardDevice(String name, size_t keyNum, size_t funcKeyNum, size_t ledNum):
+		Device(name, DT_KEYBOARD, {&keys, &leds}),
+		keys(DT_KEYBOARD, keyNum, funcKeyNum),
+		leds(DT_KEYBOARD, ledNum)
+	{
+	}
+
+	KeyboardDevice::~KeyboardDevice()
+	{
+	}
+
+	String KeyboardDevice::getStateString()
+	{
+		return String(FUSIN_STR("Keys: ")) + keys.getKeyString() + String(FUSIN_STR("LEDs: ")) + leds.getStateString();
+	}
+
+}

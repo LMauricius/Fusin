@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\IOCodes\FusinAnyKey.cpp" />
+    <ClCompile Include="src\Commands\FusinCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinInputCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinPositionCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinRangeCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinShakeCommand.cpp" />
+    <ClCompile Include="src\ControlSetups\FusinGenericControlSetup.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinButtonPadComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinCursorComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinDeviceComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinDPadComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinIOSignal.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinJoystickComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinLEDComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinMotionTrackerComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinRGBComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinTouchComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinTypingComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinVibrationComponent.cpp" />
+    <ClCompile Include="src\DeviceComponents\FusinWheelComponent.cpp" />
+    <ClCompile Include="src\Devices\FusinDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinDeviceEnumerator.cpp" />
+    <ClCompile Include="src\Devices\FusinDSDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinGamepadDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinKeyboardDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinMouseDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinNintendoDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinXInputDevice.cpp" />
+    <ClCompile Include="src\FusinInputManager.cpp" />
+    <ClCompile Include="src\IOCodes\FusinAnyJoystick.cpp" />
+    <ClCompile Include="src\IOCodes\FusinAnyListener.cpp" />
+    <ClCompile Include="src\IOCodes\FusinAnyTouch.cpp" />
+    <ClCompile Include="src\IOCodes\FusinDS.cpp" />
+    <ClCompile Include="src\IOCodes\FusinGamepad.cpp" />
+    <ClCompile Include="src\IOCodes\FusinIOCode.cpp" />
+    <ClCompile Include="src\IOCodes\FusinKey.cpp" />
+    <ClCompile Include="src\IOCodes\FusinMouse.cpp" />
+    <ClCompile Include="src\IOCodes\FusinNintendo.cpp" />
+    <ClCompile Include="src\IOCodes\FusinXBox.cpp" />
+    <ClCompile Include="src\IOSubSystems\FusinIOSubSystem.cpp" />
+    <ClCompile Include="src\IOSubSystems\FusinRawInputSubSystem.cpp" />
+    <ClCompile Include="src\IOSubSystems\FusinXInputSubSystem.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDeviceHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDS3Handler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDS4Handler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputGamepadHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputJoyConHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputKeyboardHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputMouseHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputReportHandler.cpp" />
+    <ClCompile Include="src\Utilities\FusinCharType.cpp" />
+    <ClCompile Include="src\Utilities\FusinColor.cpp" />
+    <ClCompile Include="src\Utilities\FusinInputSignalManipulation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Commands\FusinCommand.h" />
+    <ClInclude Include="include\Commands\FusinInputCommand.h" />
+    <ClInclude Include="include\Commands\FusinPositionCommand.h" />
+    <ClInclude Include="include\Commands\FusinRangeCommand.h" />
+    <ClInclude Include="include\Commands\FusinShakeCommand.h" />
+    <ClInclude Include="include\ControlSetups\FusinGenericControlSetup.h" />
+    <ClInclude Include="include\DeviceComponents\FusinButtonPadComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinCursorComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinDeviceComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinDeviceEnums.h" />
+    <ClInclude Include="include\DeviceComponents\FusinDPadComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinIOSignal.h" />
+    <ClInclude Include="include\DeviceComponents\FusinJoystickComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinLEDComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinMotionTrackerComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinRGBComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinTouchComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinTypingComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinVibrationComponent.h" />
+    <ClInclude Include="include\DeviceComponents\FusinWheelComponent.h" />
+    <ClInclude Include="include\Devices\FusinDevice.h" />
+    <ClInclude Include="include\Devices\FusinDeviceEnumerator.h" />
+    <ClInclude Include="include\Devices\FusinDSDevice.h" />
+    <ClInclude Include="include\Devices\FusinGamepadDevice.h" />
+    <ClInclude Include="include\Devices\FusinKeyboardDevice.h" />
+    <ClInclude Include="include\Devices\FusinMouseDevice.h" />
+    <ClInclude Include="include\Devices\FusinNintendoDevice.h" />
+    <ClInclude Include="include\Devices\FusinXInputDevice.h" />
+    <ClInclude Include="include\Fusin.h" />
+    <ClInclude Include="include\FusinConfig.h" />
+    <ClInclude Include="include\FusinDefinitions.h" />
+    <ClInclude Include="include\FusinInputManager.h" />
+    <ClInclude Include="include\FusinPlatform.h" />
+    <ClInclude Include="include\FusinPrerequisites.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyCursor.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyDPad.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyJoystick.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyKey.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyListener.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyMotionTracker.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyRGB.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyTouch.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyVibration.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyWheel.h" />
+    <ClInclude Include="include\IOCodes\FusinDS.h" />
+    <ClInclude Include="include\IOCodes\FusinGamepad.h" />
+    <ClInclude Include="include\IOCodes\FusinIOCode.h" />
+    <ClInclude Include="include\IOCodes\FusinKey.h" />
+    <ClInclude Include="include\IOCodes\FusinMouse.h" />
+    <ClInclude Include="include\IOCodes\FusinNintendo.h" />
+    <ClInclude Include="include\IOCodes\FusinXBox.h" />
+    <ClInclude Include="include\IOCodes\FusinXInput.h" />
+    <ClInclude Include="include\IOSubSystems\FusinIOSubSystem.h" />
+    <ClInclude Include="include\IOSubSystems\FusinRawInputSubSystem.h" />
+    <ClInclude Include="include\IOSubSystems\FusinXInputSubSystem.h" />
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputDeviceHandler.h" />
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputDS3Handler.h" />
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputDS4Handler.h" />
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputGamepadHandler.h" />
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputJoyConHandler.h" />
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputKeyboardHandler.h" />
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputMouseHandler.h" />
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputReportHandler.h" />
+    <ClInclude Include="include\Utilities\FusinAlgorithm.h" />
+    <ClInclude Include="include\Utilities\FusinByteDebug.h" />
+    <ClInclude Include="include\Utilities\FusinCharType.h" />
+    <ClInclude Include="include\Utilities\FusinColor.h" />
+    <ClInclude Include="include\Utilities\FusinDynamicFunc.h" />
+    <ClInclude Include="include\Utilities\FusinInputSignalManipulation.h" />
+    <ClInclude Include="include\Utilities\FusinLog.h" />
+    <ClInclude Include="include\Utilities\FusinSlotArray.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{75A9BD09-0EA3-4AAA-8589-CDBCDFBC5551}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Fusin</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(Platform)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(Platform)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(Platform)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\Fusin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\Fusin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\Fusin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\Fusin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

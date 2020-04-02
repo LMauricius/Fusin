@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src\Commands">
+      <UniqueIdentifier>{a46dec84-efd6-431d-a3fa-27aff1d39289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{06e8a8da-bcd5-4fde-9265-ac62a69d70ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ControlSetups">
+      <UniqueIdentifier>{883d1ae3-5f15-4029-85c6-1d811fa1351e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\DeviceComponents">
+      <UniqueIdentifier>{44aec818-1eb8-4e77-a9a4-04d9016c2dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Devices">
+      <UniqueIdentifier>{054fcaca-8ac6-456c-88b9-8a5dbca26527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IOCodes">
+      <UniqueIdentifier>{92e1efe0-5d7e-41fb-beee-53dd1c797df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IOSubSystems">
+      <UniqueIdentifier>{190f2ab3-8ad5-4577-9e39-e8d64e470cba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IOSubSystems\RawInput">
+      <UniqueIdentifier>{0a771bac-7b16-4267-9088-2028492322d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utilities">
+      <UniqueIdentifier>{2b38342d-1acb-4bb9-8b21-da0c9d988acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\IOCodes">
+      <UniqueIdentifier>{7d917a06-90b9-4a55-a73a-9730a4698051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{be92f936-2d81-4bbd-ac5f-1671497705e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Commands">
+      <UniqueIdentifier>{998e9e7e-4201-41db-8193-5387fd7f0294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\ControlSetups">
+      <UniqueIdentifier>{82a5b86b-ec47-4e2d-af1e-5f20df694c53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\DeviceComponents">
+      <UniqueIdentifier>{491e587f-c359-4f7e-91ff-6638ed18bafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Devices">
+      <UniqueIdentifier>{bbdcb868-e077-48a6-9fbe-79182afa2e8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\IOSubSystems">
+      <UniqueIdentifier>{715ca435-fae2-494e-b36e-79b9f2994fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\IOSubSystems\RawInput">
+      <UniqueIdentifier>{4ed5d020-a682-4033-9f7c-8cbb5815c483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Utilities">
+      <UniqueIdentifier>{3c66a30b-4440-4ed8-8186-d09eaec2d9a5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Commands\FusinCommand.cpp">
+      <Filter>src\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Commands\FusinInputCommand.cpp">
+      <Filter>src\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Commands\FusinPositionCommand.cpp">
+      <Filter>src\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Commands\FusinRangeCommand.cpp">
+      <Filter>src\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Commands\FusinShakeCommand.cpp">
+      <Filter>src\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ControlSetups\FusinGenericControlSetup.cpp">
+      <Filter>src\ControlSetups</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinButtonPadComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinCursorComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinDeviceComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinDPadComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinIOSignal.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinJoystickComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinLEDComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinMotionTrackerComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinRGBComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinTouchComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinTypingComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinVibrationComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceComponents\FusinWheelComponent.cpp">
+      <Filter>src\DeviceComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Devices\FusinDevice.cpp">
+      <Filter>src\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Devices\FusinDeviceEnumerator.cpp">
+      <Filter>src\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Devices\FusinDSDevice.cpp">
+      <Filter>src\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Devices\FusinGamepadDevice.cpp">
+      <Filter>src\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Devices\FusinKeyboardDevice.cpp">
+      <Filter>src\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Devices\FusinMouseDevice.cpp">
+      <Filter>src\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Devices\FusinNintendoDevice.cpp">
+      <Filter>src\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Devices\FusinXInputDevice.cpp">
+      <Filter>src\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FusinInputManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinAnyJoystick.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinAnyListener.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinAnyTouch.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinDS.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinGamepad.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinIOCode.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinKey.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinMouse.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinNintendo.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCodes\FusinXBox.cpp">
+      <Filter>src\IOCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\FusinIOSubSystem.cpp">
+      <Filter>src\IOSubSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\FusinRawInputSubSystem.cpp">
+      <Filter>src\IOSubSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\FusinXInputSubSystem.cpp">
+      <Filter>src\IOSubSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDeviceHandler.cpp">
+      <Filter>src\IOSubSystems\RawInput</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDS3Handler.cpp">
+      <Filter>src\IOSubSystems\RawInput</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDS4Handler.cpp">
+      <Filter>src\IOSubSystems\RawInput</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputGamepadHandler.cpp">
+      <Filter>src\IOSubSystems\RawInput</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputJoyConHandler.cpp">
+      <Filter>src\IOSubSystems\RawInput</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputKeyboardHandler.cpp">
+      <Filter>src\IOSubSystems\RawInput</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputMouseHandler.cpp">
+      <Filter>src\IOSubSystems\RawInput</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputReportHandler.cpp">
+      <Filter>src\IOSubSystems\RawInput</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utilities\FusinCharType.cpp">
+      <Filter>src\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utilities\FusinColor.cpp">
+      <Filter>src\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utilities\FusinInputSignalManipulation.cpp">
+      <Filter>src\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IOCodes\FusinAnyKey.cpp">
+      <Filter>include\IOCodes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Commands\FusinCommand.h">
+      <Filter>include\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Commands\FusinInputCommand.h">
+      <Filter>include\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Commands\FusinPositionCommand.h">
+      <Filter>include\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Commands\FusinRangeCommand.h">
+      <Filter>include\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Commands\FusinShakeCommand.h">
+      <Filter>include\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ControlSetups\FusinGenericControlSetup.h">
+      <Filter>include\ControlSetups</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinButtonPadComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinCursorComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinDeviceComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinDeviceEnums.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinDPadComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinIOSignal.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinJoystickComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinLEDComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinMotionTrackerComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinRGBComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinTouchComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinTypingComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinVibrationComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceComponents\FusinWheelComponent.h">
+      <Filter>include\DeviceComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Devices\FusinDevice.h">
+      <Filter>include\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Devices\FusinDeviceEnumerator.h">
+      <Filter>include\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Devices\FusinDSDevice.h">
+      <Filter>include\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Devices\FusinGamepadDevice.h">
+      <Filter>include\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Devices\FusinKeyboardDevice.h">
+      <Filter>include\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Devices\FusinMouseDevice.h">
+      <Filter>include\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Devices\FusinNintendoDevice.h">
+      <Filter>include\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Devices\FusinXInputDevice.h">
+      <Filter>include\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Fusin.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FusinConfig.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FusinDefinitions.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FusinInputManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FusinPlatform.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FusinPrerequisites.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyCursor.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyDPad.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyJoystick.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyKey.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyListener.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyMotionTracker.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyRGB.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyTouch.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyVibration.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinAnyWheel.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinDS.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinGamepad.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinIOCode.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinKey.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinMouse.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinNintendo.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinXBox.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOCodes\FusinXInput.h">
+      <Filter>include\IOCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\FusinIOSubSystem.h">
+      <Filter>include\IOSubSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\FusinRawInputSubSystem.h">
+      <Filter>include\IOSubSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\FusinXInputSubSystem.h">
+      <Filter>include\IOSubSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputDeviceHandler.h">
+      <Filter>include\IOSubSystems\RawInput</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputDS3Handler.h">
+      <Filter>include\IOSubSystems\RawInput</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputDS4Handler.h">
+      <Filter>include\IOSubSystems\RawInput</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputGamepadHandler.h">
+      <Filter>include\IOSubSystems\RawInput</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputJoyConHandler.h">
+      <Filter>include\IOSubSystems\RawInput</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputKeyboardHandler.h">
+      <Filter>include\IOSubSystems\RawInput</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputMouseHandler.h">
+      <Filter>include\IOSubSystems\RawInput</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOSubSystems\RawInput\FusinRawInputReportHandler.h">
+      <Filter>include\IOSubSystems\RawInput</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities\FusinAlgorithm.h">
+      <Filter>include\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities\FusinByteDebug.h">
+      <Filter>include\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities\FusinCharType.h">
+      <Filter>include\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities\FusinColor.h">
+      <Filter>include\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities\FusinDynamicFunc.h">
+      <Filter>include\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities\FusinInputSignalManipulation.h">
+      <Filter>include\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities\FusinLog.h">
+      <Filter>include\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utilities\FusinSlotArray.h">
+      <Filter>include\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
