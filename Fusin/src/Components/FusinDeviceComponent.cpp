@@ -1,4 +1,4 @@
-#include "FusinDeviceComponent.h"
+#include "Components/FusinDeviceComponent.h"
 
 #define FOR_LISTENERS(EXP) for (auto it : mDeviceListeners) {it->EXP;}
 
@@ -22,7 +22,7 @@ namespace Fusin
 	// Values
 	float DeviceComponent::getValue(const IOCode& ic) const
 	{
-		IOSignal* signal = getInputSignal(ic);
+		IOSignal* signal = getIOSignal(ic);
 		if (signal)
 		{
 			return signal->value();
@@ -33,7 +33,7 @@ namespace Fusin
 		}
 	}
 
-	IOSignal* DeviceComponent::getInputSignal(const IOCode& ic) const
+	IOSignal* DeviceComponent::getIOSignal(const IOCode& ic) const
 	{
 		if (ic.deviceType != DT_ANY && ic.deviceType != deviceType())
 			return nullptr;
@@ -80,7 +80,7 @@ namespace Fusin
 		return signal;
 	}
 
-	IOSignal* DeviceComponent::getFirstInputSignal(const IOFlags filter) const
+	IOSignal* DeviceComponent::getFirstIOSignal(const IOFlags filter) const
 	{
 		if (!(filter & flags() & IOF_ANY_DEVICE) || !(filter & flags() & IOF_ANY_INPUT))
 			return nullptr;
@@ -139,7 +139,7 @@ namespace Fusin
 		return nullptr;
 	}
 
-	IOSignal* DeviceComponent::getStrongestInputSignal(const IOFlags filter) const
+	IOSignal* DeviceComponent::getStrongestIOSignal(const IOFlags filter) const
 	{
 		if (!(filter & flags() & IOF_ANY_DEVICE) || !(filter & flags() & IOF_ANY_INPUT))
 			return nullptr;
@@ -275,7 +275,7 @@ namespace Fusin
 				{
 					// change covered components' values
 					for (auto comp : mCoveredComponents)
-						if (auto toSig = comp->getInputSignal(signal->ioCode()))
+						if (auto toSig = comp->getIOSignal(signal->ioCode()))
 							toSig->setValue(signal->value());
 				}
 				else if (mCoveredComponents.size())
@@ -284,7 +284,7 @@ namespace Fusin
 
 					// change values based on the largest covered signal
 					for (auto comp : mCoveredComponents)
-						if (auto fromSig = comp->getInputSignal(signal->ioCode()))
+						if (auto fromSig = comp->getIOSignal(signal->ioCode()))
 							if (fromSig->distance() > signal->distance())
 								signal->setValue(fromSig->value());
 				}
@@ -302,7 +302,7 @@ namespace Fusin
 				{
 					// change covered components' values
 					for (auto comp : mCoveredComponents)
-						if (auto toSig = comp->getInputSignal(signal->ioCode()))
+						if (auto toSig = comp->getIOSignal(signal->ioCode()))
 							toSig->setValue(signal->value());
 				}
 				else if (mCoveredComponents.size())
@@ -311,7 +311,7 @@ namespace Fusin
 
 					// change values based on the largest covered signal
 					for (auto comp : mCoveredComponents)
-						if (auto fromSig = comp->getInputSignal(signal->ioCode()))
+						if (auto fromSig = comp->getIOSignal(signal->ioCode()))
 							if (fromSig->distance() > signal->distance())
 								signal->setValue(fromSig->value());
 				}

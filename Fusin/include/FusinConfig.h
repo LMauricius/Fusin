@@ -14,4 +14,13 @@
 #	define FUSIN_USE_DOUBLE_PRECISION 0
 #endif*/
 
+#ifndef FUSIN_NO_DEFAULT_SUBSYSTEMS
+
+	#ifdef _WIN32
+		#define FUSIN_BUILD_RAW_INPUT
+	#endif
+
+#endif
+
+
 #endif

@@ -19,81 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\IOCodes\FusinAnyKey.cpp" />
-    <ClCompile Include="src\Commands\FusinCommand.cpp" />
-    <ClCompile Include="src\Commands\FusinInputCommand.cpp" />
-    <ClCompile Include="src\Commands\FusinPositionCommand.cpp" />
-    <ClCompile Include="src\Commands\FusinRangeCommand.cpp" />
-    <ClCompile Include="src\Commands\FusinShakeCommand.cpp" />
-    <ClCompile Include="src\ControlSetups\FusinGenericControlSetup.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinButtonPadComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinCursorComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinDeviceComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinDPadComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinIOSignal.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinJoystickComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinLEDComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinMotionTrackerComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinRGBComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinTouchComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinTypingComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinVibrationComponent.cpp" />
-    <ClCompile Include="src\DeviceComponents\FusinWheelComponent.cpp" />
-    <ClCompile Include="src\Devices\FusinDevice.cpp" />
-    <ClCompile Include="src\Devices\FusinDeviceEnumerator.cpp" />
-    <ClCompile Include="src\Devices\FusinDSDevice.cpp" />
-    <ClCompile Include="src\Devices\FusinGamepadDevice.cpp" />
-    <ClCompile Include="src\Devices\FusinKeyboardDevice.cpp" />
-    <ClCompile Include="src\Devices\FusinMouseDevice.cpp" />
-    <ClCompile Include="src\Devices\FusinNintendoDevice.cpp" />
-    <ClCompile Include="src\Devices\FusinXInputDevice.cpp" />
-    <ClCompile Include="src\FusinInputManager.cpp" />
-    <ClCompile Include="src\IOCodes\FusinAnyJoystick.cpp" />
-    <ClCompile Include="src\IOCodes\FusinAnyListener.cpp" />
-    <ClCompile Include="src\IOCodes\FusinAnyTouch.cpp" />
-    <ClCompile Include="src\IOCodes\FusinDS.cpp" />
-    <ClCompile Include="src\IOCodes\FusinGamepad.cpp" />
-    <ClCompile Include="src\IOCodes\FusinIOCode.cpp" />
-    <ClCompile Include="src\IOCodes\FusinKey.cpp" />
-    <ClCompile Include="src\IOCodes\FusinMouse.cpp" />
-    <ClCompile Include="src\IOCodes\FusinNintendo.cpp" />
-    <ClCompile Include="src\IOCodes\FusinXBox.cpp" />
-    <ClCompile Include="src\IOSubSystems\FusinIOSubSystem.cpp" />
-    <ClCompile Include="src\IOSubSystems\FusinRawInputSubSystem.cpp" />
-    <ClCompile Include="src\IOSubSystems\FusinXInputSubSystem.cpp" />
-    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDeviceHandler.cpp" />
-    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDS3Handler.cpp" />
-    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDS4Handler.cpp" />
-    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputGamepadHandler.cpp" />
-    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputJoyConHandler.cpp" />
-    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputKeyboardHandler.cpp" />
-    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputMouseHandler.cpp" />
-    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputReportHandler.cpp" />
-    <ClCompile Include="src\Utilities\FusinCharType.cpp" />
-    <ClCompile Include="src\Utilities\FusinColor.cpp" />
-    <ClCompile Include="src\Utilities\FusinInputSignalManipulation.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\Commands\FusinCommand.h" />
     <ClInclude Include="include\Commands\FusinInputCommand.h" />
+    <ClInclude Include="include\Commands\FusinIOCommand.h" />
+    <ClInclude Include="include\Commands\FusinOutputCommand.h" />
     <ClInclude Include="include\Commands\FusinPositionCommand.h" />
     <ClInclude Include="include\Commands\FusinRangeCommand.h" />
     <ClInclude Include="include\Commands\FusinShakeCommand.h" />
+    <ClInclude Include="include\Components\FusinBatteryComponent.h" />
+    <ClInclude Include="include\Components\FusinButtonPadComponent.h" />
+    <ClInclude Include="include\Components\FusinCursorComponent.h" />
+    <ClInclude Include="include\Components\FusinDeviceComponent.h" />
+    <ClInclude Include="include\Components\FusinDeviceEnums.h" />
+    <ClInclude Include="include\Components\FusinDPadComponent.h" />
+    <ClInclude Include="include\Components\FusinIOSignal.h" />
+    <ClInclude Include="include\Components\FusinJoystickComponent.h" />
+    <ClInclude Include="include\Components\FusinLEDComponent.h" />
+    <ClInclude Include="include\Components\FusinMotionTrackerComponent.h" />
+    <ClInclude Include="include\Components\FusinRGBComponent.h" />
+    <ClInclude Include="include\Components\FusinTouchComponent.h" />
+    <ClInclude Include="include\Components\FusinTypingComponent.h" />
+    <ClInclude Include="include\Components\FusinVibrationComponent.h" />
+    <ClInclude Include="include\Components\FusinWheelComponent.h" />
     <ClInclude Include="include\ControlSetups\FusinGenericControlSetup.h" />
-    <ClInclude Include="include\DeviceComponents\FusinButtonPadComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinCursorComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinDeviceComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinDeviceEnums.h" />
-    <ClInclude Include="include\DeviceComponents\FusinDPadComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinIOSignal.h" />
-    <ClInclude Include="include\DeviceComponents\FusinJoystickComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinLEDComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinMotionTrackerComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinRGBComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinTouchComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinTypingComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinVibrationComponent.h" />
-    <ClInclude Include="include\DeviceComponents\FusinWheelComponent.h" />
     <ClInclude Include="include\Devices\FusinDevice.h" />
     <ClInclude Include="include\Devices\FusinDeviceEnumerator.h" />
     <ClInclude Include="include\Devices\FusinDSDevice.h" />
@@ -108,6 +56,7 @@
     <ClInclude Include="include\FusinInputManager.h" />
     <ClInclude Include="include\FusinPlatform.h" />
     <ClInclude Include="include\FusinPrerequisites.h" />
+    <ClInclude Include="include\IOCodes\FusinAnyBattery.h" />
     <ClInclude Include="include\IOCodes\FusinAnyCursor.h" />
     <ClInclude Include="include\IOCodes\FusinAnyDPad.h" />
     <ClInclude Include="include\IOCodes\FusinAnyJoystick.h" />
@@ -145,6 +94,64 @@
     <ClInclude Include="include\Utilities\FusinInputSignalManipulation.h" />
     <ClInclude Include="include\Utilities\FusinLog.h" />
     <ClInclude Include="include\Utilities\FusinSlotArray.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\Commands\FusinOutputCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinInputCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinIOCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinPositionCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinRangeCommand.cpp" />
+    <ClCompile Include="src\Commands\FusinShakeCommand.cpp" />
+    <ClCompile Include="src\Components\FusinBatteryComponent.cpp" />
+    <ClCompile Include="src\Components\FusinButtonPadComponent.cpp" />
+    <ClCompile Include="src\Components\FusinCursorComponent.cpp" />
+    <ClCompile Include="src\Components\FusinDeviceComponent.cpp" />
+    <ClCompile Include="src\Components\FusinDPadComponent.cpp" />
+    <ClCompile Include="src\Components\FusinIOSignal.cpp" />
+    <ClCompile Include="src\Components\FusinJoystickComponent.cpp" />
+    <ClCompile Include="src\Components\FusinLEDComponent.cpp" />
+    <ClCompile Include="src\Components\FusinMotionTrackerComponent.cpp" />
+    <ClCompile Include="src\Components\FusinRGBComponent.cpp" />
+    <ClCompile Include="src\Components\FusinTouchComponent.cpp" />
+    <ClCompile Include="src\Components\FusinTypingComponent.cpp" />
+    <ClCompile Include="src\Components\FusinVibrationComponent.cpp" />
+    <ClCompile Include="src\Components\FusinWheelComponent.cpp" />
+    <ClCompile Include="src\ControlSetups\FusinGenericControlSetup.cpp" />
+    <ClCompile Include="src\Devices\FusinDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinDeviceEnumerator.cpp" />
+    <ClCompile Include="src\Devices\FusinDSDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinGamepadDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinKeyboardDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinMouseDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinNintendoDevice.cpp" />
+    <ClCompile Include="src\Devices\FusinXInputDevice.cpp" />
+    <ClCompile Include="src\FusinInputManager.cpp" />
+    <ClCompile Include="src\IOCodes\FusinAnyJoystick.cpp" />
+    <ClCompile Include="src\IOCodes\FusinAnyKey.cpp" />
+    <ClCompile Include="src\IOCodes\FusinAnyListener.cpp" />
+    <ClCompile Include="src\IOCodes\FusinAnyTouch.cpp" />
+    <ClCompile Include="src\IOCodes\FusinDS.cpp" />
+    <ClCompile Include="src\IOCodes\FusinGamepad.cpp" />
+    <ClCompile Include="src\IOCodes\FusinIOCode.cpp" />
+    <ClCompile Include="src\IOCodes\FusinKey.cpp" />
+    <ClCompile Include="src\IOCodes\FusinMouse.cpp" />
+    <ClCompile Include="src\IOCodes\FusinNintendo.cpp" />
+    <ClCompile Include="src\IOCodes\FusinXBox.cpp" />
+    <ClCompile Include="src\IOSubSystems\FusinIOSubSystem.cpp" />
+    <ClCompile Include="src\IOSubSystems\FusinRawInputSubSystem.cpp" />
+    <ClCompile Include="src\IOSubSystems\FusinXInputSubSystem.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDeviceHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDS3Handler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputDS4Handler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputGamepadHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputJoyConHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputKeyboardHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputMouseHandler.cpp" />
+    <ClCompile Include="src\IOSubSystems\RawInput\FusinRawInputReportHandler.cpp" />
+    <ClCompile Include="src\Utilities\FusinCharType.cpp" />
+    <ClCompile Include="src\Utilities\FusinColor.cpp" />
+    <ClCompile Include="src\Utilities\FusinInputSignalManipulation.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -200,25 +207,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(PlatformShortName)\</OutDir>
+    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(PlatformShortName)\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(PlatformShortName)\</OutDir>
+    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(PlatformShortName)\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(PlatformShortName)\</OutDir>
+    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(PlatformShortName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)bin\vs$(PlatformToolsetVersion)_$(PlatformShortName)\</OutDir>
+    <IntDir>$(SolutionDir)obj\vs$(PlatformToolsetVersion)_$(PlatformShortName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -228,7 +235,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\Fusin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Fusin/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -243,7 +250,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\Fusin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Fusin/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -260,7 +267,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\Fusin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Fusin/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -279,7 +286,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\Fusin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Fusin/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

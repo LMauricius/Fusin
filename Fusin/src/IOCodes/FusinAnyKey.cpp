@@ -1,5 +1,5 @@
-#include "FusinAnyKey.h"
-#include "FusinKey.h"
+#include "IOCodes/FusinAnyKey.h"
+#include "IOCodes/FusinKey.h"
 
 namespace Fusin
 {

@@ -1,6 +1,6 @@
-#include "FusinMotionTrackerComponent.h"
-#include "FusinAnyMotionTracker.h"
-#include "FusinInputSignalManipulation.h"
+#include "Components/FusinMotionTrackerComponent.h"
+#include "IOCodes/FusinAnyMotionTracker.h"
+#include "Utilities/FusinInputSignalManipulation.h"
 
 #include <iomanip>
 

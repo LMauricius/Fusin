@@ -1,16 +1,16 @@
 #ifndef _FUSIN__ANY_LISTENER_H
 #define _FUSIN__ANY_LISTENER_H
 
-#include "FusinGesture.h"
+#include "Commands/FusinCommand.h"
 #include "FusinInputManager.h"
-#include "FusinDevice.h"
+#include "Devices/FusinDevice.h"
 #include <vector>
 #include <map>
 #include <list>
 
 namespace Fusin
 {
-	class AnyListener : public Gesture, InputManagerListener, DeviceListener
+	class AnyListener : public Command, InputManagerListener
 	{
 	public:
 		AnyListener(InputManager* im = nullptr);
@@ -18,26 +18,26 @@ namespace Fusin
 
 		void setInputManager(InputManager* im);
 
-		IOCode getLastInputCode() const;
-		unsigned int getLastDeviceIndex() const;
+		IOCode getLastIOCode() const;
+		Index getLastDeviceIndex() const;
 
-		void setTrackedInputTypes(IOType t = IT_ANY);
+		void setTrackedInputTypes(IOType t = IO_ANY);
 		IOType getTrackedInputTypes() const;
-		void setTrackedDeviceIndex(unsigned int ind, IOType t = IT_ANY);
-		unsigned int getTrackedDeviceIndex(IOType t = IT_ANY) const;
+		void setTrackedDeviceIndex(unsigned int ind, IOType t = IO_ANY);
+		unsigned int getTrackedDeviceIndex(IOType t = IO_ANY) const;
 
-		void setDeadZone(float dz, IOType t = IT_ANY);
-		float getDeadZone(IOType t = IT_ANY) const;
-		void setMaxValue(float val, IOType t = IT_ANY);
-		float getMaxValue(IOType t = IT_ANY) const;
-		void setFactor(float f, IOType t = IT_ANY);
-		float getFactor(IOType t = IT_ANY) const;
+		void setDeadZone(float dz, IOType t = IO_ANY);
+		float getDeadZone(IOType t = IO_ANY) const;
+		void setMaxValue(float val, IOType t = IO_ANY);
+		float getMaxValue(IOType t = IO_ANY) const;
+		void setFactor(float f, IOType t = IO_ANY);
+		float getFactor(IOType t = IO_ANY) const;
 
 	protected:
 		IOType mTrackedInputTypes;
 		std::map < IOType, unsigned int > mTrackedDeviceIndices;
 		std::map < IOType, float > mDeadZones, mMaxValues, mFactors;
-		IOCode mLastInputCode;
+		IOCode mLastIOCode;
 		unsigned int mLastDeviceIndex;
 
 		void trackProccess();

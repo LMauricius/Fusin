@@ -1,13 +1,13 @@
 #include "FusinInputManager.h"
 #include "FusinInputSystem.h"
-#include "FusinGesture.h"
+#include "Commands/FusinCommand.h"
 #include "FusinDevice.h"
 #include "FusinKeyboardDevice.h"
 #include "FusinMouseDevice.h"
 #include "FusinGamepadDevice.h"
-#include "FusinXBoxDevice.h"
+#include "FusinXInputDevice.h"
 #include "FusinDSDevice.h"
-#include "FusinXBoxDevice.h"
+#include "FusinXInputDevice.h"
 #include "FusinNintendoDevice.h"
 #include <ctime>
 
@@ -37,7 +37,7 @@ namespace Fusin
 {
 
 	InputManager::InputManager()
-		: mEnabledTypes(IT_ANY_DEVICE)
+		: mEnabledTypes(IO_ANY_DEVICE)
 		, mWindowHandle(0)
 		, mInitialized(false)
 		, mLastTime(0)
@@ -47,7 +47,7 @@ namespace Fusin
 
 	InputManager::~InputManager()
 	{
-		std::list<Gesture*> copiedList = mGestureList;
+		std::list<Command*> copiedList = mGestureList;
 		for (auto g : copiedList)
 		{
 			g->setInputManager(nullptr);
@@ -92,7 +92,7 @@ namespace Fusin
 		registerDevice(new KeyboardDevice(FUSIN_STR("Global Keyboard"), 0));
 		registerDevice(new MouseDevice(FUSIN_STR("Global Mouse"), 0));
 		registerDevice(new GamepadDevice(0, 0, false, false, FUSIN_STR("Global Gamepad"), 0));
-		registerDevice(new XBoxDevice(FUSIN_STR("Global XBox Cotroller"), 0));
+		registerDevice(new XInputDevice(FUSIN_STR("Global XInput Cotroller"), 0));
 		registerDevice(new DSDevice(FUSIN_STR("Global DS Cotroller"), 0));
 		registerDevice(new NintendoDevice(NDT_PRO_CONTROLLER, FUSIN_STR("Global Nintendo Controller"), 0));
 
@@ -183,70 +183,70 @@ namespace Fusin
 
 	KeyboardDevice* InputManager::getKeyboardDevice(Index slot)
 	{
-		return static_cast<KeyboardDevice*>(getDevice(IT_KEYBOARD, slot));
+		return static_cast<KeyboardDevice*>(getDevice(IO_KEYBOARD, slot));
 	}
 
 	unsigned int InputManager::maxKeyboardDeviceIndex()
 	{
-		return maxDeviceIndex(IT_KEYBOARD);
+		return maxDeviceIndex(IO_KEYBOARD);
 	}
 
 	MouseDevice* InputManager::getMouseDevice(Index slot)
 	{
-		return static_cast<MouseDevice*>(getDevice(IT_MOUSE, slot));
+		return static_cast<MouseDevice*>(getDevice(IO_MOUSE, slot));
 	}
 
 	unsigned int InputManager::maxMouseDeviceIndex()
 	{
-		return maxDeviceIndex(IT_MOUSE);
+		return maxDeviceIndex(IO_MOUSE);
 	}
 
 	GamepadDevice* InputManager::getGamepadDevice(Index slot)
 	{
-		return static_cast<GamepadDevice*>(getDevice(IT_GAMEPAD, slot));
+		return static_cast<GamepadDevice*>(getDevice(IO_GAMEPAD, slot));
 	}
 
 	unsigned int InputManager::maxGamepadDeviceIndex()
 	{
-		return maxDeviceIndex(IT_GAMEPAD);
+		return maxDeviceIndex(IO_GAMEPAD);
 	}
 
-	XBoxDevice* InputManager::getXBoxDevice(Index slot)
+	XInputDevice* InputManager::getXInputDevice(Index slot)
 	{
-		return static_cast<XBoxDevice*>(getDevice(IT_XBOX, slot));
+		return static_cast<XInputDevice*>(getDevice(IO_XInput, slot));
 	}
 
-	unsigned int InputManager::maxXBoxDeviceIndex()
+	unsigned int InputManager::maxXInputDeviceIndex()
 	{
-		return maxDeviceIndex(IT_XBOX);
+		return maxDeviceIndex(IO_XInput);
 	}
 
 	DSDevice* InputManager::getDSDevice(Index slot)
 	{
-		return static_cast<DSDevice*>(getDevice(IT_DS, slot));
+		return static_cast<DSDevice*>(getDevice(IO_DS, slot));
 	}
 
 	unsigned int InputManager::maxDSDeviceIndex()
 	{
-		return maxDeviceIndex(IT_DS);
+		return maxDeviceIndex(IO_DS);
 	}
 
 	NintendoDevice* InputManager::getNintendoDevice(Index slot)
 	{
-		return static_cast<NintendoDevice*>(getDevice(IT_NINTENDO, slot));
+		return static_cast<NintendoDevice*>(getDevice(IO_NINTENDO, slot));
 	}
 
 	unsigned int InputManager::maxNintendoDeviceIndex()
 	{
-		return maxDeviceIndex(IT_NINTENDO);
+		return maxDeviceIndex(IO_NINTENDO);
 	}
 
-	IOSignal * InputManager::getInputSignal(const IOCode & ic, Index deviceSlot) const
+	IOSignal * InputManager::getIOSignal(const IOCode & ic, Index deviceSlot) const
 	{
-		Device* dev = getDevice(ic.type & IT_ANY_DEVICE, deviceSlot);
+		Device* dev = getDevice(ic.type & IO_ANY_DEVICE, deviceSlot);
 		if (dev != nullptr)
 		{
-			return dev->getInputSignal(ic);
+			return dev->getIOSignal(ic);
 		}
 		return nullptr;
 	}
@@ -254,7 +254,7 @@ namespace Fusin
 
 	float InputManager::getValue(const IOCode & ic, Index deviceSlot) const
 	{
-		IOSignal* s = getInputSignal(ic, deviceSlot);
+		IOSignal* s = getIOSignal(ic, deviceSlot);
 		if (s != nullptr)
 		{
 			return s->value();
@@ -290,12 +290,12 @@ namespace Fusin
 		}
 	}
 
-	void InputManager::addGesture(Gesture * g)
+	void InputManager::addGesture(Command * g)
 	{
 		mGestureList.push_back(g);
 	}
 
-	void InputManager::removeGesture(Gesture * g)
+	void InputManager::removeGesture(Command * g)
 	{
 		mGestureList.remove(g);
 	}
@@ -310,20 +310,20 @@ namespace Fusin
 		mListeners.remove(listener);
 	}
 
-	/*XBoxDevice* InputManager::getXBoxDevice(Index slot)
+	/*XInputDevice* InputManager::getXInputDevice(Index slot)
 	{
-	if (mXBoxDevices.isSlotFree(slot))
+	if (mXInputDevices.isSlotFree(slot))
 	{
 	return nullptr;
 	}
 
-	return static_cast<XBoxDevice*>(mXBoxDevices[slot]);
+	return static_cast<XInputDevice*>(mXInputDevices[slot]);
 	}*/
 
 	/*
 	Adding/removig actions to/from the correct list
 	*/
-	/*void InputManager::_associateGestureWithDevice(Gesture* a, const IOCode& c, unsigned int deviceIndex)
+	/*void InputManager::_associateGestureWithDevice(Command* a, const IOCode& c, unsigned int deviceIndex)
 	{
 		Device* device = getDevice(c.type, deviceIndex);
 		if (device)
@@ -332,7 +332,7 @@ namespace Fusin
 		}
 	}
 
-	void InputManager::_unassociateGestureWithDevice(Gesture* a, const IOCode& c, unsigned int deviceIndex)
+	void InputManager::_unassociateGestureWithDevice(Command* a, const IOCode& c, unsigned int deviceIndex)
 	{
 		Device* device = getDevice(c.type, deviceIndex);
 		if (device)

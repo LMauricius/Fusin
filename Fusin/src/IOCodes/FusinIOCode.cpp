@@ -1,23 +1,30 @@
-#include "FusinIOCode.h"
+#include "IOCodes/FusinIOCode.h"
 
-#include "FusinInputManager.h"
-#include "FusinKey.h"
-#include "FusinMouse.h"
-#include "FusinGamepad.h"
-#include "FusinTouch.h"
-#include "FusinMotionTracker.h"
-#include "FusinDS.h"
-#include "FusinXBox.h"
-#include "FusinNintendo.h"
-#include "FusinDPad.h"
+#include "IOCodes/FusinAnyBattery.h"
+#include "IOCodes/FusinAnyCursor.h"
+#include "IOCodes/FusinAnyDPad.h"
+#include "IOCodes/FusinAnyJoystick.h"
+#include "IOCodes/FusinAnyKey.h"
+#include "IOCodes/FusinAnyMotionTracker.h"
+#include "IOCodes/FusinAnyRGB.h"
+#include "IOCodes/FusinAnyTouch.h"
+#include "IOCodes/FusinAnyVibration.h"
+#include "IOCodes/FusinAnyWheel.h"
+#include "IOCodes/FusinKey.h"
+#include "IOCodes/FusinMouse.h"
+#include "IOCodes/FusinGamepad.h"
+#include "IOCodes/FusinDS.h"
+#include "IOCodes/FusinXInput.h"
+#include "IOCodes/FusinNintendo.h"
 
-#include "FusinAlgorithm.h"
+#include "Utilities/FusinAlgorithm.h"
 
 #include <sstream>
 
 namespace Fusin
 {
-	const IOCode IOCode::NULLCODE;
+	const IOCode IOCode::NULLCODE = IOCode(DT_NONE, IO_NONE, 0);
+	const IOCode IOCode::ANYCODE = IOCode(DT_ANY, IO_ANY, 0);
 	const int32_t IOCode::SIGNED_INDEX_FLAG = 1 << 31;
 	const int32_t IOCode::POSITIVITY_INDEX_FLAG = 1 << 30;
 	const int32_t IOCode::INDEX_FLAGS = SIGNED_INDEX_FLAG | POSITIVITY_INDEX_FLAG;
@@ -91,13 +98,6 @@ namespace Fusin
 	{
 	}
 
-	// NOT NEEDED
-	/*
-	returns the index of codeStr in the list of names, -1 if the code isn't on the list 
-	*/
-	//Index findTypeCode(const String& codeStr, const std::vector<String>& names);
-	//String restOfSStream(StringStream& ss);
-
 	IOCode::IOCode(const String& name) :
 		deviceType(DT_NONE),
 		ioType(IO_NONE),
@@ -134,6 +134,7 @@ namespace Fusin
 			foundModifier = true;
 		}
 
+		// Get deviceType
 		if (!foundDevice)
 			deviceType = nameToDeviceType(deviceStr);
 		foundDevice = true;
@@ -146,6 +147,38 @@ namespace Fusin
 			// Check specialized names per device type
 			switch (deviceType)
 			{
+			case DT_COMPONENT_TYPING:
+				if (inputStr == FUSIN_STR("Key"))
+				{
+					ioType = IO_BUTTON;
+
+					foundInput = true;
+					foundModifier = true;// keys don't have signed versions
+				}
+				else if (inputStr == FUSIN_STR("Typed"))
+				{
+					ioType = IO_TYPED_BUTTON;
+
+					foundInput = true;
+					foundModifier = true;
+				}
+				break;
+			case DT_COMPONENT_CURSOR:
+				if (quickFindIndex(CURSOR_MOVEMENT_NAMES, inputStr, &index))
+				{
+					ioType = IO_MOVEMENT;
+					foundInput = true;
+					foundIndex = true;
+				}
+				break;
+			case DT_COMPONENT_WHEEL:
+				if (quickFindIndex(WHEEL_ROTATION_NAMES, inputStr, &index))
+				{
+					ioType = IO_AXIS;
+					foundInput = true;
+					foundIndex = true;
+				}
+				break;
 			case DT_MOUSE:
 				if (quickFindIndex(MOUSE_BUTTON_NAMES, inputStr, &index))
 				{
@@ -154,19 +187,20 @@ namespace Fusin
 					foundIndex = true;
 					foundModifier = true;
 				}
-				else if (quickFindIndex(MOUSE_WHEEL_NAMES, inputStr, &index))
+				else if (quickFindIndex(WHEEL_ROTATION_NAMES, inputStr, &index))
 				{
 					ioType = IO_AXIS;
 					foundInput = true;
 					foundIndex = true;
 				}
-				else if (quickFindIndex(MOUSE_MOVEMENT_NAMES, inputStr, &index))
+				else if (quickFindIndex(CURSOR_MOVEMENT_NAMES, inputStr, &index))
 				{
 					ioType = IO_MOVEMENT;
 					foundInput = true;
 					foundIndex = true;
 				}
 				break;
+			case DT_COMPONENT_TOUCHPAD:
 			case DT_TOUCHSCREEN:
 				if (quickFindIndex(TOUCH_PRESSURE_NAMES, inputStr, &index))
 				{
@@ -188,8 +222,9 @@ namespace Fusin
 					indexFactor = TOUCH_MOVEMENT_NAMES.size();
 				}
 				break;
+			case DT_COMPONENT_JOYSTICK:
 			case DT_GAMEPAD:
-				if (quickFindIndex(GAMEPAD_AXIS_NAMES, inputStr, &index))
+				if (quickFindIndex(JOYSTICK_AXIS_NAMES, inputStr, &index))
 				{
 					ioType = IO_AXIS;
 					foundInput = true;
@@ -197,14 +232,14 @@ namespace Fusin
 				}
 				break;
 			case DT_XINPUT:
-				if (quickFindIndex(XBOX_BUTTON_NAMES, inputStr, &index))
+				if (quickFindIndex(XINPUT_BUTTON_NAMES, inputStr, &index))
 				{
 					ioType = IO_BUTTON;
 					foundInput = true;
 					foundIndex = true;
 					foundModifier = true;
 				}
-				else if (quickFindIndex(XBOX_AXIS_NAMES, inputStr, &index))
+				else if (quickFindIndex(XINPUT_AXIS_NAMES, inputStr, &index))
 				{
 					ioType = IO_AXIS;
 					foundInput = true;
@@ -242,11 +277,12 @@ namespace Fusin
 				}
 				break;
 			}
-		}
-		// Search for generic ioType names if we still haven't found the ioType type
-		if (!foundInput)
-		{
-			ioType = nameToInputType(inputStr);
+
+			// Search for generic ioType names if we still haven't found the ioType type
+			if (!foundInput)
+			{
+				ioType = nameToInputType(inputStr);
+			}
 		}
 
 		if (!foundIndex)
@@ -259,7 +295,7 @@ namespace Fusin
 			{
 			case IO_BUTTON:
 			case IO_TYPED_BUTTON:
-				if (deviceType == DT_KEYBOARD)
+				if (deviceType == DT_KEYBOARD || deviceType == DT_COMPONENT_TYPING)
 				{
 					index = nameToKey(indexStr);
 
@@ -289,14 +325,27 @@ namespace Fusin
 				if (quickFindIndex(ROTATION_NAMES, inputStr, &index))
 					foundIndex = true;
 				break;
+			case IO_VIBRATION:
+				if (quickFindIndex(VIBRATION_NAMES, inputStr, &index))
+					foundIndex = true;
+				break;
+			case IO_RGB:
+				if (quickFindIndex(COLOR_NAMES, inputStr, &index))
+					foundIndex = true;
+				break;
+			case IO_BATTERY:
+				if (quickFindIndex(BATTERY_NAMES, inputStr, &index))
+					foundIndex = true;
+				break;
 			}
-		}
-		// Convert the index string to integer if we haven't found a named index
-		if (!foundIndex)
-		{
-			StringStream ss2(indexStr);
-			ss2 >> index;
-			foundIndex = true;
+
+			// Convert the index string to integer if we haven't found a named index
+			if (!foundIndex)
+			{
+				StringStream ss2(indexStr);
+				ss2 >> index;
+				foundIndex = true;
+			}
 		}
 
 		// Modifiers (+ and -)
@@ -381,13 +430,14 @@ namespace Fusin
 			wroteDevice = wroteInput = wroteIndex = true;
 
 			if (ioType == IO_BUTTON)
-				ss << FUSIN_STR("Key ") << keyToName(index);
+				ss << "Key " << keyToName(index);
 			else if (ioType == IO_TYPED_BUTTON)
-				ss << FUSIN_STR("Typed ") << keyToName(index);
+				ss << "Typed " << keyToName(index);
 			else
 				wroteDevice = wroteInput = wroteIndex = false;
 		}
 
+		// Write <DEVICE NAME>
 		if (!wroteDevice)
 			ss << deviceTypeToName(deviceType);
 		wroteDevice = true;
@@ -396,37 +446,76 @@ namespace Fusin
 		{
 			ss << FUSIN_STR(" ");
 
-			// Check specialized names per device type
+			// Try to write <IOTYPE+INDEX NAME> for special device types
 			switch (deviceType)
 			{
+			case DT_COMPONENT_TYPING:
+				if (ioType == IO_BUTTON)
+				{
+					ss << "Key " << keyToName(index);
+					wroteInput = true;
+					wroteIndex = true;
+				}
+				else if (ioType == IO_TYPED_BUTTON)
+				{
+					ss << "Typed " << keyToName(index);
+					wroteInput = true;
+					wroteIndex = true;
+				}
+
+				break;
+			case DT_COMPONENT_CURSOR:
+				if (ioType == IO_MOVEMENT && writeIndexName(ss, CURSOR_MOVEMENT_NAMES, index))
+				{
+					wroteInput = true;
+					wroteIndex = true;
+				}
+				break;
+			case DT_COMPONENT_WHEEL:
+				if (ioType == IO_AXIS && writeIndexName(ss, WHEEL_ROTATION_NAMES, index))
+				{
+					wroteInput = true;
+					wroteIndex = true;
+				}
+				break;
 			case DT_MOUSE:
 				if (ioType == IO_BUTTON && writeIndexName(ss, MOUSE_BUTTON_NAMES, index) || 
-					ioType == IO_AXIS && writeIndexName(ss, MOUSE_WHEEL_NAMES, index) ||
-					ioType == IO_MOVEMENT && writeIndexName(ss, MOUSE_MOVEMENT_NAMES, index))
+					ioType == IO_AXIS && writeIndexName(ss, WHEEL_ROTATION_NAMES, index) ||
+					ioType == IO_MOVEMENT && writeIndexName(ss, CURSOR_MOVEMENT_NAMES, index))
 				{
 					wroteInput = true;
 					wroteIndex = true;
 				}
 				break;
+			case DT_COMPONENT_TOUCHPAD:
 			case DT_TOUCHSCREEN:
-				if (ioType == IO_PRESSURE && writeIndexName(ss, TOUCH_PRESSURE_NAMES, index) ||
-					ioType == IO_POSITION && writeIndexName(ss, TOUCH_POSITION_NAMES, index) ||
-					ioType == IO_MOVEMENT && writeIndexName(ss, TOUCH_MOVEMENT_NAMES, index))
+				if (ioType == IO_PRESSURE)
 				{
+					// For pressure inputs index denotes the index of the touch
+					ss << TOUCH_PRESSURE_NAMES[0] << " " << index;
+					wroteInput = true;
+					wroteIndex = true;
+				}
+				else if (ioType == IO_POSITION && writeIndexName(ss, TOUCH_POSITION_NAMES, index % 2) ||
+						 ioType == IO_MOVEMENT && writeIndexName(ss, TOUCH_MOVEMENT_NAMES, index % 2))
+				{
+					// For position and movement inputs there are 2 iocode indices per an index of the touch
+					ss << " " << index / 2;
 					wroteInput = true;
 					wroteIndex = true;
 				}
 				break;
+			case DT_COMPONENT_JOYSTICK:
 			case DT_GAMEPAD:
-				if (ioType == IO_AXIS && writeIndexName(ss, GAMEPAD_AXIS_NAMES, index) )
+				if (ioType == IO_AXIS && writeIndexName(ss, JOYSTICK_AXIS_NAMES, index) )
 				{
 					wroteInput = true;
 					wroteIndex = true;
 				}
 				break;
 			case DT_XINPUT:
-				if (ioType == IO_BUTTON && writeIndexName(ss, XBOX_BUTTON_NAMES, index) ||
-					ioType == IO_AXIS && writeIndexName(ss, XBOX_AXIS_NAMES, index))
+				if (ioType == IO_BUTTON && writeIndexName(ss, XINPUT_BUTTON_NAMES, index) ||
+					ioType == IO_AXIS && writeIndexName(ss, XINPUT_AXIS_NAMES, index))
 				{
 					wroteInput = true;
 					wroteIndex = true;
@@ -449,17 +538,18 @@ namespace Fusin
 				}
 				break;
 			}
+
+			// Write the <IOTYPE NAME> if we haven't already
+			if (!wroteInput)
+				ss << inputTypeToName(ioType);
+			wroteInput = true;
 		}
-		// Write the ioType type if we haven't already
-		if (!wroteInput)
-			ss << inputTypeToName(ioType);
-		wroteInput = true;
 
 		if (!wroteIndex)
 		{
 			ss << FUSIN_STR(" ");
 
-			// Check named indices
+			// Try to write <INDEX NAME> for special input types
 			switch (ioType)
 			{
 			case IO_ANGLE:
@@ -483,14 +573,27 @@ namespace Fusin
 				if (writeIndexName(ss, ROTATION_NAMES, index))
 					wroteIndex = true;
 				break;
+			case IO_BATTERY:
+				if (writeIndexName(ss, BATTERY_NAMES, index))
+					wroteIndex = true;
+				break;
+			case IO_VIBRATION:
+				if (writeIndexName(ss, VIBRATION_NAMES, index))
+					wroteIndex = true;
+				break;
+			case IO_RGB:
+				if (writeIndexName(ss, COLOR_NAMES, index))
+					wroteIndex = true;
+				break;
 			}
-		}
-		// Write the numeric index if no named index could be used
-		if (!wroteIndex)
-			ss << (index & INDEX_VALUE);
-		wroteIndex = true;
 
-		// Write the modifiers
+			// Write the numeric <INDEX> if no named index could be used
+			if (!wroteIndex)
+				ss << (index & INDEX_VALUE);
+			wroteIndex = true;
+		}
+
+		// Write the <MODIFIERS>
 		if (index & SIGNED_INDEX_FLAG)
 		{
 			if (index & POSITIVITY_INDEX_FLAG)
@@ -557,14 +660,12 @@ namespace Fusin
 		return (deviceType != DT_NONE && ioType != IO_NONE && deviceType < DT_LAST && ioType < IO_LAST);
 	}
 
-	/*String restOfSStream(StringStream& is)
+	bool IOCode::fitsFilter(IOFlags filter)
 	{
-		String str;
-		std::getline(is, str);
-		str.erase(0, str.find_first_not_of(L" \n\r\t"));
-		size_t lastC = str.find_last_of(L" \n\r\t");
-		if (lastC != String::npos) str.erase(lastC + 1);
-		return str;
-	}*/
+		return (
+			(filter & IOF_ANY_DEVICE & BASE_FLAGS_PER_DEVICE[deviceType]) &&
+			(filter & (IOF_ANY_INPUT | IOF_ANY_OUTPUT) & FLAG_PER_IO[ioType])
+			);
+	}
 
 }

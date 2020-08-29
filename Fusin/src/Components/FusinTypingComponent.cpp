@@ -1,5 +1,5 @@
-#include "FusinTypingComponent.h"
-#include "FusinAnyKey.h"
+#include "Components/FusinTypingComponent.h"
+#include "IOCodes/FusinAnyKey.h"
 
 #include <set>
 

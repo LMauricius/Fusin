@@ -1,5 +1,5 @@
-#include "FusinWheelComponent.h"
-#include "FusinAnyWheel.h"
+#include "Components/FusinWheelComponent.h"
+#include "IOCodes/FusinAnyWheel.h"
 #include <algorithm>
 
 namespace Fusin

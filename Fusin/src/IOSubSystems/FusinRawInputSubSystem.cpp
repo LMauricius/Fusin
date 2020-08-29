@@ -10,13 +10,13 @@
 #include "FusinMouseDevice.h"
 #include "FusinGamepadDevice.h"
 #include "FusinDSDevice.h"
-#include "FusinXBoxDevice.h"
+#include "FusinXInputDevice.h"
 #include "FusinNintendoDevice.h"*/
 #include "FusinKey.h"
 #include "FusinMouse.h"
 #include "FusinGamepad.h"
 #include "FusinDS.h"
-#include "FusinXBox.h"
+#include "FusinXInput.h"
 #include "FusinNintendo.h"
 #include <algorithm>
 #include <locale>
@@ -33,14 +33,14 @@ namespace Fusin
 		: InputSystem(de)
 		, mWindow((HWND)window)
 	{
-		mTypes = IT_ANY;
+		mTypes = IO_ANY;
 
 		// Set config
 		std::map<String, String>::const_iterator cfgIt;
 		StringStream ss;
 		SET_BOOL_CFG(mReceiveInputOutsideFocus, "Receive input outside focus", false);
 		SET_BOOL_CFG(mSupportDS, "Support DS", true);
-		SET_BOOL_CFG(mSupportXBox, "Support XBox", true);
+		SET_BOOL_CFG(mSupportXInput, "Support XInput", true);
 		SET_BOOL_CFG(mSupportNintendo, "Support Nintendo", true);
 		SET_OTHER_CFG(mMaxGamepadMessages, "Max gamepad messages", 0);
 
@@ -84,7 +84,7 @@ namespace Fusin
 
 		mRIDevices[3].dwFlags = flag;
 		mRIDevices[3].usUsagePage = 1;
-		mRIDevices[3].usUsage = 5;    							// other gamepads (DS/XBox controller)
+		mRIDevices[3].usUsage = 5;    							// other gamepads (DS/XInput controller)
 		mRIDevices[3].hwndTarget = mWindow;
 
 		RegisterRawInputDevices(mRIDevices, 4, sizeof(RAWINPUTDEVICE));
@@ -179,11 +179,11 @@ namespace Fusin
 											deviceHandler = new RawInputDS4Handler(deviceHandle, pDInfo);
 										}
 									}
-									else if (pDInfo->hid.dwVendorId == XBOX_VENDOR_ID)// xbox
+									else if (pDInfo->hid.dwVendorId == XINPUT_VENDOR_ID)// XInput
 									{
 
 									}
-									else if (pDInfo->hid.dwVendorId == NINTENDO_VENDOR_ID)// xbox
+									else if (pDInfo->hid.dwVendorId == NINTENDO_VENDOR_ID)// XInput
 									{
 										if (std::find(JOYCON_PRODUCT_IDS.begin(), JOYCON_PRODUCT_IDS.end(), pDInfo->hid.dwProductId) != JOYCON_PRODUCT_IDS.end())// joy-con
 										{

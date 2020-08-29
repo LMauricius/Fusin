@@ -1,8 +1,4 @@
-#include "FusinKeyboardDevice.h"
-#include "FusinGesture.h"
-
-#define FOR_LISTENERS(EXP) for (auto& it : mDeviceListeners) {it->EXP;} for (auto& it : mKeyboardDeviceListeners) {it->EXP;}
-#define FOR_KEYBOARD_LISTENERS(EXP) for (auto& it : mKeyboardDeviceListeners) {it->EXP;}
+#include "Devices/FusinKeyboardDevice.h"
 
 namespace Fusin
 {

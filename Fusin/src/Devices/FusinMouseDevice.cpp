@@ -1,12 +1,12 @@
-#include "FusinMouseDevice.h"
-#include "FusinGesture.h"
-#include "FusinMouse.h"
+#include "Devices/FusinMouseDevice.h"
+#include "Commands/FusinCommand.h"
+#include "IOCodes/FusinMouse.h"
 #include <algorithm>
 
 namespace Fusin
 {
-	MouseDevice::MouseDevice(String name):
-		Device(name, DT_MOUSE, { &movement, &buttons, &wheel }),
+	MouseDevice::MouseDevice(String name, bool hasBattery):
+		Device(name, DT_MOUSE, hasBattery, { &movement, &buttons, &wheel }),
 		movement(DT_MOUSE),
 		buttons(DT_MOUSE, 0),
 		wheel(DT_MOUSE),

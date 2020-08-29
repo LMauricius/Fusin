@@ -1,5 +1,5 @@
-#include "FusinJoystickComponent.h"
-#include "FusinInputSignalManipulation.h"
+#include "Components/FusinJoystickComponent.h"
+#include "Utilities/FusinInputSignalManipulation.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>

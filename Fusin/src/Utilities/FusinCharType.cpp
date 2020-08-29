@@ -1,4 +1,4 @@
-#include "FusinCharType.h"
+#include "Utilities/FusinCharType.h"
 
 namespace Fusin
 {

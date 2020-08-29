@@ -1,6 +1,6 @@
-#include "FusinVibrationComponent.h"
-#include "FusinInputSignalManipulation.h"
-#include "FusinAnyVibration.h"
+#include "Components/FusinVibrationComponent.h"
+#include "Utilities/FusinInputSignalManipulation.h"
+#include "IOCodes/FusinAnyVibration.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>

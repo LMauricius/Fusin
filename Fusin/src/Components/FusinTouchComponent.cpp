@@ -1,6 +1,6 @@
-#include "FusinTouchComponent.h"
-#include "FusinAnyTouch.h"
-#include "FusinInputSignalManipulation.h"
+#include "Components/FusinTouchComponent.h"
+#include "IOCOdes/FusinAnyTouch.h"
+#include "Utilities/FusinInputSignalManipulation.h"
 
 namespace Fusin
 {

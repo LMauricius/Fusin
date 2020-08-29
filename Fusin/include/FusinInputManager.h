@@ -1,26 +1,26 @@
 #ifndef _FUSIN_INPUT_MANAGER_H
 #define _FUSIN_INPUT_MANAGER_H
 
-#include "FusinPrerequisites.h"
+#include "IOCodes/FusinIOCode.h"
+#include "Devices/FusinDeviceEnumerator.h"
+
 #include <list>
 #include <map>
-#include "FusinInputCode.h"
-#include "FusinDeviceEnumerator.h"
 
 namespace Fusin
 {
-	class Gesture;
-	class InputGesture;
+	class Command;
+	class InputCommand;
 	class IOSignal;
 	class Device;
 	class KeyboardDevice;
 	class MouseDevice;
 	class GamepadDevice;
 	class DSDevice;
-	class XBoxDevice;
+	class XInputDevice;
 	class NintendoDevice;
 	class InputSystem;
-	typedef std::list<Gesture*> GesturePtrList;
+	typedef std::list<Command*> GesturePtrList;
 	class InputManagerListener;
 
 	class InputManager : public DeviceEnumerator
@@ -31,13 +31,13 @@ namespace Fusin
 
 		/*
 		If enabled, XInput devices will be handled by RawInput System and listed as GamepadDevices.
-		This won't disable XInput Systems, so you probably don't want to assign IT_XBOX InputCodes
-		along with IT_GAMEPAD ones to Gestures if this is enabled, otherwise the Gestures will get updated for both device types.
+		This won't disable XInput Systems, so you probably don't want to assign IO_XInput IOCodes
+		along with IO_GAMEPAD ones to Gestures if this is enabled, otherwise the Gestures will get updated for both device types.
 		Call this before initializing the InputManager.
 		Default is false;
 		*/
-		/*void treatXBoxControllersAsGamepads(bool enable);
-		bool treatingXBoxControllersAsGamepads();*/
+		/*void treatXInputControllersAsGamepads(bool enable);
+		bool treatingXInputControllersAsGamepads();*/
 		/*
 		If enabled, DualShock4 devices will be handled by RawInput and listed as GamepadDevices.
 		Call this before initializing the InputManager.
@@ -73,9 +73,9 @@ namespace Fusin
 		Specifies which Devices will be updated during an _update() call.
 		You can still manually read ioType from disabled devices, but Gestures which 
 		are dependant on these devices won't have their values updated.
-		Default is IT_ANY_DEVICE.
+		Default is IO_ANY_DEVICE.
 		*/
-		void enableDevices(IOType t = IT_ANY_DEVICE);
+		void enableDevices(IOFlags t = IOF_ANY_DEVICE);
 		IOType getEnabledDevices();
 
 		/*
@@ -129,11 +129,11 @@ namespace Fusin
 		GamepadDevice* getGamepadDevice(Index index = 0);
 		unsigned int maxGamepadDeviceIndex();
 		/*
-		Returns nullptr if there is no XBoxDevice with the specified index.
-		Use index 0 to get the global XBoxDevice.
+		Returns nullptr if there is no XInputDevice with the specified index.
+		Use index 0 to get the global XInputDevice.
 		*/
-		XBoxDevice* getXBoxDevice(Index index = 0);
-		unsigned int maxXBoxDeviceIndex();
+		XInputDevice* getXInputDevice(Index index = 0);
+		unsigned int maxXInputDeviceIndex();
 		/*
 		Returns nullptr if there is no DSDevice with the specified index.
 		Use index 0 to get the global DSDevice.
@@ -151,7 +151,7 @@ namespace Fusin
 		Returns the IOSignal with the specified IOCode.
 		Returns nullptr if no device supports the specified IOCode.
 		*/
-		IOSignal* getInputSignal(const IOCode& ic, Index deviceSlot) const;
+		IOSignal* getIOSignal(const IOCode& ic, Index deviceSlot) const;
 
 		/*
 		Returns the current value of the specified IOCode.
@@ -163,19 +163,19 @@ namespace Fusin
 
 		void registerDevice(Device* dev);
 		void unregisterDevice(Device* dev);
-		void addGesture(Gesture* g);
-		void removeGesture(Gesture* g);
+		void addGesture(Command* g);
+		void removeGesture(Command* g);
 		void addListener(InputManagerListener* listener);
 		void removeListener(InputManagerListener* listener);
 
 	protected:
-		//bool mTreatXBoxAsGamepads, mTreatDSAsGamepads, mReceiveInputOutsideFocus;
+		//bool mTreatXInputAsGamepads, mTreatDSAsGamepads, mReceiveInputOutsideFocus;
 		void *mWindowHandle;
 		IOType mEnabledTypes;
 		bool mInitialized;
 		TimeMS mLastTime;
 
-		std::list<Gesture*> mGestureList;
+		std::list<Command*> mGestureList;
 		std::list<InputSystem*> mInputSystems;
 		std::list<InputManagerListener*> mListeners;
 	};

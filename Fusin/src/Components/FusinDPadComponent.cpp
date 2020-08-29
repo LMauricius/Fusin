@@ -1,6 +1,6 @@
-#include "FusinDPadComponent.h"
-#include "FusinAnyDPad.h"
-#include "FusinInputSignalManipulation.h"
+#include "Components/FusinDPadComponent.h"
+#include "IOCodes/FusinAnyDPad.h"
+#include "Utilities/FusinInputSignalManipulation.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>

@@ -1,7 +1,7 @@
 #ifndef _FUSIN_INPUT_SIGNAL_H
 #define _FUSIN_INPUT_SIGNAL_H
 
-#include "FusinIOCode.h"
+#include "IOCodes/FusinIOCode.h"
 
 #include <list>
 #include <set>

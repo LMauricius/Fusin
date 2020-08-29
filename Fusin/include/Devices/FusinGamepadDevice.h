@@ -2,18 +2,16 @@
 #define _FUSIN_GAMEPAD_DEVICE_H
 
 #include "FusinDevice.h"
-#include "FusinButtonPadComponent.h"
-#include "FusinJoystickComponent.h"
-#include "FusinDPadComponent.h"
-#include "FusinVibrationComponent.h"
+#include "Components/FusinButtonPadComponent.h"
+#include "Components/FusinJoystickComponent.h"
+#include "Components/FusinDPadComponent.h"
+#include "Components/FusinVibrationComponent.h"
 #include <list>
 #include <map>
 #include <vector>
 
 namespace Fusin
 {
-	class GamepadDeviceListener;
-
 	class GamepadDevice : public Device
 	{
 	public:

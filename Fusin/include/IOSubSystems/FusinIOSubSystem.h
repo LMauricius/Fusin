@@ -1,7 +1,7 @@
 #ifndef _FUSIN_INPUT_SYSTEM_H
 #define _FUSIN_INPUT_SYSTEM_H
 
-#include "FusinInputCode.h"
+#include "IOCodes/FusinIOCode.h"
 
 namespace Fusin
 {

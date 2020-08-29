@@ -1,5 +1,5 @@
-#include "FusinGamepadDevice.h"
-#include "FusinGamepad.h"
+#include "Devices/FusinGamepadDevice.h"
+#include "IOCodes/FusinGamepad.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>

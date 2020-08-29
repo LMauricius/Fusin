@@ -1,7 +1,7 @@
 #ifndef _FUSIN_CURSOR_H
 #define _FUSIN_CURSOR_H
 
-#include "FusinIOCode.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin
@@ -13,7 +13,7 @@ namespace Fusin
 	const IOCode ANY_CURSOR_MOVE_UP    = CURSOR_MOVE_Y.negativeVersion();
 	const IOCode ANY_CURSOR_MOVE_DOWN  = CURSOR_MOVE_Y.positiveVersion();
 
-	const const std::vector<String> MOUSE_MOVEMENT_NAMES = {
+	const const std::vector<String> CURSOR_MOVEMENT_NAMES = {
 		FUSIN_STR("Move_X"), FUSIN_STR("Move_Y")
 	};
 

@@ -1,7 +1,7 @@
 #ifndef _FUSIN_DPAD_H
 #define _FUSIN_DPAD_H
 
-#include "FusinIOCode.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin

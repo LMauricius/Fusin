@@ -1,36 +1,31 @@
-#include "FusinXBox.h"
+#include "IOCodes/FusinXInput.h"
 
 namespace Fusin
 {
 
-	InputCode XBoxButton(Index b)
+	IOCode XInputButton(Index b)
 	{
-		return InputCode(IT_XBOX_BUTTON, b);
+		return IOCode(DT_XINPUT, IO_BUTTON, b);
 	}
 
-	InputCode XBoxAxis(Index a)
+	IOCode XInputAxis(Index a)
 	{
-		return InputCode(IT_XBOX_AXIS, a);
+		return IOCode(DT_XINPUT, IO_AXIS, a);
 	}
 
-	InputCode XBoxDPadButton(Index a)
+	IOCode XInputDPadButton(Index a)
 	{
-		return InputCode(IT_XBOX_DPAD_BUTTON, a);
+		return IOCode(DT_XINPUT, IO_DIRECTION, a);
 	}
 
-	InputCode XBoxSignedAxis(Index a)
+	IOCode XInputPositiveAxis(Index a)
 	{
-		return InputCode(IT_XBOX_SIGNED_AXIS, a);
+		return XInputAxis(a).positiveVersion();
 	}
 
-	InputCode XBoxPositiveAxis(Index a)
+	IOCode XInputNegativeAxis(Index a)
 	{
-		return XBoxSignedAxis(a * 2 + 1);
-	}
-
-	InputCode XBoxNegativeAxis(Index a)
-	{
-		return XBoxSignedAxis(a * 2);
+		return XInputAxis(a).negativeVersion();
 	}
 
 }

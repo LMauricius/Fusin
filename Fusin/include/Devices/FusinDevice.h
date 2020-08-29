@@ -1,10 +1,10 @@
 #ifndef _FUSIN_DEVICE_H
 #define _FUSIN_DEVICE_H
 
-#include "FusinPrerequisites.h"
-#include "FusinIOSignal.h"
-#include "FusinDeviceComponent.h"
-#include "FusinDeviceEnums.h"
+#include "Components/FusinIOSignal.h"
+#include "Components/FusinDeviceComponent.h"
+#include "Components/FusinBatteryComponent.h"
+#include "Components/FusinDeviceEnums.h"
 
 #include <list>
 #include <set>
@@ -14,8 +14,8 @@
 namespace Fusin
 {
 	class InputManager;
-	class Gesture;
-	typedef std::list<Gesture*> GesturePtrList;
+	class Command;
+	typedef std::list<Command*> GesturePtrList;
 	class DeviceListener;
 
 	class Device
@@ -28,7 +28,8 @@ namespace Fusin
 		@param devType The type of this device, DT_NONE is default
 		@param components The components that will be registered at construction using the protected function registerComponent().
 		*/
-		Device(String name = FUSIN_STR(""), DeviceType devType = DT_NONE, const std::list<DeviceComponent*>& components = {});
+		Device(String name = FUSIN_STR(""), DeviceType devType = DT_NONE,
+			const std::list<DeviceComponent*>& components = {}, bool hasBattery = false);
 		~Device();
 
 		// Device info
@@ -59,18 +60,23 @@ namespace Fusin
 		Returns the device's IOSignal corresponding to the specified IOCode.
 		Returns nullptr if no IOSignal corresponds to  the specified IOCode.
 		*/
-		IOSignal* getInputSignal(const IOCode& ic);
+		IOSignal* getIOSignal(const IOCode& ic);
 		/*
 		Returns the first IOSignal corresponding to the filter.
 		Returns nullptr if no IOSignal corresponds to  the filter.
 		*/
-		IOSignal* getFirstInputSignal(const IOFlags filter);
+		IOSignal* getFirstIOSignal(const IOFlags filter);
 		/*
 		Returns the IOSignal with the largest absolute value (distance) whose IOCode corresponds to the filter.
 		If multiple InputSignals have the largest value, the first one is returned.
 		Returns nullptr if no codes correspond to the filter.
 		*/
-		IOSignal* getStrongestInputSignal(const IOFlags filter);
+		IOSignal* getStrongestIOSignal(const IOFlags filter);
+
+		/*
+		Returns the list of all registered device components of this device.
+		*/
+		std::vector<DeviceComponent*> getDeviceComponents() const;
 
 		/*
 		Resets all io values of the device to 0.
@@ -85,6 +91,8 @@ namespace Fusin
 		*/
 		virtual String getStateString();
 
+		BatteryComponent battery;
+
 		void _setName(String name);
 		void _setConnectionMode(ConnectionMode mode);
 		void _update(size_t msElapsed = 0);
@@ -95,6 +103,7 @@ namespace Fusin
 		String mName;
 		ConnectionMode mConnectionMode;
 
+		std::vector<DeviceComponent*> mIOTypeComponentMap;
 		std::map<DeviceType, DeviceComponent*> mDeviceTypeComponentMap;
 		std::map<IOType, DeviceComponent*> mIOTypeComponentMap;
 

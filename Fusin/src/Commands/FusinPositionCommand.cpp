@@ -1,206 +1,155 @@
-#include "FusinPositionGesture.h"
-#include "FusinInputManager.h"
+#include "Commands/FusinPositionCommand.h"
 #include <algorithm>
 
-#define FOR_SUBACTIONS(EXP) xAxis.EXP; yAxis.EXP; directionAxis.EXP; leftDirection.EXP; rightDirection.EXP; upDirection.EXP; downDirection.EXP;
+#define FOR_SUBACTIONS(EXP) xAxis.EXP; yAxis.EXP; angleAxis.EXP; leftDirection.EXP; rightDirection.EXP; upDirection.EXP; downDirection.EXP;
 #define FOR_SUBACTIONS_EXCEPT_DIRAXIS(EXP) xAxis.EXP; yAxis.EXP; leftDirection.EXP; rightDirection.EXP; upDirection.EXP; downDirection.EXP;
 
 namespace Fusin
 {
 
-	PositionGesture::PositionGesture(InputManager* im)
+	PositionCommand::PositionCommand(DeviceEnumerator* devEnum) :
+		Command(devEnum),
+		xAxis(devEnum),
+		yAxis(devEnum),
+		angleAxis(devEnum),
+		leftDirection(devEnum),
+		rightDirection(devEnum),
+		upDirection(devEnum),
+		downDirection(devEnum)
 	{
-		mInputManager = im;
-		if (mInputManager) mInputManager->addGesture(this);
-		FOR_SUBACTIONS(setInputManager(im))
 
-		mDeviceIndices[IT_KEYBOARD] = 0;
-		mDeviceIndices[IT_MOUSE] = 0;
-		mDeviceIndices[IT_GAMEPAD] = 0;
-		mDeviceIndices[IT_XBOX] = 0;
-		mDeviceIndices[IT_DS] = 0;
-		for (IOType i : ALL_CODE_TYPES)
-		{
-			mDeadZones[i] = 0.0f;
-			mMaxValues[i] = MAX_FLOAT;
-			mFactors[i] = 1.0f;
-		}
-		mEnabledInputTypes = IT_ANY;
 	}
 
-	PositionGesture::~PositionGesture()
+	PositionCommand::~PositionCommand()
 	{
-		if (mInputManager) mInputManager->removeGesture(this);
 	}
 
-	void PositionGesture::setInputManager(InputManager* im)
-	{
-		if (mInputManager) mInputManager->removeGesture(this);
-		mInputManager = im;
-		if (mInputManager) mInputManager->addGesture(this);
-		FOR_SUBACTIONS(setInputManager(im))
-	}
-
-	float PositionGesture::x()
+	float PositionCommand::x()
 	{
 		return mX;
 	}
 
-	float PositionGesture::y()
+	float PositionCommand::y()
 	{
 		return mY;
 	}
 
-	float PositionGesture::direction()
+	float PositionCommand::angle()
 	{
-		return mDirection;
+		return mAngle;
 	}
 
-	void PositionGesture::_beginUpdate()
+	void PositionCommand::setDeviceEnumerator(DeviceEnumerator* devEnum)
 	{
-		mPrevValue = mValue;
-		mPrevX = mX;
-		mPrevY = mY;
-		mPrevDirection = mDirection;
+		Command::setDeviceEnumerator(devEnum);
+		FOR_SUBACTIONS(setDeviceEnumerator(devEnum));
+	}
+
+	void PositionCommand::setDeviceIndex(Index ind, DeviceType t) {
+		FOR_SUBACTIONS(setDeviceIndex(ind, t));
+	}
+
+	void PositionCommand::setDeviceIndex(Index ind, IOFlags filter) {
+		FOR_SUBACTIONS(setDeviceIndex(ind, filter));
+	}
+
+	void PositionCommand::setEnabledInputTypes(IOFlags filter) {
+		FOR_SUBACTIONS(setEnabledInputTypes(filter));
+	}
+
+	void PositionCommand::setDeadZone(float dz, DeviceType deviceType, IOType ioType) {
+		FOR_SUBACTIONS(setDeadZone(dz, deviceType, ioType));
+	}
+
+	void PositionCommand::setDeadZone(float dz, IOFlags filter) {
+		FOR_SUBACTIONS(setDeadZone(dz, filter));
+	}
+
+	void PositionCommand::setMaxValue(float val, DeviceType deviceType, IOType ioType) {
+		FOR_SUBACTIONS(setMaxValue(val, deviceType, ioType));
+	}
+
+	void PositionCommand::setMaxValue(float val, IOFlags filter) {
+		FOR_SUBACTIONS(setDeadZone(val, filter));
+	}
+
+	void PositionCommand::setFactor(float f, DeviceType deviceType, IOType ioType)
+	{
+		FOR_SUBACTIONS(setFactor(f, deviceType, ioType));
+		ValueModifierUtilities::setModifier(mFactors, f, deviceType, ioType);
+	}
+
+	void PositionCommand::setFactor(float f, IOFlags filter)
+	{
+		FOR_SUBACTIONS(setDeadZone(f, filter));
+		ValueModifierUtilities::setModifier(mFactors, f, filter);
+	}
+
+	void PositionCommand::update()
+	{
+		/*
+			(x, y, value=distance, angle=(x,y)direction)
+
+		Position calculating algorithm:
+			First we try to use the angleAxis' value to determine the angle of this Command.
+			If the angle is non-zero (Use 360 for 0° angle) we set
+			the value to the factor specified for the angleAxis' strongestIOCode and
+			the (x,y) position to the one calculated from the angle and value.
+			Note that the value of 1 is multiplied by the factor, not the angle itself!
+
+			Then, xAxis and yAxis' values are used to determine their angle and distance. If the distance is greater than
+			the previously calculated value, the value is set to that distance and angle to the calculated angle.
+			The position itself is directly derived from the xAxis and yAxis' values.
+
+			After that we check the direction axes (leftDirection,rightDirection,upDirection,downDirection).
+			First, the position is calculated from the directions' values by subtracting opposite directions,
+			i.e. if both leftDirection and rightDirection have equal values, they are cancelled.
+			The angle and distance are calculated the same as in the previous step.
+			If the direction axes give a greater value than the angle or position axes, this one is used.
+		*/
+
+		// default
 		mValue = 0;
-		mX = 0;
-		mY = 0;
-		mDirection = 0.0f;
-		for (auto& it : mValuesByType)
+
+		// by angleAxis
+		if (angleAxis.value())
 		{
-			it.second = 0.0f;
-		}
-	}
-
-	void PositionGesture::_endUpdate()
-	{
-		for (auto& it : mValuesByType)
-		{
-			float xv = 0, yv = 0, v;
-			float d = directionAxis.value(it.first & IT_ANY_CODE);
-			float xa = xAxis.value(it.first & IT_ANY_CODE);
-			float ya = yAxis.value(it.first & IT_ANY_CODE);
-			float xlr = rightDirection.value(it.first & IT_ANY_CODE) - leftDirection.value(it.first & IT_ANY_CODE);
-			float yud = downDirection.value(it.first & IT_ANY_CODE) - upDirection.value(it.first & IT_ANY_CODE);
-
-			if (abs(xa) > abs(xv)) xv = xa;
-			if (abs(xlr) > abs(xv)) xv = xlr;
-			if (abs(ya) > abs(yv)) yv = ya;
-			if (abs(yud) > abs(yv)) yv = yud;
-
-			v = sqrt(xv*xv + yv*yv);
-			if (v >= mDeadZones[it.first])
-			{
-				it.second = std::min(v, mMaxValues[it.first]) * mFactors[it.first];
-				if (it.second > mValue)
-				{
-					mValue = it.second;
-					mDirection = atan2(yv, xv) * 180 / PI + 90;
-					mX = xv / sqrt(xv*xv + yv*yv) * mValue;
-					mY = yv / sqrt(xv*xv + yv*yv) * mValue;
-				}
-			}
-			if (d != 0 && mDeadZones[it.first] < 1)
-			{
-				it.second = std::min(1.0f, mMaxValues[it.first]) * mFactors[it.first];
-				if (it.second > mValue)
-				{
-					mValue = it.second;
-					mDirection = d;
-					mX = round(cos((d - 90) * PI / 180)*100000.0f) / 100000.0f;// rounded to avoid imprecisions by cos and sin
-					mY = round(sin((d - 90) * PI / 180)*100000.0f) / 100000.0f;
-				}
-			}
-		}
-		if (mValue > 0)
-		{
-			if (mDirection > 360) mDirection -= 360;
-			if (mDirection <= 0) mDirection += 360;
-
-			/*mX = cos((mDirection - 90) / 180 * PI) * mValue;
-			mY = sin((mDirection - 90) / 180 * PI) * mValue;*/
+			mAngle = angleAxis.value();
+			mValue = ValueModifierUtilities::getModifier(
+				mFactors,
+				angleAxis.strongestIOCode().deviceType,
+				angleAxis.strongestIOCode().ioType
+			);
+			mX = cos((mAngle - 90) * PI / 180.0) * mValue;
+			mY = sin((mAngle - 90) * PI / 180.0) * mValue;
 		}
 
-		mPressed = (mValue >= mThreshold && mPrevValue < mThreshold);
-		mReleased = (mValue < mThreshold && mPrevValue >= mThreshold);
-	}
-
-
-	void PositionGesture::setDeviceIndex(unsigned int ind, IOType t)
-	{
-		for (auto it = mDeviceIndices.begin(); it != mDeviceIndices.end(); it++)
+		// by position axes
+		float xv = xAxis.value();
+		float yv = yAxis.value();
+		float dist = sqrt(xv * xv + yv * yv);
+		if (dist > mValue)
 		{
-			if ((*it).first & t) (*it).second = ind;
+			mAngle = atan2(yv, xv) * 180 / PI + 90;
+			mValue = dist;
+			mX = xv;
+			mY = yv;
 		}
-		FOR_SUBACTIONS(setDeviceIndex(ind, t))
-	}
 
-	unsigned int PositionGesture::getDeviceIndex(IOType t)
-	{
-		for (auto it = mDeviceIndices.begin(); it != mDeviceIndices.end(); it++)
+		// by direction axes
+		xv = rightDirection.value() - leftDirection.value();
+		yv = downDirection.value() - upDirection.value();
+		dist = sqrt(xv * xv + yv * yv);
+		if (dist > mValue)
 		{
-			if ((*it).first & t) return (*it).second;
+			mAngle = atan2(yv, xv) * 180 / PI + 90;
+			mValue = dist;
+			mX = xv;
+			mY = yv;
 		}
-	}
 
-	void PositionGesture::setEnabledInputTypes(IOType t)
-	{
-		mEnabledInputTypes = t;
-		FOR_SUBACTIONS(setEnabledInputTypes(t))
-	}
-
-	IOType PositionGesture::getEnabledInputTypes()
-	{
-		return mEnabledInputTypes;
-	}
-
-
-	void PositionGesture::setDeadZone(float dz, IOType t)
-	{
-		for (auto it = mDeadZones.begin(); it != mDeadZones.end(); it++)
-		{
-			if ((*it).first & t) (*it).second = dz;
-		}
-	}
-
-	float PositionGesture::getDeadZone(IOType t)
-	{
-		for (auto it = mDeadZones.begin(); it != mDeadZones.end(); it++)
-		{
-			if ((*it).first & t) return (*it).second;
-		}
-	}
-
-	void PositionGesture::setMaxValue(float val, IOType t)
-	{
-		for (auto it = mMaxValues.begin(); it != mMaxValues.end(); it++)
-		{
-			if ((*it).first & t) (*it).second = val;
-		}
-	}
-
-	float PositionGesture::getMaxValue(IOType t)
-	{
-		for (auto it = mMaxValues.begin(); it != mMaxValues.end(); it++)
-		{
-			if ((*it).first & t) return (*it).second;
-		}
-	}
-
-	void PositionGesture::setFactor(float f, IOType t)
-	{
-		for (auto it = mFactors.begin(); it != mFactors.end(); it++)
-		{
-			if ((*it).first & t) (*it).second = f;
-		}
-	}
-
-	float PositionGesture::getFactor(IOType t)
-	{
-		for (auto it = mFactors.begin(); it != mFactors.end(); it++)
-		{
-			if ((*it).first & t) return (*it).second;
-		}
+		// parent update
+		Command::update();
 	}
 
 }

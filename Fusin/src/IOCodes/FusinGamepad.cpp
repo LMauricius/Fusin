@@ -1,4 +1,4 @@
-#include "FusinGamepad.h"
+#include "IOCodes/FusinGamepad.h"
 
 namespace Fusin
 {

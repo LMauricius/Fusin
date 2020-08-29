@@ -2,7 +2,7 @@
 #ifndef _FUSIN_INPUT_SIGNAL_MANIPULATION_H
 #define _FUSIN_INPUT_SIGNAL_MANIPULATION_H
 
-#include "FusinIOSignal.h"
+#include "Components/FusinIOSignal.h"
 #include <vector>
 
 namespace Fusin

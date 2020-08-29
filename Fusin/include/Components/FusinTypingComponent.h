@@ -2,7 +2,7 @@
 #define _FUSIN_TYPING_COMPONENT_H
 
 #include "FusinDeviceComponent.h"
-#include "FusinCharType.h"
+#include "Utilities/FusinCharType.h"
 #include <list>
 #include <vector>
 #include <map>

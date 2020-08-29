@@ -1,7 +1,7 @@
 #ifndef _FUSIN_WHEEL_H
 #define _FUSIN_WHEEL_H
 
-#include "FusinIOCode.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin

@@ -1,4 +1,4 @@
-#include "FusinColor.h"
+#include "Utilities/FusinColor.h"
 #include <math.h>
 
 namespace Fusin

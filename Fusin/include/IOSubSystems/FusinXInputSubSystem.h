@@ -11,7 +11,7 @@ namespace Fusin
 {
 	class InputManager;
 	class Device;
-	class XBoxDevice;
+	class XInputDevice;
 
 	class XInputSystem : public InputSystem
 	{
@@ -26,7 +26,7 @@ namespace Fusin
 
 		InputManager* mInputManager;
 
-		std::vector<XBoxDevice*> mDevices;
+		std::vector<XInputDevice*> mDevices;
 
 	};
 

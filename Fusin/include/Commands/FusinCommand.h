@@ -1,38 +1,52 @@
 #ifndef _FUSIN_ACTION_H
 #define _FUSIN_ACTION_H
 
-#include "FusinInputCode.h"
+#include "Devices/FusinDeviceEnumerator.h"
 #include <vector>
 #include <map>
 #include <list>
 
 namespace Fusin
 {
-	class InputManager;
-	class Device;
 
-	class Gesture
+	/*
+	The abstraction used to make communication between the user and Devices simpler.
+	Instead of directly manipulating the Devices and their signals,
+	you can use Commands to read, modify and connect to multiple IOSignals at once.
+	
+	The primary idea behind Commands is making IO remapping easier,
+	but they also provide many other helpful functions for IO management.
+	
+	A single Command usually corresponds to a single abstract IO event, 
+	such as moving a character or vibration feedback to the player.
+	More specific descriptions for Command usage are given
+	in the respective files for each Command type.
+	*/
+	class Command : protected DeviceEnumeratorListener
 	{
 	public:
-		~Gesture();
+		Command(DeviceEnumerator* devEnum = nullptr);
+		~Command();
 
-		virtual void setInputManager(InputManager* im);
-		inline InputManager* inputManager() { return mInputManager; }
-		virtual void _beginUpdate();
-		virtual void _updateValue(float value, DeviceType deviceType = DT_ANY, IOType ioType = IT_ANY);
+		virtual void setDeviceEnumerator(DeviceEnumerator* devEnum);
 		/*
-		Starts tracking the specified device if it corresponds to the ioType codes and flags of this Gesture,
-		called when a device has been plugged into the InputManager
+		The DeviceEnumerator whose Devices' IOSignals will be connected to this Command.
+		The Command is also automatically updated during the DeviceEnumerator's update.
 		*/
-		virtual void _plug(Device* d);
-		/*
-		Stops tracking the specified device, called when a device has been unplugged from the InputManager
-		*/
-		virtual void _unplug(Device* d);
-		virtual void _endUpdate();
+		inline DeviceEnumerator* deviceEnumerator() { return mDeviceEnumerator; }
 
-		float value();
-		float value(IOType t);
+		/*
+		Returns the value of this Command, used to either retrieve IOSignal values or change them
+		*/
+		float value() const { return mValue; }
+		/*
+		Returns the IOCode that influenced the value the most
+		*/
+		IOCode strongestIOCode() const { return mStrongestIOCode; }
+		/*
+		Returns the index of the Device that influenced the value the most
+		*/
+		Index strongestDeviceIndex() const { return mStrongestDeviceIndex; }
 		/*
 		Returns the absolute value
 		*/
@@ -40,39 +54,54 @@ namespace Fusin
 		/*
 		Returns whether the value has become non-0 since the last _update
 		*/
-		bool pressed();
+		inline bool pressed() const { return mPressed; }
 		/*
 		Returns whether the value has become 0 since the last _update
 		*/
-		bool released();
+		inline bool released() const { return mReleased; }
 		/*
-		Returns whether the value is non-zero
+		Returns whether the value's distance is greater than the threshold
 		*/
 		bool check();
 		/*
 		The value before the last _update
 		*/
-		float prevValue();
+		inline float prevValue() const { return mPrevValue; }
 		/*
 		The distance before the last _update
 		*/
 		float prevDistance();
 
+		/*
+		Sets the threshold at which the value is considered 'pressed'
+		*/
 		void setThreshold(float threshold);
 		inline float threshold() { return mThreshold; }
 
-	protected:
-		Gesture();
+		/*
+		Synchronizes the relations between the Command and IOSignals and updates whether the value is pressed or released
+		*/
+		virtual void update();
+		/*
+		Called when deviceEnumerator state is changed, i.e. a Device has been registered or unregistered
+		*/
+		virtual void replug();
 
-		bool mPressed, mReleased;
+	protected:
 		float mValue, mPrevValue, mThreshold;
-		std::map<DeviceType, std::map<IOType, float > > mValuesByType;
-		InputManager* mInputManager;
+		IOCode mStrongestIOCode;
+		Index mStrongestDeviceIndex;
+		bool mPressed, mReleased;
+		DeviceEnumerator* mDeviceEnumerator;
+		bool mUpdateAfterDeviceUpdate;// Should the command be updated before or after the Device update? (default true)
+
+		void deviceRegistered(DeviceEnumerator* de, Device* d);
+		void deviceUnregistered(DeviceEnumerator* de, Device* d);
+
+		void preUpdate(DeviceEnumerator* de);
+		void postUpdate(DeviceEnumerator* de);
 
 	};
-
-	typedef std::vector<Gesture*> GesturePtrVector;
-	typedef std::list<Gesture*> GesturePtrList;
 }
 
 #endif

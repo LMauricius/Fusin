@@ -2,7 +2,6 @@
 #ifndef _FUSIN_DEVICE_COMPONENT_H
 #define _FUSIN_DEVICE_COMPONENT_H
 
-#include "FusinPrerequisites.h"
 #include "FusinIOSignal.h"
 
 #include <list>
@@ -42,18 +41,18 @@ namespace Fusin
 		Returns the device's IOSignal corresponding to the specified IOCode.
 		Returns nullptr if no IOSignal corresponds to  the specified IOCode.
 		*/
-		IOSignal* getInputSignal(const IOCode& ic) const;
+		IOSignal* getIOSignal(const IOCode& ic) const;
 		/*
 		Returns the first IOSignal corresponding to the filter.
 		Returns nullptr if no IOSignal corresponds to  the filter.
 		*/
-		IOSignal* getFirstInputSignal(const IOFlags filter) const;
+		IOSignal* getFirstIOSignal(const IOFlags filter) const;
 		/*
 		Returns the IOSignal with the largest absolute value (distance) whose IOCode corresponds to the filter.
 		If multiple InputSignals have the largest value, the first one is returned.
 		Returns nullptr if no codes correspond to the filter.
 		*/
-		IOSignal* getStrongestInputSignal(const IOFlags filter) const;
+		IOSignal* getStrongestIOSignal(const IOFlags filter) const;
 
 		/*
 		Resets all ioType values of the device to 0.

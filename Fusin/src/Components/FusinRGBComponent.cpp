@@ -1,6 +1,6 @@
-#include "FusinRGBComponent.h"
-#include "FusinInputSignalManipulation.h"
-#include "FusinAnyRGB.h"
+#include "Components/FusinRGBComponent.h"
+#include "Utilities/FusinInputSignalManipulation.h"
+#include "IOCodes/FusinAnyRGB.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>

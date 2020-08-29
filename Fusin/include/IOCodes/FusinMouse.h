@@ -1,14 +1,13 @@
 #ifndef _FUSIN_MOUSE_H
 #define _FUSIN_MOUSE_H
 
-#include "FusinIOCode.h"
-#include "FusinPrerequisites.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin
 {
 	/*
-	Returns the DT_MOUSE, IT_BUTTON IOCode for the specified mouse button
+	Returns the DT_MOUSE, IO_BUTTON IOCode for the specified mouse button
 	*/
 	IOCode MouseButton(Index b);
 

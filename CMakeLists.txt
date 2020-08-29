@@ -1,0 +1,44 @@
+cmake_minimum_required(VERSION 3.17.0)
+
+project(Fusin)
+
+# Compiler stuff
+get_filename_component(COMPILER_NAME ${CMAKE_CXX_COMPILER} NAME_WE)
+
+string(REPLACE "." ";" COMPILER_VERSION ${CMAKE_CXX_COMPILER_VERSION})
+list(GET COMPILER_VERSION 0 COMPILER_VERSION_MAJOR)
+list(GET COMPILER_VERSION 1 COMPILER_VERSION_MINOR)
+set(COMPILER_VERSION "${COMPILER_VERSION_MAJOR}.${COMPILER_VERSION_MINOR}")
+
+# Decide on locations
+if (CMAKE_CXX_COMPILER_ID EQUAL "MSVC")# Visual studio
+    set(OUTPUT_DIR_SUFFIX "${OUTPUT_DIR}/${COMPILER_NAME}_${CMAKE_VS_PLATFORM_TOOLSET}_${CMAKE_VS_PLATFORM_NAME}")
+else()# Other compilers
+    set(OUTPUT_DIR_SUFFIX "${OUTPUT_DIR}/${COMPILER_NAME}_${CMAKE_CXX_COMPILER_VERSION}")
+endif()
+
+# Decide on filenames
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(OUTPUT_FILE_SUFFIX "_d")
+else()
+    set(OUTPUT_FILE_SUFFIX "")
+endif()
+
+# Global settings
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/${OUTPUT_DIR_SUFFIX}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/${OUTPUT_DIR_SUFFIX}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/${OUTPUT_DIR_SUFFIX}")
+set(STATIC_BUILD false)
+
+if (STATIC_BUILD EQUAL true)
+    add_definitions(Fusin PUBLIC FUSIN_STATIC)
+endif()
+
+# Subdirectories
+add_subdirectory("./Fusin")
+add_subdirectory("./ExampleBasics")
+
+# Install stuff
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)

@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.17.0)
+
+# Files
+file(
+    GLOB_RECURSE
+    SOURCES
+    "./src/*.h"
+    "./src/*.cpp"
+)
+
+# Target
+add_library(ExampleBasics ${SOURCES})
+set_target_properties(ExampleBasics PROPERTIES OUTPUT_NAME "ExampleBasics${OUTPUT_FILE_SUFFIX}")
+target_include_directories(ExampleBasics PRIVATE "./src")
+
+target_compile_definitions(ExampleBasics PRIVATE FUSIN_BUILD)

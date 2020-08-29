@@ -11,8 +11,7 @@ For example, AnyKey(KEY_BACKSPACE)
 #ifndef _FUSIN_ANY_KEY_H
 #define _FUSIN_ANY_KEY_H
 
-#include "FusinIOCode.h"
-#include "FusinPrerequisites.h"
+#include "IOCodes/FusinIOCode.h"
 
 namespace Fusin
 {

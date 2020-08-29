@@ -1,5 +1,5 @@
-#include "FusinButtonPadComponent.h"
-#include "FusinInputSignalManipulation.h"
+#include "Components/FusinButtonPadComponent.h"
+#include "Utilities/FusinInputSignalManipulation.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>

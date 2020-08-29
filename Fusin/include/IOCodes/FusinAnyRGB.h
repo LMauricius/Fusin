@@ -1,7 +1,7 @@
 #ifndef _FUSIN_RGB_H
 #define _FUSIN_RGB_H
 
-#include "FusinIOCode.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin
@@ -10,8 +10,8 @@ namespace Fusin
 	const IOCode ANY_RGB_GREEN = IOCode(DT_COMPONENT_RGB, IO_RGB, 1);
 	const IOCode ANY_RGB_BLUE  = IOCode(DT_COMPONENT_RGB, IO_RGB, 2);
 
-	const std::vector<String> VIBRATION_NAMES{
-		FUSIN_STR("RGB_Red"), FUSIN_STR("RGB_Green"), FUSIN_STR("RGB_Blue")
+	const std::vector<String> COLOR_NAMES{
+		FUSIN_STR("Red"), FUSIN_STR("Green"), FUSIN_STR("Blue")
 	};
 }
 

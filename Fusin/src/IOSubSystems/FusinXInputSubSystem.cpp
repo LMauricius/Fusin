@@ -1,7 +1,7 @@
 #include "FusinXInputSystem.h"
 #include "FusinInputManager.h"
-#include "FusinXBox.h"
-#include "FusinXBoxDevice.h"
+#include "FusinXInput.h"
+#include "FusinXInputDevice.h"
 #include <Windows.h>
 #include <XInput.h>
 #include "FusinLog.h"
@@ -12,7 +12,7 @@ namespace Fusin
 	XInputSystem::XInputSystem(DeviceEnumerator* de, const std::map<String, String>& config, void* window)
 		: InputSystem(de)
 	{
-		mTypes = IT_XBOX;
+		mTypes = IO_XInput;
 		mDevices.assign(XUSER_MAX_COUNT, nullptr);
 	}
 
@@ -42,32 +42,32 @@ namespace Fusin
 				{
 					if (!mDevices[i])
 					{
-						mDevices[i] = new XBoxDevice();
+						mDevices[i] = new XInputDevice();
 						//mInputManager->enumerator.registerDevice(mDevices[i]);
 
 						Log::singleton() << "XInput Device found:" <<
 							"\n    name: " << "" << "\n";
 					}
 
-					XBoxDevice& xbD = *mDevices[i];
+					XInputDevice& xbD = *mDevices[i];
 
-					/*xbD.setAxisValue(XBOX_LEFT_X_AXIS.data, (float)state.Gamepad.sThumbLX / 32767);
-					xbD.setAxisValue(XBOX_LEFT_Y_AXIS.data, (float)state.Gamepad.sThumbLY / 32767);
-					xbD.setAxisValue(XBOX_RIGHT_X_AXIS.data, (float)state.Gamepad.sThumbRX / 32767);
-					xbD.setAxisValue(XBOX_RIGHT_Y_AXIS.data, (float)state.Gamepad.sThumbRY / 32767);
-					xbD.setAxisValue(XBOX_LT.data, (float)state.Gamepad.bLeftTrigger / 255);
-					xbD.setAxisValue(XBOX_RT.data, (float)state.Gamepad.bRightTrigger / 255);
-					xbD.setButtonState(XBOX_A.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_A);
-					xbD.setButtonState(XBOX_B.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_B);
-					xbD.setButtonState(XBOX_X.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_X);
-					xbD.setButtonState(XBOX_Y.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_Y);
-					xbD.setButtonState(XBOX_START.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_START);
-					xbD.setButtonState(XBOX_BACK.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_BACK);
-					xbD.setButtonState(XBOX_LB.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER);
-					xbD.setButtonState(XBOX_RB.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER);
-					xbD.setButtonState(XBOX_LSTICK.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_THUMB);
-					xbD.setButtonState(XBOX_RSTICK.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_THUMB);
-					xbD.setButtonState(XBOX_GUIDE.data, state.Gamepad.wButtons & 0x400);//?*/
+					/*xbD.setAxisValue(XINPUT_LEFT_X_AXIS.data, (float)state.Gamepad.sThumbLX / 32767);
+					xbD.setAxisValue(XINPUT_LEFT_Y_AXIS.data, (float)state.Gamepad.sThumbLY / 32767);
+					xbD.setAxisValue(XINPUT_RIGHT_X_AXIS.data, (float)state.Gamepad.sThumbRX / 32767);
+					xbD.setAxisValue(XINPUT_RIGHT_Y_AXIS.data, (float)state.Gamepad.sThumbRY / 32767);
+					xbD.setAxisValue(XINPUT_LT.data, (float)state.Gamepad.bLeftTrigger / 255);
+					xbD.setAxisValue(XINPUT_RT.data, (float)state.Gamepad.bRightTrigger / 255);
+					xbD.setButtonState(XINPUT_A.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_A);
+					xbD.setButtonState(XINPUT_B.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_B);
+					xbD.setButtonState(XINPUT_X.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_X);
+					xbD.setButtonState(XINPUT_Y.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_Y);
+					xbD.setButtonState(XINPUT_START.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_START);
+					xbD.setButtonState(XINPUT_BACK.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_BACK);
+					xbD.setButtonState(XINPUT_LB.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER);
+					xbD.setButtonState(XINPUT_RB.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER);
+					xbD.setButtonState(XINPUT_LSTICK.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_THUMB);
+					xbD.setButtonState(XINPUT_RSTICK.data, state.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_THUMB);
+					xbD.setButtonState(XINPUT_GUIDE.data, state.Gamepad.wButtons & 0x400);//?*/
 
 					bool up = state.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP;
 					bool down = state.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN;
@@ -94,7 +94,7 @@ namespace Fusin
 					{
 						angle = 90;
 					}
-					//xbD.setAxisValue(XBOX_DPAD_ANGLE.data, angle);
+					//xbD.setAxisValue(XINPUT_DPAD_ANGLE.data, angle);
 
 					XINPUT_BATTERY_INFORMATION batteryInfo;
 					XInputGetBatteryInformation(i, BATTERY_DEVTYPE_GAMEPAD, &batteryInfo);

@@ -8,7 +8,7 @@ int main()
 	bool running = true;
 	Fusin::InputManager im;
 	im.initialize();
-	Fusin::InputGesture gestLeft(&im), gestRight(&im);
+	Fusin::InputCommand gestLeft(&im), gestRight(&im);
 
 	im.update();
 	gestLeft.assignInputCode(Fusin::KEY_LEFT);

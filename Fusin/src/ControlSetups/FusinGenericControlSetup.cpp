@@ -3,11 +3,11 @@
 #include "FusinKeyboardDevice.h"
 #include "FusinMouseDevice.h"
 #include "FusinGamepadDevice.h"
-#include "FusinXBoxDevice.h"
+#include "FusinXInputDevice.h"
 #include "FusinDSDevice.h"
 #include "FusinNintendoDevice.h"
 #include "FusinInputManager.h"
-#include "FusinXBox.h"
+#include "FusinXInput.h"
 #include "FusinDS.h"
 
 #define STICK_ACTIONS &lStick, &rStick
@@ -20,17 +20,17 @@
 						  &rStick.xAxis, &rStick.yAxis, &rStick.directionAxis,\
 						  &rStick.leftDirection, &rStick.rightDirection, &rStick.upDirection, &rStick.downDirection,BUTTON_ACTIONS
 
-#define FOR_DEVICES(EXP) if (mEnabledInputTypes & IT_KEYBOARD) mInputManager->getKeyboardDevice(mDeviceIndices[IT_KEYBOARD])->EXP;\
-						 if (mEnabledInputTypes & IT_MOUSE) mInputManager->getMouseDevice(mDeviceIndices[IT_MOUSE])->EXP;\
-						 if (mEnabledInputTypes & IT_GAMEPAD) mInputManager->getGamepadDevice(mDeviceIndices[IT_GAMEPAD])->EXP;\
-						 if (mEnabledInputTypes & IT_XBOX) mInputManager->getXBoxDevice(mDeviceIndices[IT_XBOX])->EXP;\
-						 if (mEnabledInputTypes & IT_DS) mInputManager->getDSDevice(mDeviceIndices[IT_DS])->EXP;\
-						 if (mEnabledInputTypes & IT_NINTENDO) mInputManager->getNintendoDevice(mDeviceIndices[IT_NINTENDO])->EXP;
+#define FOR_DEVICES(EXP) if (mEnabledInputTypes & IO_KEYBOARD) mInputManager->getKeyboardDevice(mDeviceIndices[IO_KEYBOARD])->EXP;\
+						 if (mEnabledInputTypes & IO_MOUSE) mInputManager->getMouseDevice(mDeviceIndices[IO_MOUSE])->EXP;\
+						 if (mEnabledInputTypes & IO_GAMEPAD) mInputManager->getGamepadDevice(mDeviceIndices[IO_GAMEPAD])->EXP;\
+						 if (mEnabledInputTypes & IO_XInput) mInputManager->getXInputDevice(mDeviceIndices[IO_XInput])->EXP;\
+						 if (mEnabledInputTypes & IO_DS) mInputManager->getDSDevice(mDeviceIndices[IO_DS])->EXP;\
+						 if (mEnabledInputTypes & IO_NINTENDO) mInputManager->getNintendoDevice(mDeviceIndices[IO_NINTENDO])->EXP;
 
-#define FOR_GAMEPAD_DEVICES(EXP) if (mEnabledInputTypes & IT_GAMEPAD) mInputManager->getGamepadDevice(mDeviceIndices[IT_GAMEPAD])->EXP;\
-						 if (mEnabledInputTypes & IT_XBOX) mInputManager->getXBoxDevice(mDeviceIndices[IT_XBOX])->EXP;\
-						 if (mEnabledInputTypes & IT_DS) mInputManager->getDSDevice(mDeviceIndices[IT_DS])->EXP;\
-						 if (mEnabledInputTypes & IT_NINTENDO) mInputManager->getNintendoDevice(mDeviceIndices[IT_NINTENDO])->EXP;
+#define FOR_GAMEPAD_DEVICES(EXP) if (mEnabledInputTypes & IO_GAMEPAD) mInputManager->getGamepadDevice(mDeviceIndices[IO_GAMEPAD])->EXP;\
+						 if (mEnabledInputTypes & IO_XInput) mInputManager->getXInputDevice(mDeviceIndices[IO_XInput])->EXP;\
+						 if (mEnabledInputTypes & IO_DS) mInputManager->getDSDevice(mDeviceIndices[IO_DS])->EXP;\
+						 if (mEnabledInputTypes & IO_NINTENDO) mInputManager->getNintendoDevice(mDeviceIndices[IO_NINTENDO])->EXP;
 
 namespace Fusin
 {
@@ -64,25 +64,25 @@ namespace Fusin
 	{
 		for (auto it : { STICK_ACTIONS })
 		{
-			any.trackGesture(it);
+			any.trackCommand(it);
 			it->setDeadZone(0.4);
 		}
 		for (auto it : { BUTTON_ACTIONS })
 		{
-			any.trackGesture(it);
-			anyButton.trackGesture(it);
+			any.trackCommand(it);
+			anyButton.trackCommand(it);
 		}
 
-		mDeviceIndices[IT_KEYBOARD] = 0;
-		mDeviceIndices[IT_MOUSE] = 0;
-		mDeviceIndices[IT_GAMEPAD] = 0;
-		mDeviceIndices[IT_XBOX] = 0;
-		mDeviceIndices[IT_DS] = 0;
+		mDeviceIndices[IO_KEYBOARD] = 0;
+		mDeviceIndices[IO_MOUSE] = 0;
+		mDeviceIndices[IO_GAMEPAD] = 0;
+		mDeviceIndices[IO_XInput] = 0;
+		mDeviceIndices[IO_DS] = 0;
 	}
 
 	void GenericControlSetup::setInputManager(InputManager* im)
 	{
-		Gesture *actions[]{ ALL_MEMBER_ACTIONS };
+		Command *actions[]{ ALL_MEMBER_ACTIONS };
 
 		for (auto it : actions)
 		{
@@ -136,79 +136,79 @@ namespace Fusin
 		return mEnabledInputTypes;
 	}
 
-	void GenericControlSetup::setDefaultXBoxCodes(int slot)
+	void GenericControlSetup::setDefaultXInputCodes(int slot)
 	{
-		lStick.xAxis.assignInputCode(XBOX_LEFT_X_AXIS, slot);
-		lStick.yAxis.assignInputCode(XBOX_LEFT_Y_AXIS, slot);
-		rStick.xAxis.assignInputCode(XBOX_RIGHT_X_AXIS, slot);
-		rStick.yAxis.assignInputCode(XBOX_RIGHT_Y_AXIS, slot);
-		dpadUp.assignInputCode(XBOX_DPAD_UP, slot);
-		dpadDown.assignInputCode(XBOX_DPAD_DOWN, slot);
-		dpadLeft.assignInputCode(XBOX_DPAD_LEFT, slot);
-		dpadRight.assignInputCode(XBOX_DPAD_RIGHT, slot);
-		face1.assignInputCode(XBOX_A, slot);
-		face2.assignInputCode(XBOX_B, slot);
-		face3.assignInputCode(XBOX_X, slot);
-		face4.assignInputCode(XBOX_Y, slot);
-		start.assignInputCode(XBOX_MENU, slot);
-		select.assignInputCode(XBOX_VIEW, slot);
-		shoulderL1.assignInputCode(XBOX_LB, slot);
-		shoulderR1.assignInputCode(XBOX_RB, slot);
-		shoulderL2.assignInputCode(XBOX_LT, slot);
-		shoulderR2.assignInputCode(XBOX_RT, slot);
-		lStickPress.assignInputCode(XBOX_LSTICK, slot);
-		rStickPress.assignInputCode(XBOX_RSTICK, slot);
-		ok.assignInputCode(XBOX_A, slot);
-		cancel.assignInputCode(XBOX_B, slot);
-		up.assignInputCode(XBOX_DPAD_UP, slot);
-		down.assignInputCode(XBOX_DPAD_DOWN, slot);
-		left.assignInputCode(XBOX_DPAD_LEFT, slot);
-		right.assignInputCode(XBOX_DPAD_RIGHT, slot);
-		up.assignInputCode(XBOX_LEFT_STICK_UP, slot);
-		down.assignInputCode(XBOX_LEFT_STICK_DOWN, slot);
-		left.assignInputCode(XBOX_LEFT_STICK_LEFT, slot);
-		right.assignInputCode(XBOX_LEFT_STICK_RIGHT, slot);
+		lStick.xAxis.assignIOCode(XINPUT_LEFT_X_AXIS, slot);
+		lStick.yAxis.assignIOCode(XINPUT_LEFT_Y_AXIS, slot);
+		rStick.xAxis.assignIOCode(XINPUT_RIGHT_X_AXIS, slot);
+		rStick.yAxis.assignIOCode(XINPUT_RIGHT_Y_AXIS, slot);
+		dpadUp.assignIOCode(XINPUT_DPAD_UP, slot);
+		dpadDown.assignIOCode(XINPUT_DPAD_DOWN, slot);
+		dpadLeft.assignIOCode(XINPUT_DPAD_LEFT, slot);
+		dpadRight.assignIOCode(XINPUT_DPAD_RIGHT, slot);
+		face1.assignIOCode(XINPUT_A, slot);
+		face2.assignIOCode(XINPUT_B, slot);
+		face3.assignIOCode(XINPUT_X, slot);
+		face4.assignIOCode(XINPUT_Y, slot);
+		start.assignIOCode(XINPUT_MENU, slot);
+		select.assignIOCode(XINPUT_VIEW, slot);
+		shoulderL1.assignIOCode(XINPUT_LB, slot);
+		shoulderR1.assignIOCode(XINPUT_RB, slot);
+		shoulderL2.assignIOCode(XINPUT_LT, slot);
+		shoulderR2.assignIOCode(XINPUT_RT, slot);
+		lStickPress.assignIOCode(XINPUT_LSTICK, slot);
+		rStickPress.assignIOCode(XINPUT_RSTICK, slot);
+		ok.assignIOCode(XINPUT_A, slot);
+		cancel.assignIOCode(XINPUT_B, slot);
+		up.assignIOCode(XINPUT_DPAD_UP, slot);
+		down.assignIOCode(XINPUT_DPAD_DOWN, slot);
+		left.assignIOCode(XINPUT_DPAD_LEFT, slot);
+		right.assignIOCode(XINPUT_DPAD_RIGHT, slot);
+		up.assignIOCode(XINPUT_LEFT_STICK_UP, slot);
+		down.assignIOCode(XINPUT_LEFT_STICK_DOWN, slot);
+		left.assignIOCode(XINPUT_LEFT_STICK_LEFT, slot);
+		right.assignIOCode(XINPUT_LEFT_STICK_RIGHT, slot);
 	}
 
 	void GenericControlSetup::setDefaultDSCodes(int slot)
 	{
-		lStick.xAxis.assignInputCode(DS_LEFT_X_AXIS, slot);
-		lStick.yAxis.assignInputCode(DS_LEFT_Y_AXIS, slot);
-		rStick.xAxis.assignInputCode(DS_RIGHT_X_AXIS, slot);
-		rStick.yAxis.assignInputCode(DS_RIGHT_Y_AXIS, slot);
-		dpadUp.assignInputCode(DS_DPAD_UP, slot);
-		dpadDown.assignInputCode(DS_DPAD_DOWN, slot);
-		dpadLeft.assignInputCode(DS_DPAD_LEFT, slot);
-		dpadRight.assignInputCode(DS_DPAD_RIGHT, slot);
-		face1.assignInputCode(DS_CROSS, slot);
-		face2.assignInputCode(DS_CIRCLE, slot);
-		face3.assignInputCode(DS_SQUARE, slot);
-		face4.assignInputCode(DS_TRIANGLE, slot);
-		start.assignInputCode(DS_OPTIONS, slot);
-		select.assignInputCode(DS_TOUCHPAD_BUTTON, slot);
-		shoulderL1.assignInputCode(DS_L1, slot);
-		shoulderR1.assignInputCode(DS_R1, slot);
-		shoulderL2.assignInputCode(DS_L2, slot);
-		shoulderR2.assignInputCode(DS_R2, slot);
-		lStickPress.assignInputCode(DS_L3, slot);
-		rStickPress.assignInputCode(DS_R3, slot);
-		ok.assignInputCode(DS_CROSS, slot);
-		cancel.assignInputCode(DS_CIRCLE, slot);
-		up.assignInputCode(DS_DPAD_UP, slot);
-		down.assignInputCode(DS_DPAD_DOWN, slot);
-		left.assignInputCode(DS_DPAD_LEFT, slot);
-		right.assignInputCode(DS_DPAD_RIGHT, slot);
-		up.assignInputCode(DS_LEFT_STICK_UP, slot);
-		down.assignInputCode(DS_LEFT_STICK_DOWN, slot);
-		left.assignInputCode(DS_LEFT_STICK_LEFT, slot);
-		right.assignInputCode(DS_LEFT_STICK_RIGHT, slot);
+		lStick.xAxis.assignIOCode(DS_LEFT_X_AXIS, slot);
+		lStick.yAxis.assignIOCode(DS_LEFT_Y_AXIS, slot);
+		rStick.xAxis.assignIOCode(DS_RIGHT_X_AXIS, slot);
+		rStick.yAxis.assignIOCode(DS_RIGHT_Y_AXIS, slot);
+		dpadUp.assignIOCode(DS_DPAD_UP, slot);
+		dpadDown.assignIOCode(DS_DPAD_DOWN, slot);
+		dpadLeft.assignIOCode(DS_DPAD_LEFT, slot);
+		dpadRight.assignIOCode(DS_DPAD_RIGHT, slot);
+		face1.assignIOCode(DS_CROSS, slot);
+		face2.assignIOCode(DS_CIRCLE, slot);
+		face3.assignIOCode(DS_SQUARE, slot);
+		face4.assignIOCode(DS_TRIANGLE, slot);
+		start.assignIOCode(DS_OPTIONS, slot);
+		select.assignIOCode(DS_TOUCHPAD_BUTTON, slot);
+		shoulderL1.assignIOCode(DS_L1, slot);
+		shoulderR1.assignIOCode(DS_R1, slot);
+		shoulderL2.assignIOCode(DS_L2, slot);
+		shoulderR2.assignIOCode(DS_R2, slot);
+		lStickPress.assignIOCode(DS_L3, slot);
+		rStickPress.assignIOCode(DS_R3, slot);
+		ok.assignIOCode(DS_CROSS, slot);
+		cancel.assignIOCode(DS_CIRCLE, slot);
+		up.assignIOCode(DS_DPAD_UP, slot);
+		down.assignIOCode(DS_DPAD_DOWN, slot);
+		left.assignIOCode(DS_DPAD_LEFT, slot);
+		right.assignIOCode(DS_DPAD_RIGHT, slot);
+		up.assignIOCode(DS_LEFT_STICK_UP, slot);
+		down.assignIOCode(DS_LEFT_STICK_DOWN, slot);
+		left.assignIOCode(DS_LEFT_STICK_LEFT, slot);
+		right.assignIOCode(DS_LEFT_STICK_RIGHT, slot);
 	}
 
 	void GenericControlSetup::assign(int position, const GenericControlSetup& source, unsigned int first, unsigned int last)
 	{
 		for (auto it : { ALL_BASIC_ACTIONS })
 		{
-			it->assign(position, *(InputGesture*)((char*)it - (char*)this + (char*)(&source)), first, last);
+			it->assign(position, *(InputCommand*)((char*)it - (char*)this + (char*)(&source)), first, last);
 		}
 	}
 
@@ -229,8 +229,8 @@ namespace Fusin
 
 	void GenericControlSetup::setColor(ColorRGB c)
 	{
-		if (mEnabledInputTypes & IT_DS) mInputManager->getDSDevice(mDeviceIndices[IT_DS])->setColor(c);
-		//if (mEnabledInputTypes & IT_DS) mInputManager->getDSDevice(mDeviceIndices[IT_DS]);
+		if (mEnabledInputTypes & IO_DS) mInputManager->getDSDevice(mDeviceIndices[IO_DS])->setColor(c);
+		//if (mEnabledInputTypes & IO_DS) mInputManager->getDSDevice(mDeviceIndices[IO_DS]);
 	}
 
 }

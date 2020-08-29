@@ -1,83 +1,37 @@
-#include "FusinRangeGesture.h"
+#include "Commands/FusinRangeCommand.h"
+
+#include <algorithm>
 
 namespace Fusin
 {
 
-	RangeGesture::RangeGesture(InputManager* im)
-		: InputGesture(im)
+	RangeCommand::RangeCommand(DeviceEnumerator* devEnum, float min, float max)
+		: InputCommand(devEnum)
 		, mMin(MIN_FLOAT)
 		, mMax(MAX_FLOAT)
 	{
 
 	}
 
-	RangeGesture::~RangeGesture()
+	RangeCommand::~RangeCommand()
 	{
 
 	}
 
-	void RangeGesture::_updateValue(float val, IOType t)
+	void RangeCommand::setValue(float value, IOCode ioCode, Index deviceIndex)
 	{
-		if (val >= mMin && val <= mMax)
-		{
-			Gesture::_updateValue(val, t);
-		}
+		InputCommand::setValue(std::min(std::max(value, mMin), mMax), ioCode, deviceIndex);
 	}
 
-	void RangeGesture::setRange(float min, float max)
+	void RangeCommand::updateValue(float value, IOCode ioCode, Index deviceIndex)
+	{
+		InputCommand::updateValue(std::min(std::max(value, mMin), mMax), ioCode, deviceIndex);
+	}
+
+	void RangeCommand::setRange(float min, float max)
 	{
 		mMin = min;
 		mMax = max;
-	}
-
-	float RangeGesture::getRangeMin() const
-	{
-		return mMin;
-	}
-
-	float RangeGesture::getRangeMax() const
-	{
-		return mMax;
-	}
-
-
-	PositiveRangeGesture::PositiveRangeGesture(InputManager* im)
-		: InputGesture(im)
-	{
-
-	}
-
-	PositiveRangeGesture::~PositiveRangeGesture()
-	{
-
-	}
-
-	void PositiveRangeGesture::_updateValue(float val, IOType t)
-	{
-		if (val > 0)
-		{
-			Gesture::_updateValue(val, t);
-		}
-	}
-
-
-	NegativeRangeGesture::NegativeRangeGesture(InputManager* im)
-		: InputGesture(im)
-	{
-
-	}
-
-	NegativeRangeGesture::~NegativeRangeGesture()
-	{
-
-	}
-
-	void NegativeRangeGesture::_updateValue(float val, IOType t)
-	{
-		if (val < 0)
-		{
-			Gesture::_updateValue(val, t);
-		}
 	}
 
 }

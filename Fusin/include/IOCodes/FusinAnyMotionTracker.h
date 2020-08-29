@@ -2,8 +2,7 @@
 #ifndef _FUSIN_MOTION_TRACKER_H
 #define _FUSIN_MOTION_TRACKER_H
 
-#include "FusinIOCode.h"
-#include "FusinPrerequisites.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin

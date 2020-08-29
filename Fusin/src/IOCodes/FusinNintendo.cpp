@@ -1,31 +1,31 @@
-#include "FusinNintendo.h"
+#include "IOCodes/FusinNintendo.h"
 
 namespace Fusin
 {
 
 	IOCode NintendoButton(Index b)
 	{
-		return IOCode(DT_NINTENDO, IT_BUTTON, b);
+		return IOCode(DT_NINTENDO, IO_BUTTON, b);
 	}
 
 	IOCode NintendoAxis(Index a)
 	{
-		return IOCode(DT_NINTENDO, IT_AXIS, a);
+		return IOCode(DT_NINTENDO, IO_AXIS, a);
 	}
 
 	IOCode NintendoDPadButton(Index a)
 	{
-		return IOCode(DT_NINTENDO, IT_DIRECTION, a);
+		return IOCode(DT_NINTENDO, IO_DIRECTION, a);
 	}
 
 	IOCode NintendoPositiveAxis(Index a)
 	{
-		return IOCode(DT_NINTENDO, IT_AXIS, a).positiveVersion();
+		return IOCode(DT_NINTENDO, IO_AXIS, a).positiveVersion();
 	}
 
 	IOCode NintendoNegativeAxis(Index a)
 	{
-		return IOCode(DT_NINTENDO, IT_AXIS, a).negativeVersion();
+		return IOCode(DT_NINTENDO, IO_AXIS, a).negativeVersion();
 	}
 
 }

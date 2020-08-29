@@ -1,8 +1,11 @@
 #ifndef _FUSIN_RAW_INPUT_SYSTEM_H
 #define _FUSIN_RAW_INPUT_SYSTEM_H
 
-#include "FusinInputSystem.h"
+#include "FusinIOSubSystem.h"
 #include "FusinPrerequisites.h"
+
+#ifdef FUSIN_BUILD_RAW_INPUT
+
 #include <map>
 #include <vector>
 #include <list>
@@ -35,10 +38,12 @@ namespace Fusin
 		std::map<HANDLE, RawInputDeviceHandler*> mHandleMap;
 		std::map<HANDLE, int> mHandleMessageCounter;
 
-		bool mReceiveInputOutsideFocus, mSupportXBox, mSupportDS, mSupportNintendo;
+		bool mReceiveInputOutsideFocus, mSupportXInput, mSupportDS, mSupportNintendo;
 		int mMaxGamepadMessages;
 	};
 
 }
+
+#endif // FUSIN_BUILD_RAW_INPUT
 
 #endif

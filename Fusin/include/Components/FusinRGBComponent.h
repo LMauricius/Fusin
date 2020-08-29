@@ -2,7 +2,7 @@
 #define _FUSIN_RGB_COMPONENT_H
 
 #include "FusinDeviceComponent.h"
-#include "FusinColor.h"
+#include "Utilities/FusinColor.h"
 
 #include <vector>
 

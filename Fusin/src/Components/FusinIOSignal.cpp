@@ -1,5 +1,4 @@
-#include "FusinIOSignal.h"
-#include "FusinGesture.h"
+#include "Components/FusinIOSignal.h"
 
 namespace Fusin
 {

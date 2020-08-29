@@ -1,7 +1,7 @@
 #ifndef _FUSIN_VIBRATION_H
 #define _FUSIN_VIBRATION_H
 
-#include "FusinIOCode.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin
@@ -14,8 +14,8 @@ namespace Fusin
 	const IOCode ANY_VIBRATION_RIGHT_DURATION  = IOCode(DT_COMPONENT_VIBRATION, IO_VIBRATION, 5);
 
 	const std::vector<String> VIBRATION_NAMES{
-		FUSIN_STR("Vibration_Left_Force"), FUSIN_STR("Vibration_Left_Amplitude"), FUSIN_STR("Vibration_Left_Duration"),
-		FUSIN_STR("Vibration_Right_Force"), FUSIN_STR("Vibration_Right_Amplitude"), FUSIN_STR("Vibration_Right_Duration")
+		FUSIN_STR("Left_Force"), FUSIN_STR("Left_Amplitude"), FUSIN_STR("Left_Duration"),
+		FUSIN_STR("Right_Force"), FUSIN_STR("Right_Amplitude"), FUSIN_STR("Right_Duration")
 	};
 }
 

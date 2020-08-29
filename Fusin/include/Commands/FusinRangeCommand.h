@@ -1,42 +1,31 @@
 #ifndef _FUSIN_RANGE_ACTION_H
 #define _FUSIN_RANGE_ACTION_H
 
-#include "FusinInputGesture.h"
+#include "FusinInputCommand.h"
 
 namespace Fusin
 {
-	class RangeGesture : public InputGesture
+
+	/*
+	The more abstract Command used to detect values only if they are in a certain range
+
+	The default range is [MIN_FLOAT, MAX_FLOAT], i.e. all float values
+	*/
+	class RangeCommand : public InputCommand
 	{
 	public:
-		RangeGesture(InputManager* im = nullptr);
-		~RangeGesture();
+		RangeCommand(DeviceEnumerator* devEnum = nullptr, float min = MIN_FLOAT, float max = MAX_FLOAT);
+		~RangeCommand();
 
-		void _updateValue(float value, IOType t = IT_ANY);
+		void setValue(float value, IOCode ioCode = IOCode::ANYCODE, Index deviceIndex = 0);
+		void updateValue(float value, IOCode ioCode = IOCode::ANYCODE, Index deviceIndex = 0);
 
 		void setRange(float min, float max);
-		float getRangeMin() const;
-		float getRangeMax() const;
+		inline float getRangeMin() const { return mMin; }
+		inline float getRangeMax() const { return mMax; }
 
 	protected:
 		float mMin, mMax;
-	};
-
-	class PositiveRangeGesture : public InputGesture
-	{
-	public:
-		PositiveRangeGesture(InputManager* im = nullptr);
-		~PositiveRangeGesture();
-
-		void _updateValue(float value, IOType t = IT_ANY);
-	};
-
-	class NegativeRangeGesture : public InputGesture
-	{
-	public:
-		NegativeRangeGesture(InputManager* im = nullptr);
-		~NegativeRangeGesture();
-
-		void _updateValue(float value, IOType t = IT_ANY);
 	};
 }
 

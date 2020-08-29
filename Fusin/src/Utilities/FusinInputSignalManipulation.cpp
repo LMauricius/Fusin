@@ -1,4 +1,4 @@
-#include "FusinInputSignalManipulation.h"
+#include "Utilities/FusinInputSignalManipulation.h"
 
 #include <algorithm>
 

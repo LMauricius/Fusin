@@ -2,8 +2,7 @@
 #ifndef _FUSIN_TOUCH_H
 #define _FUSIN_TOUCH_H
 
-#include "FusinIOCode.h"
-#include "FusinPrerequisites.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin

@@ -13,18 +13,18 @@ namespace Fusin
 			mInputManager->addGesture(this);
 		}
 
-		mTrackedDeviceIndices[IT_KEYBOARD] = 0;
-		mTrackedDeviceIndices[IT_MOUSE] = 0;
-		mTrackedDeviceIndices[IT_GAMEPAD] = 0;
-		mTrackedDeviceIndices[IT_XBOX] = 0;
-		mTrackedDeviceIndices[IT_DS] = 0;
+		mTrackedDeviceIndices[IO_KEYBOARD] = 0;
+		mTrackedDeviceIndices[IO_MOUSE] = 0;
+		mTrackedDeviceIndices[IO_GAMEPAD] = 0;
+		mTrackedDeviceIndices[IO_XInput] = 0;
+		mTrackedDeviceIndices[IO_DS] = 0;
 		for (IOType i : ALL_CODE_TYPES)
 		{
 			mDeadZones[i] = 0.0f;
 			mMaxValues[i] = MAX_FLOAT;
 			mFactors[i] = 1.0f;
 		}
-		mTrackedInputTypes = IT_ANY;
+		mTrackedInputTypes = IO_ANY;
 	}
 
 	AnyListener::~AnyListener()
@@ -58,7 +58,7 @@ namespace Fusin
 		*/
 		mPrevValue = mValue;
 		mValue = 0;
-		mLastInputCode = IOCode::NULLCODE;
+		mLastIOCode = IOCode::NULLCODE;
 		mLastDeviceIndex = 0;
 		for (auto& it : mValuesByType)
 		{
@@ -75,9 +75,9 @@ namespace Fusin
 		mReleased = (std::abs(mValue) < mThreshold && std::abs(mPrevValue) >= mThreshold);
 	}
 
-	IOCode AnyListener::getLastInputCode() const
+	IOCode AnyListener::getLastIOCode() const
 	{
-		return mLastInputCode;
+		return mLastIOCode;
 	}
 
 	unsigned int AnyListener::getLastDeviceIndex() const
@@ -244,7 +244,7 @@ namespace Fusin
 
 	void AnyListener::valueUpdated(Device* device, const IOCode& ic, float val)
 	{
-		if ((ic.type & IT_ANY_CODE) & mTrackedInputTypes)
+		if ((ic.type & IO_ANY_CODE) & mTrackedInputTypes)
 		{
 			IOType t = ic.type;
 			float calcV = ((val > 0) - (val < 0)) * std::min(abs(val), mMaxValues[t]) * mFactors[t];
@@ -255,7 +255,7 @@ namespace Fusin
 			if (abs(calcV) > abs(mValue))
 			{
 				mValue = calcV;
-				mLastInputCode = ic;
+				mLastIOCode = ic;
 				mLastDeviceIndex = device->index();
 			}
 		}

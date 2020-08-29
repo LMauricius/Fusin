@@ -13,7 +13,7 @@
 #include "FusinMouse.h"
 #include "FusinGamepad.h"
 #include "FusinDS.h"
-#include "FusinXBox.h"
+#include "FusinXInput.h"
 #include "FusinNintendo.h"
 
 // Devices
@@ -21,11 +21,11 @@
 #include "FusinMouseDevice.h"
 #include "FusinGamepadDevice.h"
 #include "FusinDSDevice.h"
-#include "FusinXBoxDevice.h"
+#include "FusinXInputDevice.h"
 #include "FusinNintendoDevice.h"
 
 // Ctrl setups
 #include "FusinGenericControlSetup.h"
 
 // Utilities
-#include "FusinColor.h"
+#include "Utilities/FusinColor.h"

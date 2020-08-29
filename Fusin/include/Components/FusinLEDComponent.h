@@ -8,6 +8,17 @@
 
 namespace Fusin
 {
+	using LEDFlags = unsigned int;
+	const LEDFlags LED_NONE = 0;
+	const LEDFlags LED_1 = 1 << 0;
+	const LEDFlags LED_2 = 1 << 1;
+	const LEDFlags LED_3 = 1 << 2;
+	const LEDFlags LED_4 = 1 << 3;
+	const LEDFlags LED_CAPS = LED_1;
+	const LEDFlags LED_NUM = LED_2;
+	const LEDFlags LED_SCROLL = LED_3;
+	const LEDFlags LED_AUTO = -1;
+
 	class LEDComponent : public DeviceComponent
 	{
 	public:

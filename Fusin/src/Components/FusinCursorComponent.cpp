@@ -1,5 +1,5 @@
-#include "FusinCursorComponent.h"
-#include "FusinAnyCursor.h"
+#include "Components/FusinCursorComponent.h"
+#include "IOCodes/FusinAnyCursor.h"
 #include <algorithm>
 
 namespace Fusin

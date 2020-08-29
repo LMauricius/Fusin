@@ -10,8 +10,6 @@ namespace Fusin
 {
 	class DPadComponent : public DeviceComponent
 	{
-		friend InputManager;
-
 	public:
 		DPadComponent(DeviceType signalType);
 		~DPadComponent();

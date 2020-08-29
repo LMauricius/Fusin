@@ -2,22 +2,20 @@
 #define _FUSIN_XINPUT_DEVICE_H
 
 #include "FusinDevice.h"
-#include "FusinButtonPadComponent.h"
-#include "FusinJoystickComponent.h"
-#include "FusinDPadComponent.h"
-#include "FusinVibrationComponent.h"
+#include "Components/FusinButtonPadComponent.h"
+#include "Components/FusinJoystickComponent.h"
+#include "Components/FusinDPadComponent.h"
+#include "Components/FusinVibrationComponent.h"
 #include <list>
 #include <map>
 #include <vector>
 
 namespace Fusin
 {
-	class XInputDeviceListener;
-
 	class XInputDevice : public Device
 	{
 	public:
-		XInputDevice(String name = FUSIN_STR("XInput Controller"));
+		XInputDevice(String name = FUSIN_STR("XInput Controller"), bool hasBattery = false);
 		~XInputDevice();
 
 		String getStateString();
@@ -26,9 +24,9 @@ namespace Fusin
 		IOSignal buttonLB, buttonRB;
 		IOSignal buttonView, buttonMenu, buttonLeftStick, buttonRightStick, buttonGuide;
 
-		IOSignal axisLeftX, axisLeftY, axisRightX, axisRightY;
-		IOSignal axisPositiveLeftX, axisNegativeLeftX, axisPositiveLeftY, axisNegativeLeftY;
-		IOSignal axisPositiveRightX, axisNegativeRightX, axisPositiveRightY, axisNegativeRightY;
+		IOSignal axisLeftStickX, axisLeftStickY, axisRightStickX, axisRightStickY;
+		IOSignal axisLeftStickRight, axisLeftStickLeft, axisLeftStickDown, axisLeftStickUp;
+		IOSignal axisRightStickRight, axisRightStickLeft, axisRightStickDown, axisRightStickUp;
 		IOSignal axisLT, axisRT;
 
 		ButtonPadComponent buttons;

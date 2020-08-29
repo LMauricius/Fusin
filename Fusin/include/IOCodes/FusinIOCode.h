@@ -12,7 +12,7 @@ namespace Fusin
 {
 	class InputManager;
 	class InputSystem;
-	class Gesture;
+	class Command;
 
 	/*
 	Enum containing types of devices supported by Fusin.
@@ -32,6 +32,7 @@ namespace Fusin
 		DT_COMPONENT_DPAD,// Device with 4 directional inputs and an angle
 		DT_COMPONENT_TOUCHPAD,// Device with multiple position, movement and activation values
 		DT_COMPONENT_MOTION_TRACKER,// Device with many values specifying real world position and orientation
+		DT_COMPONENT_BATTERY,// Device with a battery
 		DT_COMPONENT_LEDS,// Device with LEDs
 		DT_COMPONENT_VIBRATION,// Device with vibration support
 		DT_COMPONENT_RGB,// Device with RGB support (such as the DS4 controller)
@@ -63,7 +64,7 @@ namespace Fusin
 		IO_DIRECTION,// For DPad buttons. DPads usually have four buttons for different directions. Name = Direction IND
 		IO_ANGLE,// For directional axes, expressed in degrees. 0 means no direction, so 360 is used for 0 degrees angle instead. Name = Angle IND
 		IO_MOVEMENT,// For movement axes, contained in devices such as a mouse or a touchpad. Name = Move IND
-		IO_POSITION,// Position axes, expressed in pixels or other virtual values. For Real-world positions use IT_WORLD_POSITION. Name = Position IND
+		IO_POSITION,// Position axes, expressed in pixels or other virtual values. For Real-world positions use IO_WORLD_POSITION. Name = Position IND
 		IO_ORIENTATION,// Object's orientation, expressed in degrees. Name = Orientation IND
 		IO_GYRO,// Object's angular velocity, expressed in degrees per second. Name = Gyro IND
 		IO_ACCELERATION,// Object's acceleration, expressed in g (1g = 9.807m/s^2). Name = Accel IND
@@ -122,6 +123,7 @@ namespace Fusin
 	const IOFlags IOF_DPAD           = 1ULL << (5 + IOF_DEVICE_STARTING_BIT);// Device with 4 directional inputs and an angle
 	const IOFlags IOF_TOUCHPAD       = 1ULL << (6 + IOF_DEVICE_STARTING_BIT);// Device with multiple position, movement and activation values
 	const IOFlags IOF_MOTION_TRACKER = 1ULL << (7 + IOF_DEVICE_STARTING_BIT);// Device with many values specifying real world position and orientation
+	const IOFlags IOF_BATTERY		 = 1ULL << (8 + IOF_DEVICE_STARTING_BIT);// Device with battery state values
 	const IOFlags IOF_SIGNED_VERSION = 1ULL << (0 + IOF_MODIFIER_STARTING_BIT);// A filter modifier flag, for Devices it filters only those that have signed version of some of their inputs, for InputSignals it filters only those that are signed versions of unsigned InputSignals. Name = + OR -
 	const IOFlags IOF_ANY_INPUT    = FUSIN_MASK1(IOF_INPUT_STARTING_BIT, IOF_OUTPUT_STARTING_BIT);
 	const IOFlags IOF_ANY_OUTPUT   = FUSIN_MASK1(IOF_OUTPUT_STARTING_BIT, IOF_DEVICE_STARTING_BIT);
@@ -143,6 +145,7 @@ namespace Fusin
 		DT_COMPONENT_DPAD,
 		DT_COMPONENT_TOUCHPAD,
 		DT_COMPONENT_MOTION_TRACKER,
+		DT_COMPONENT_BATTERY,
 		DT_COMPONENT_LEDS,
 		DT_COMPONENT_VIBRATION,
 		DT_COMPONENT_RGB
@@ -212,6 +215,7 @@ namespace Fusin
 		FUSIN_STR("Any_DPad_Device"),
 		FUSIN_STR("Any_TouchPad_Device"),
 		FUSIN_STR("Any_Motion_Tracker_Device"),
+		FUSIN_STR("Any_Battery_Device"),
 		FUSIN_STR("Any_LED_Device"),
 		FUSIN_STR("Any_Vibration_Device"),
 		FUSIN_STR("Any_RGB_Device"),
@@ -270,6 +274,7 @@ namespace Fusin
 		IOF_DPAD,//DT_COMPONENT_DPAD
 		IOF_TOUCHPAD,//DT_COMPONENT_TOUCHPAD
 		IOF_MOTION_TRACKER,//DT_COMPONENT_MOTION_TRACKER
+		IOF_BATTERY,//DT_COMPONENT_MOTION_TRACKER
 		IOF_LEDS,//DT_COMPONENT_LEDS
 		IOF_VIBRATION,//DT_COMPONENT_VIBRATION
 		IOF_RGB,//DT_COMPONENT_RGB
@@ -278,9 +283,9 @@ namespace Fusin
 		IOF_CURSOR | IOF_BUTTONPAD | IOF_WHEEL,//DT_MOUSE
 		IOF_TOUCHPAD,//DT_TOUCHSCREEN
 		IOF_JOYSTICK,//DT_GAMEPAD
-		IOF_JOYSTICK | IOF_DPAD,//DT_XINPUT
-		IOF_JOYSTICK | IOF_DPAD | IOF_MOTION_TRACKER,//DT_DUALSHOCK
-		IOF_JOYSTICK | IOF_DPAD//DT_NINTENDO
+		IOF_JOYSTICK | IOF_DPAD | IOF_BATTERY,//DT_XINPUT
+		IOF_JOYSTICK | IOF_DPAD | IOF_MOTION_TRACKER | IOF_BATTERY,//DT_DUALSHOCK
+		IOF_JOYSTICK | IOF_DPAD | IOF_BATTERY//DT_NINTENDO
 	};
 
 	/*
@@ -301,6 +306,7 @@ namespace Fusin
 		IOF_ANY_DEVICE,//DT_COMPONENT_DPAD
 		IOF_ANY_DEVICE,//DT_COMPONENT_TOUCHPAD
 		IOF_ANY_DEVICE,//DT_COMPONENT_MOTION_TRACKER
+		IOF_ANY_DEVICE,//DT_COMPONENT_BATTERY
 		IOF_ANY_DEVICE,//DT_COMPONENT_LEDS
 		IOF_ANY_DEVICE,//DT_COMPONENT_VIBRATION
 		IOF_ANY_DEVICE,//DT_COMPONENT_RGB
@@ -309,9 +315,9 @@ namespace Fusin
 		IOF_CURSOR,//DT_MOUSE
 		IOF_TOUCHPAD | IOF_CURSOR,//DT_TOUCHSCREEN
 		IOF_JOYSTICK | IOF_DPAD,//DT_GAMEPAD
-		IOF_JOYSTICK | IOF_DPAD,//DT_XINPUT
-		IOF_JOYSTICK | IOF_DPAD | IOF_TOUCHPAD | IOF_MOTION_TRACKER,//DT_DUALSHOCK
-		IOF_JOYSTICK | IOF_DPAD | IOF_TOUCHPAD | IOF_MOTION_TRACKER//DT_NINTENDO
+		IOF_JOYSTICK | IOF_DPAD | IOF_BATTERY | IOF_BATTERY,//DT_XINPUT
+		IOF_JOYSTICK | IOF_DPAD | IOF_TOUCHPAD | IOF_MOTION_TRACKER | IOF_BATTERY,//DT_DUALSHOCK
+		IOF_JOYSTICK | IOF_DPAD | IOF_TOUCHPAD | IOF_MOTION_TRACKER | IOF_BATTERY//DT_NINTENDO
 	};
 
 	/*
@@ -383,7 +389,11 @@ namespace Fusin
 		int32_t index;
 		
 		/*
-		Returns the name as "[DeviceName] InputName CodeName"
+		Returns the name in one of following formats:
+		General name format: <DEVICE NAME> <IOTYPE NAME> <INDEX>[<MODIFIERS>]
+		Keyboard format: Key [Typed] <KEY NAME>
+		Special device format: <DEVICE NAME> <IOTYPE+INDEX NAME>[<MODIFIERS>]
+		Special input format: <DEVICE NAME> <IOTYPE NAME> <INDEX NAME>[<MODIFIERS>]
 		*/
 		String name() const;
 		/*
@@ -420,9 +430,15 @@ namespace Fusin
 		Returns whether the deviceType and ioType are valid
 		*/
 		bool isValid() const;
+		/*
+		Returns whether the code fits the filter. The DeviceType and IOType are evaluated separately, 
+		i.e. deviceType needs to fit 
+		*/
+		bool fitsFilter(IOFlags filter);
 
 		// NULL Value
 		static const IOCode NULLCODE;
+		static const IOCode ANYCODE;
 		static const int32_t SIGNED_INDEX_FLAG;
 		static const int32_t POSITIVITY_INDEX_FLAG; 
 		static const int32_t INDEX_FLAGS;// & this with index to get the index modifier flags

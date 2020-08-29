@@ -1,13 +1,17 @@
-#include "FusinDevice.h"
+#include "Devices/FusinDevice.h"
 
 namespace Fusin
 {
 
-	Device::Device(String name, DeviceType devType, const std::list<DeviceComponent*>& components)
+	Device::Device(String name, DeviceType devType, const std::list<DeviceComponent*>& components, bool hasBattery)
 		: mName(name)
 		, mDeviceType(devType)
 		, mFlags(IOF_NONE)
+		, battery(devType)
 	{
+		if (hasBattery)
+			registerComponent(&battery);
+
 		for (auto comp : components)
 			registerComponent(comp);
 	}
@@ -20,14 +24,14 @@ namespace Fusin
 	// Values
 	float Device::getValue(const IOCode& ic)
 	{
-		IOSignal* signal = getInputSignal(ic);
+		IOSignal* signal = getIOSignal(ic);
 		if (signal)
 			return signal->value();
 		else
 			return 0;
 	}
 
-	IOSignal * Device::getInputSignal(const IOCode & ic)
+	IOSignal * Device::getIOSignal(const IOCode & ic)
 	{
 		if ((ic.deviceType == DT_NONE || ic.deviceType >= DT_FIRST_DEVICE) && ic.deviceType != mDeviceType)
 			return nullptr;
@@ -37,33 +41,33 @@ namespace Fusin
 		{
 			auto it = mDeviceTypeComponentMap.find(ic.deviceType);
 			if (it != mDeviceTypeComponentMap.end())
-				return it->second->getInputSignal(ic);
+				return it->second->getIOSignal(ic);
 		}
 		else if (ic.deviceType == DT_ANY || ic.deviceType == mDeviceType)
 		{
 			auto it = mIOTypeComponentMap.find(ic.ioType);
 			if (it != mIOTypeComponentMap.end())
-				return it->second->getInputSignal(ic);
+				return it->second->getIOSignal(ic);
 		}
 
 		return nullptr;
 	}
 
-	IOSignal* Device::getFirstInputSignal(const IOFlags filter)
+	IOSignal* Device::getFirstIOSignal(const IOFlags filter)
 	{
 		if (!(filter & mFlags & IOF_ANY_DEVICE) || !(filter & mFlags & IOF_ANY_INPUT))
 			return nullptr;
 
 		for (auto typeCompPair : mDeviceTypeComponentMap)
 		{
-			if (auto signal = typeCompPair.second->getFirstInputSignal(filter))
+			if (auto signal = typeCompPair.second->getFirstIOSignal(filter))
 				return signal;
 		}
 
 		return nullptr;
 	}
 
-	IOSignal* Device::getStrongestInputSignal(const IOFlags filter)
+	IOSignal* Device::getStrongestIOSignal(const IOFlags filter)
 	{
 		if (!(filter & mFlags & IOF_ANY_DEVICE) || !(filter & mFlags & IOF_ANY_INPUT))
 			return nullptr;
@@ -76,7 +80,7 @@ namespace Fusin
 
 		for (auto typeCompPair : mDeviceTypeComponentMap)
 		{
-			if (auto signal = typeCompPair.second->getStrongestInputSignal(filter))
+			if (auto signal = typeCompPair.second->getStrongestIOSignal(filter))
 			{
 				if (signal->distance() > max)
 				{
@@ -89,6 +93,18 @@ namespace Fusin
 		return result;
 	}
 
+	std::vector<DeviceComponent*> Device::getDeviceComponents() const
+	{
+		std::vector<DeviceComponent*> comps;
+
+		for (auto& typeCompPair : mDeviceTypeComponentMap)
+		{
+			comps.push_back(typeCompPair.second);
+		}
+
+		return comps;
+	}
+
 	void Device::clear()
 	{
 		for (auto& typeCompPair : mDeviceTypeComponentMap)
@@ -97,7 +113,7 @@ namespace Fusin
 
 	String Device::getStateString()
 	{
-		return String();
+		return (battery.energy.value() >= 0? battery.getStateString() : String());
 	}
 
 

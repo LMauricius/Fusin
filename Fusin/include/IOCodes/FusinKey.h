@@ -1,8 +1,7 @@
 #ifndef _FUSIN_KEY_H
 #define _FUSIN_KEY_H
 
-#include "FusinIOCode.h"
-#include "FusinPrerequisites.h"
+#include "IOCodes/FusinIOCode.h"
 
 namespace Fusin
 {

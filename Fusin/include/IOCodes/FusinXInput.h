@@ -1,29 +1,28 @@
 #ifndef _FUSIN_XINPUT_H
 #define _FUSIN_XINPUT_H
 
-#include "FusinIOCode.h"
-#include "FusinPrerequisites.h"
+#include "IOCodes/FusinIOCode.h"
 #include <vector>
 
 namespace Fusin
 {
 	/*
-	Returns the DT_XINPUT, IT_BUTTON IOCode for the specified button
+	Returns the DT_XINPUT, IO_BUTTON IOCode for the specified button
 	*/
 	IOCode XInputButton(Index b);
 
 	/*
-	Returns the DT_XINPUT, IT_AXIS IOCode for the specified gamepad axis.
+	Returns the DT_XINPUT, IO_AXIS IOCode for the specified gamepad axis.
 	*/
 	IOCode XInputAxis(Index a);
 
 	/*
-	Returns the DT_XINPUT, IT_AXIS IOCode for the specified gamepad axis' positive direction.
+	Returns the DT_XINPUT, IO_AXIS IOCode for the specified gamepad axis' positive direction.
 	*/
 	IOCode XInputPositiveAxis(Index a);
 
 	/*
-	Returns the DT_XINPUT, IT_AXIS IOCode for the specified gamepad axis' negative direction.
+	Returns the DT_XINPUT, IO_AXIS IOCode for the specified gamepad axis' negative direction.
 	*/
 	IOCode XInputNegativeAxis(Index a);
 

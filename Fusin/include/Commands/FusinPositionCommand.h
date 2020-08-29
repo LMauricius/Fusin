@@ -1,71 +1,67 @@
+#pragma once
 #ifndef _FUSIN_POSITION_ACTION_H
 #define _FUSIN_POSITION_ACTION_H
 
-#include "FusinInputGesture.h"
-#include <vector>
+#include "FusinInputCommand.h"
 #include <map>
-#include <list>
 
 namespace Fusin
 {
-	class InputManager;
 
-	class PositionGesture : public Gesture
+	/*
+	The more abstract Command used to interpret simple InputCommands
+	as axis position, direction and strength.
+
+	An example would be interpreting an analog stick as the position
+	or a D-Pad as the angle.
+	*/
+	class PositionCommand : public Command
 	{
-		friend InputManager;
-
 	public:
-		PositionGesture(InputManager* im = nullptr);
-		~PositionGesture();
+		PositionCommand(DeviceEnumerator* devEnum = nullptr);
+		~PositionCommand();
 
 		float x();
 		float y();
-		float direction();
+		float angle();
 
 		/*
-		Sets the InputManager for the PositionGesture and all subGestures
+		Also sets the DeviceEnumerator for all sub-Commands
 		*/
-		void setInputManager(InputManager* im);
+		void setDeviceEnumerator(DeviceEnumerator* devEnum);
 
 		/*
-		Sets the device indices for the PositionGesture and all subGestures
+		Setters for all sub-Commands
 		*/
-		void setDeviceIndex(unsigned int ind, IOType t = IT_ANY);
-		unsigned int getDeviceIndex(IOType t = IT_ANY);
-		/*
-		Sets the enabled ioType types for the PositionGesture and all subGestures
-		*/
-		void setEnabledInputTypes(IOType t = IT_ANY);
-		IOType getEnabledInputTypes();
 
-		void setDeadZone(float dz, IOType t = IT_ANY);
-		float getDeadZone(IOType t = IT_ANY);
-		void setMaxValue(float val, IOType t = IT_ANY);
-		float getMaxValue(IOType t = IT_ANY);
-		void setFactor(float f, IOType t = IT_ANY);
-		float getFactor(IOType t = IT_ANY);
+		void setDeviceIndex(Index ind, DeviceType t = DT_ANY);
+		void setDeviceIndex(Index ind, IOFlags filter);
+		void setEnabledInputTypes(IOFlags filter);
+		void setDeadZone(float dz, DeviceType deviceType = DT_ANY, IOType ioType = IO_ANY);
+		void setDeadZone(float dz, IOFlags filter);
+		void setMaxValue(float val, DeviceType deviceType = DT_ANY, IOType ioType = IO_ANY);
+		void setMaxValue(float val, IOFlags filter);
+		void setFactor(float f, DeviceType deviceType = DT_ANY, IOType ioType = IO_ANY);
+		void setFactor(float f, IOFlags filter);
+		
 
 		/*
-		Sub Gestures
+		Sub-Commands
 		*/
 
-		InputGesture xAxis;
-		InputGesture yAxis;
-		InputGesture directionAxis;
-		InputGesture leftDirection;
-		InputGesture rightDirection;
-		InputGesture upDirection;
-		InputGesture downDirection;
+		InputCommand xAxis;
+		InputCommand yAxis;
+		InputCommand angleAxis;
+		InputCommand leftDirection;
+		InputCommand rightDirection;
+		InputCommand upDirection;
+		InputCommand downDirection;
 
-		void _beginUpdate();
-		void _endUpdate();
+		void update();
 
 	protected:
-		float mX, mY, mDirection, mPrevX, mPrevY, mPrevDirection;
-		IOType mEnabledInputTypes;
-		std::map < IOType, float > mDeadZones, mMaxValues, mFactors;
-		std::map < IOType, unsigned int > mDeviceIndices;
-
+		float mX, mY, mAngle, mPrevX, mPrevY, mPrevDirection;
+		std::map<DeviceType, std::map<IOType, float> > mFactors;
 	};
 }
 

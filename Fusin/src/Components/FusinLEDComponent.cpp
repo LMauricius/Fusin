@@ -1,5 +1,5 @@
-#include "FusinLEDComponent.h"
-#include "FusinInputSignalManipulation.h"
+#include "Components/FusinLEDComponent.h"
+#include "Utilities/FusinInputSignalManipulation.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>

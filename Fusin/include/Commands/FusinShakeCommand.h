@@ -1,64 +1,67 @@
 #ifndef _FUSIN_SHAKE_ACTION_H
 #define _FUSIN_SHAKE_ACTION_H
 
-#include "FusinInputGesture.h"
+#include "FusinInputCommand.h"
 #include <vector>
 #include <map>
 #include <list>
 
 namespace Fusin
 {
-	class InputManager;
-
-	class ShakeGesture : public Gesture
+	/*
+	The more abstract Command used to interpret simple InputCommands' movement (in multiple axes)
+	as shaking.
+	
+	*/
+	class ShakeCommand : public Command
 	{
-		friend InputManager;
-
 	public:
-		ShakeGesture(InputManager* im = nullptr);
-		~ShakeGesture();
+		ShakeCommand(DeviceEnumerator* devEnum = nullptr);
+		~ShakeCommand();
 
 		/*
-		Sets the InputManager for the PositionGesture and all subGestures
+		Also sets the DeviceEnumerator for all sub-Commands
 		*/
-		void setInputManager(InputManager* im);
+		void setDeviceEnumerator(DeviceEnumerator* devEnum);
 
 		/*
-		Sets the device indices for the PositionGesture and all subGestures
+		Sets the threshold for axis vector length at which shake is detected.
+		Higher setting lowers the sensitivity.
+		Be careful not to put the threshold higher than the max axis vector length as
+		shaking couldn't be detected then.
+		Default is 0.5
 		*/
-		void setDeviceIndex(unsigned int ind, IOType t = IT_ANY);
-		unsigned int getDeviceIndex(IOType t = IT_ANY);
-		/*
-		Sets the enabled ioType types for the PositionGesture and all subGestures
-		*/
-		void setEnabledInputTypes(IOType t = IT_ANY);
-		IOType getEnabledInputTypes();
-
-		void setDeadZone(float dz, IOType t = IT_ANY);
-		float getDeadZone(IOType t = IT_ANY);
-		void setMaxValue(float val, IOType t = IT_ANY);
-		float getMaxValue(IOType t = IT_ANY);
-		void setFactor(float f, IOType t = IT_ANY);
-		float getFactor(IOType t = IT_ANY);
+		void setShakeDetectionThreshold(float threshold);
+		float getShakeDetectionThreshold() const { return mShakeThreshold; }
 
 		/*
-		Sub Gestures
+		Setters for all sub-Commands
 		*/
 
-		InputGesture axis1;
-		InputGesture axis2;
-		InputGesture axis3;
+		void setDeviceIndex(Index ind, DeviceType t = DT_ANY);
+		void setDeviceIndex(Index ind, IOFlags filter);
+		void setEnabledInputTypes(IOFlags filter);
+		void setDeadZone(float dz, DeviceType deviceType = DT_ANY, IOType ioType = IO_ANY);
+		void setDeadZone(float dz, IOFlags filter);
+		void setMaxValue(float val, DeviceType deviceType = DT_ANY, IOType ioType = IO_ANY);
+		void setMaxValue(float val, IOFlags filter);
+		void setFactor(float f, DeviceType deviceType = DT_ANY, IOType ioType = IO_ANY);
+		void setFactor(float f, IOFlags filter);
 
-		void _beginUpdate();
-		void _endUpdate();
+
+		/*
+		Sub-Commands
+		*/
+
+		// Returns the InputCommand for the axis with index ind
+		InputCommand& getAxis(Index ind);
+
+		void update();
 
 	protected:
-		IOType mEnabledInputTypes;
-		std::map < IOType, float > mDeadZones, mMaxValues, mFactors;
-		std::map < IOType, unsigned int > mDeviceIndices;
-		std::map < IOType, float > mLastAxis1ByType;
-		std::map < IOType, float > mLastAxis2ByType;
-		std::map < IOType, float > mLastAxis3ByType;
+		float mShakeThreshold;
+		std::vector<InputCommand> mAxes;
+		std::vector<float> mPrevStretchValues;
 	};
 }
 

@@ -14,11 +14,15 @@ namespace Fusin
 	typedef wchar_t Char;
 	typedef std::wstring String;
 	typedef std::wstringstream StringStream;
-#   define FUSIN_STR(STR) L##STR
+
+	// Use FUSIN_STR(STR) on String literals to always get compatible string type, no matter theChar type
+	#define FUSIN_STR(STR) L##STR
 #else
 	typedef char Char;
 	typedef std::string String;
 	typedef std::stringstream StringStream;
+
+	// Use FUSIN_STR(STR) on String literals to always get compatible string type, no matter theChar type
 #   define FUSIN_STRING(STR) STR
 #endif
 
@@ -62,6 +66,7 @@ namespace Fusin
 	#define FUSIN_MESSAGE_TYPE MSG
 	#define FUSIN_WINDOW_PTR_TYPE HWND
 
+	// Windows headers lack this definition, but it *supposedly* works
 	#define RI_MOUSE_HWHEEL 0x0800
 
 #endif

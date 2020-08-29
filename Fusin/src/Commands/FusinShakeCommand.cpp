@@ -1,170 +1,127 @@
-#include "FusinShakeGesture.h"
-#include "FusinInputManager.h"
+#include "Commands/FusinShakeCommand.h"
 #include <algorithm>
 
-#define FOR_SUBACTIONS(EXP) axis1.EXP; axis2.EXP; axis3.EXP;
+#define FOR_SUBACTIONS(EXP) for (auto& axis : mAxes) { axis.EXP; }
 
 namespace Fusin
 {
 
-	ShakeGesture::ShakeGesture(InputManager* im)
+	ShakeCommand::ShakeCommand(DeviceEnumerator* devEnum) :
+		Command(devEnum),
+		mShakeThreshold(0.5f)
 	{
-		mInputManager = im;
-		if (mInputManager) mInputManager->addGesture(this);
-		FOR_SUBACTIONS(setInputManager(im))
+	}
 
-			mDeviceIndices[IT_KEYBOARD] = 0;
-		mDeviceIndices[IT_MOUSE] = 0;
-		mDeviceIndices[IT_GAMEPAD] = 0;
-		mDeviceIndices[IT_XBOX] = 0;
-		mDeviceIndices[IT_DS] = 0;
-		for (IOType i : ALL_CODE_TYPES)
+	ShakeCommand::~ShakeCommand()
+	{
+
+	}
+
+	void ShakeCommand::setDeviceEnumerator(DeviceEnumerator* devEnum)
+	{
+		Command::setDeviceEnumerator(devEnum);
+		FOR_SUBACTIONS(setDeviceEnumerator(devEnum));
+	}
+
+	void ShakeCommand::setShakeDetectionThreshold(float threshold)
+	{
+		mShakeThreshold = threshold;
+	}
+
+	void ShakeCommand::setDeviceIndex(Index ind, DeviceType t) {
+		FOR_SUBACTIONS(setDeviceIndex(ind, t));
+	}
+
+	void ShakeCommand::setDeviceIndex(Index ind, IOFlags filter) {
+		FOR_SUBACTIONS(setDeviceIndex(ind, filter));
+	}
+
+	void ShakeCommand::setEnabledInputTypes(IOFlags filter) {
+		FOR_SUBACTIONS(setEnabledInputTypes(filter));
+	}
+
+	void ShakeCommand::setDeadZone(float dz, DeviceType deviceType, IOType ioType) {
+		FOR_SUBACTIONS(setDeadZone(dz, deviceType, ioType));
+	}
+
+	void ShakeCommand::setDeadZone(float dz, IOFlags filter) {
+		FOR_SUBACTIONS(setDeadZone(dz, filter));
+	}
+
+	void ShakeCommand::setMaxValue(float val, DeviceType deviceType, IOType ioType) {
+		FOR_SUBACTIONS(setMaxValue(val, deviceType, ioType));
+	}
+
+	void ShakeCommand::setMaxValue(float val, IOFlags filter) {
+		FOR_SUBACTIONS(setDeadZone(val, filter));
+	}
+
+	void ShakeCommand::setFactor(float f, DeviceType deviceType, IOType ioType)
+	{
+		FOR_SUBACTIONS(setFactor(f, deviceType, ioType));
+	}
+
+	void ShakeCommand::setFactor(float f, IOFlags filter)
+	{
+		FOR_SUBACTIONS(setDeadZone(f, filter));
+	}
+
+	InputCommand& ShakeCommand::getAxis(Index ind)
+	{
+		if (mAxes.size() <= ind)
 		{
-			mDeadZones[i] = 0.0f;
-			mMaxValues[i] = MAX_FLOAT;
-			mFactors[i] = 1.0f;
-		}
-		mEnabledInputTypes = IT_ANY;
-	}
-
-	ShakeGesture::~ShakeGesture()
-	{
-		if (mInputManager) mInputManager->removeGesture(this);
-	}
-
-	void ShakeGesture::setInputManager(InputManager* im)
-	{
-		if (mInputManager) mInputManager->removeGesture(this);
-		mInputManager = im;
-		if (mInputManager) mInputManager->addGesture(this);
-		FOR_SUBACTIONS(setInputManager(im))
-	}
-
-	void ShakeGesture::_beginUpdate()
-	{
-		mPrevValue = mValue;
-		mValue = 0;
-		for (auto& it : mValuesByType)
-		{
-			it.second = 0.0f;
-		}
-	}
-
-	void ShakeGesture::_endUpdate()
-	{
-		for (auto& it : mValuesByType)
-		{
-			float a1 = axis1.value(it.first & IT_ANY_CODE);
-			float a2 = axis2.value(it.first & IT_ANY_CODE);
-			float a3 = axis3.value(it.first & IT_ANY_CODE);
-			float& lastA1 = mLastAxis1ByType[it.first];
-			float& lastA2 = mLastAxis2ByType[it.first];
-			float& lastA3 = mLastAxis3ByType[it.first];
-			float dz = mDeadZones[it.first];
-			float d = sqrt(a1*a1 + a2*a2 + a3*a3);
-
-			if (d >= dz)
+			mAxes.reserve(ind + 1);
+			mPrevStretchValues.reserve(ind + 1);
+			for (int i = mAxes.size(); i <= ind; i++)
 			{
-				if (lastA1 != 0.0f || lastA2 != 0.0f || lastA3 != 0.0f)
-				{
-					float s = (a1*lastA1 + a2*lastA2 + a3*lastA3) / d / dz;
-
-					if (s <= -dz)
-					{
-						it.second = std::min(-s, mMaxValues[it.first]) * mFactors[it.first];
-						if (it.second > mValue)
-						{
-							mValue = it.second;
-						}
-					}
-				}
-
-				lastA1 = a1;
-				lastA2 = a2;
-				lastA3 = a3;
+				mAxes.emplace_back(mDeviceEnumerator);
+				mPrevStretchValues.emplace_back(0);
 			}
 		}
+		return mAxes[ind];
+	}
 
+	void ShakeCommand::update()
+	{
+		/*
+		(distance = length of the axis' values vector,
+		vector = vector of axis' values,
+		threshold = shake detection threshold)
+
+		Value calculating algorithm:
+			Each time the distance gets greater than the threshold,
+			if the angle between the current vector and the vector that
+			was recorded the last time it surpassed the threshold (prev vector) is
+			greater or equal to 90 degrees, the value is calculated as negative of 
+			the two vectors' dot product.
+		*/
+		
+		mPrevValue = mValue;
+		mValue = 0;
+
+		// calc distances
+		float d = 0, dot = 0;
+		for (int i = 0; i < mAxes.size(); i++)
+		{
+			d += mAxes[i].value() * mAxes[i].value();
+		}
+		d = std::sqrt(d);
+
+		// detect shaking
+		if (d >= mShakeThreshold)
+		{
+			for (int i = 0; i < mAxes.size(); i++)
+			{
+				dot += mAxes[i].value() * mPrevStretchValues[i];
+				mPrevStretchValues[i] = mAxes[i].value();
+			}
+
+			if (dot < 0) mValue = -dot;
+		}
+
+		// Detect passing the value threshold
 		mPressed = (mValue >= mThreshold && mPrevValue < mThreshold);
-		mReleased = (mValue < mThreshold && mPrevValue >= mThreshold);
-	}
-
-
-	void ShakeGesture::setDeviceIndex(unsigned int ind, IOType t)
-	{
-		for (auto it = mDeviceIndices.begin(); it != mDeviceIndices.end(); it++)
-		{
-			if ((*it).first & t) (*it).second = ind;
-		}
-		FOR_SUBACTIONS(setDeviceIndex(ind, t))
-	}
-
-	unsigned int ShakeGesture::getDeviceIndex(IOType t)
-	{
-		for (auto it = mDeviceIndices.begin(); it != mDeviceIndices.end(); it++)
-		{
-			if ((*it).first & t) return (*it).second;
-		}
-	}
-
-	void ShakeGesture::setEnabledInputTypes(IOType t)
-	{
-		mEnabledInputTypes = t;
-		FOR_SUBACTIONS(setEnabledInputTypes(t))
-	}
-
-	IOType ShakeGesture::getEnabledInputTypes()
-	{
-		return mEnabledInputTypes;
-	}
-
-
-	void ShakeGesture::setDeadZone(float dz, IOType t)
-	{
-		for (auto it = mDeadZones.begin(); it != mDeadZones.end(); it++)
-		{
-			if ((*it).first & t) (*it).second = dz;
-		}
-	}
-
-	float ShakeGesture::getDeadZone(IOType t)
-	{
-		for (auto it = mDeadZones.begin(); it != mDeadZones.end(); it++)
-		{
-			if ((*it).first & t) return (*it).second;
-		}
-	}
-
-	void ShakeGesture::setMaxValue(float val, IOType t)
-	{
-		for (auto it = mMaxValues.begin(); it != mMaxValues.end(); it++)
-		{
-			if ((*it).first & t) (*it).second = val;
-		}
-	}
-
-	float ShakeGesture::getMaxValue(IOType t)
-	{
-		for (auto it = mMaxValues.begin(); it != mMaxValues.end(); it++)
-		{
-			if ((*it).first & t) return (*it).second;
-		}
-	}
-
-	void ShakeGesture::setFactor(float f, IOType t)
-	{
-		for (auto it = mFactors.begin(); it != mFactors.end(); it++)
-		{
-			if ((*it).first & t) (*it).second = f;
-		}
-	}
-
-	float ShakeGesture::getFactor(IOType t)
-	{
-		for (auto it = mFactors.begin(); it != mFactors.end(); it++)
-		{
-			if ((*it).first & t) return (*it).second;
-		}
+		mReleased = (mValue < mThreshold&& mPrevValue >= mThreshold);
 	}
 
 }

@@ -1,11 +1,10 @@
 ﻿#ifndef _FUSIN_GENERIC_CONTROL_SETUP
 #define _FUSIN_GENERIC_CONTROL_SETUP
 
-#include "FusinPrerequisites.h"
-#include "FusinInputGesture.h"
-#include "FusinPositionGesture.h"
-#include "FusinRangeGesture.h"
-#include "FusinColor.h"
+#include "Commands/FusinInputCommand.h"
+#include "Commands/FusinPositionCommand.h"
+#include "Commands/FusinRangeCommand.h"
+#include "Utilities/FusinColor.h"
 
 namespace Fusin
 {
@@ -17,25 +16,25 @@ namespace Fusin
 	public:
 		GenericControlSetup(InputManager* im = nullptr);
 		void setInputManager(InputManager* im);
-		void setDeviceIndex(unsigned int ind, IOType t = IT_ANY);
-		unsigned int getDeviceIndex(IOType t = IT_ANY);
-		void setEnabledInputTypes(IOType t = IT_ANY);
+		void setDeviceIndex(unsigned int ind, IOType t = IO_ANY);
+		unsigned int getDeviceIndex(IOType t = IO_ANY);
+		void setEnabledInputTypes(IOType t = IO_ANY);
 		IOType getEnabledInputTypes();
 
-		void setDefaultXBoxCodes(int slot);
+		void setDefaultXInputCodes(int slot);
 		void setDefaultDSCodes(int slot);
 		void assign(int position, const GenericControlSetup& source, unsigned int first, unsigned int last);
 
-		InputGesture any;
-		InputGesture anyButton;
+		InputCommand any;
+		InputCommand anyButton;
 
-		PositionGesture lStick;
-		PositionGesture rStick;
+		PositionCommand lStick;
+		PositionCommand rStick;
 
-		InputGesture dpadUp;
-		InputGesture dpadDown;
-		InputGesture dpadLeft;
-		InputGesture dpadRight;
+		InputCommand dpadUp;
+		InputCommand dpadDown;
+		InputCommand dpadLeft;
+		InputCommand dpadRight;
 
 		/*
 		Face buttons layout:
@@ -43,27 +42,27 @@ namespace Fusin
 		face3   face2       = X   B or ■   O
 		    face1               A        X
 		*/
-		InputGesture face1;
-		InputGesture face2;
-		InputGesture face3;
-		InputGesture face4;
-		InputGesture start;
-		InputGesture select;
-		InputGesture shoulderL1;
-		InputGesture shoulderR1;
-		InputGesture shoulderL2;
-		InputGesture shoulderR2;
-		InputGesture lStickPress;
-		InputGesture rStickPress;
+		InputCommand face1;
+		InputCommand face2;
+		InputCommand face3;
+		InputCommand face4;
+		InputCommand start;
+		InputCommand select;
+		InputCommand shoulderL1;
+		InputCommand shoulderR1;
+		InputCommand shoulderL2;
+		InputCommand shoulderR2;
+		InputCommand lStickPress;
+		InputCommand rStickPress;
 
 		// Menu controls
 
-		InputGesture ok;
-		InputGesture cancel;
-		InputGesture up;
-		InputGesture down;
-		InputGesture left;
-		InputGesture right;
+		InputCommand ok;
+		InputCommand cancel;
+		InputCommand up;
+		InputCommand down;
+		InputCommand left;
+		InputCommand right;
 
 		void setLeftVibration(float strength = 0, unsigned int msDuration = 0);
 		void setRightVibration(float strength = 0, unsigned int msDuration = 0);

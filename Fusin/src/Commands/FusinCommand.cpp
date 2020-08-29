@@ -1,112 +1,91 @@
-#include "FusinGesture.h"
-#include "FusinInputManager.h"
+#include "Commands/FusinCommand.h"
 
 namespace Fusin
 {
 
-	Gesture::Gesture()
+	Command::Command(DeviceEnumerator* devEnum):
+		mValue(0.0f),
+		mPrevValue(0.0f),
+		mThreshold(0.5f),
+		mStrongestIOCode(IOCode::NULLCODE),
+		mStrongestDeviceIndex(-1),
+		mPressed(false),
+		mReleased(false),
+		mUpdateAfterDeviceUpdate(true)
 	{
-		for (IOType i : ALL_CODE_TYPES)
-		{
-			mValuesByType[i] = 0.0f;
-		}
-		mThreshold = 0.5f;
+		setDeviceEnumerator(devEnum);
 	}
 
-	Gesture::~Gesture()
+	Command::~Command()
 	{
-
+		if (mDeviceEnumerator)
+			mDeviceEnumerator->removeListener(this);
 	}
 
-	void Gesture::setInputManager(InputManager* im)
+	void Command::setDeviceEnumerator(DeviceEnumerator* devEnum)
 	{
-		mInputManager = im;
+		if (mDeviceEnumerator)
+			mDeviceEnumerator->removeListener(this);
+
+		mDeviceEnumerator = devEnum;
+
+		if (mDeviceEnumerator)
+			mDeviceEnumerator->addListener(this);
+
+		replug();
 	}
 
-	void Gesture::_beginUpdate()
-	{
-
-	}
-
-	void Gesture::_updateValue(float value, DeviceType deviceType, IOType ioType)
-	{
-		for (auto& it : mValuesByType)
-		{
-			if (it.first & t)
-			{
-				if (abs(value) > abs(it.second))
-				{
-					it.second = value;
-				}
-			}
-		}
-		if (abs(value) > abs(mValue))
-		{
-			mValue = value;
-		}
-	}
-
-	void Gesture::_plug(Device * d)
-	{
-	}
-
-	void Gesture::_unplug(Device * d)
-	{
-	}
-
-	void Gesture::_endUpdate()
-	{
-
-	}
-
-
-	float Gesture::value()
-	{
-		return mValue;
-	}
-
-	float Gesture::value(IOType t)
-	{
-		for (auto& it : mValuesByType)
-		{
-			if (it.first & t) return it.second;
-		}
-		return 0.0f;
-	}
-
-	float Gesture::distance()
+	float Command::distance()
 	{
 		return std::abs(mValue);
 	}
 
-	bool Gesture::pressed()
-	{
-		return mPressed;
-	}
-
-	bool Gesture::released()
-	{
-		return mReleased;
-	}
-
-	bool Gesture::check()
+	bool Command::check()
 	{
 		return std::abs(mValue) > mThreshold;
 	}
 
-	float Gesture::prevValue()
-	{
-		return mPrevValue;
-	}
-
-	float Gesture::prevDistance()
+	float Command::prevDistance()
 	{
 		return std::abs(mPrevValue);
 	}
 
-	void Gesture::setThreshold(float threshold)
+	void Command::setThreshold(float threshold)
 	{
 		mThreshold = threshold;
+	}
+
+	void Command::update()
+	{
+		mPressed = (prevDistance() <= mThreshold && check());
+		mReleased = (prevDistance() > mThreshold && !check());
+		mPrevValue = mValue;
+	}
+
+	void Command::replug()
+	{
+	}
+
+	void Command::deviceRegistered(DeviceEnumerator* de, Device* d)
+	{
+		replug();
+	}
+
+	void Command::deviceUnregistered(DeviceEnumerator* de, Device* d)
+	{
+		replug();
+	}
+
+	void Command::preUpdate(DeviceEnumerator* de)
+	{
+		if (!mUpdateAfterDeviceUpdate)
+			update();
+	}
+
+	void Command::postUpdate(DeviceEnumerator* de)
+	{
+		if (mUpdateAfterDeviceUpdate)
+			update();
 	}
 
 }
