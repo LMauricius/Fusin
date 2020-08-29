@@ -15,19 +15,16 @@ namespace Fusin
 
 	class XInputSystem : public InputSystem
 	{
-		friend InputManager;
-
 	public:
+		XInputSystem();
+		~XInputSystem();
+
+		void initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window);
+		void updateDeviceList();
 		void update();
 
 	protected:
-		XInputSystem(DeviceEnumerator* de, const std::map<String, String>& config, void* window);
-		~XInputSystem();
-
-		InputManager* mInputManager;
-
 		std::vector<XInputDevice*> mDevices;
-
 	};
 
 }

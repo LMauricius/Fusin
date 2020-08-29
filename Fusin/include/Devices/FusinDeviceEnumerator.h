@@ -19,18 +19,31 @@ namespace Fusin
 		DeviceEnumerator();
 		~DeviceEnumerator();
 
+		/*
+		If registerComponents is enabled, the DeviceComponents of the specified device
+		will be registered automatically.
+		*/
 		virtual void registerDevice(Device* dev, bool registerComponents = true);
 		virtual void unregisterDevice(Device* dev);
 		virtual void registerComponent(DeviceComponent* comp);
 		virtual void unregisterComponent(DeviceComponent* comp);
 
 		/*
-		Returns the device that has the device type with the specified deviceIndex.
+		Returns the device that has the device type t with the specified deviceIndex.
 		If no device has the type or there is no device with the specified index, returns nullptr.
+		Index 0 is usually reserved for the global device, so keep that in mind if registering manually.
 		*/
 		Device* getDevice(DeviceType t, Index index = 0) const;
+		/*
+		Returns the current max index of devices of the specified type.
+		This can include unused indices. So if there are devices with indices 1 and 3
+		for a specific type, but 0 and 2 are skipped, this returns 3.
+		*/
 		size_t maxDeviceIndex(DeviceType t) const;
+
+		// Analoguous to getDevice()
 		DeviceComponent* getDeviceComponent(DeviceType t, Index index = 0) const;
+		// Analoguous to maxDeviceIndex()
 		size_t maxDeviceComponentIndex(DeviceType t) const;
 
 		/*
@@ -46,15 +59,23 @@ namespace Fusin
 		std::list<DeviceEnumeratorListener*> mDeviceEnumeratorListeners;
 	};
 
+	/*
+	Inherit this class by objects that should listen to the DeviceEnumerator events
+	and register them to the DeviceEnumerator.
+	*/
 	class DeviceEnumeratorListener
 	{
 	public:
 		virtual ~DeviceEnumeratorListener() = 0;
 
+		// called after a device has been registered
 		virtual void deviceRegistered(DeviceEnumerator* de, Device* d);
+		// called after a device has been unregistered
 		virtual void deviceUnregistered(DeviceEnumerator* de, Device* d);
 
+		// called before the devices are updated
 		virtual void preUpdate(DeviceEnumerator* de);
+		// called after the devices were updated
 		virtual void postUpdate(DeviceEnumerator* de);
 	};
 

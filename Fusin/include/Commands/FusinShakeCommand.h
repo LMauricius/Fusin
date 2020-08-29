@@ -48,12 +48,11 @@ namespace Fusin
 		void setFactor(float f, DeviceType deviceType = DT_ANY, IOType ioType = IO_ANY);
 		void setFactor(float f, IOFlags filter);
 
-
 		/*
-		Sub-Commands
+		Returns the InputCommand for the axis with index ind.
+		You can setup these axes to receive input,
+		and values from multi-dimensional axes will be used to detect shaking.
 		*/
-
-		// Returns the InputCommand for the axis with index ind
 		InputCommand& getAxis(Index ind);
 
 		void update();

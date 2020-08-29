@@ -93,13 +93,16 @@ namespace Fusin
 		Index mStrongestDeviceIndex;
 		bool mPressed, mReleased;
 		DeviceEnumerator* mDeviceEnumerator;
-		bool mUpdateAfterDeviceUpdate;// Should the command be updated before or after the Device update? (default true)
+		bool mUpdateAfterDeviceUpdate;// Should the command be updated before or after the Device update? (default true = after)
 
+		// Replugged
 		void deviceRegistered(DeviceEnumerator* de, Device* d);
+		// Replugged
 		void deviceUnregistered(DeviceEnumerator* de, Device* d);
-
-		void preUpdate(DeviceEnumerator* de);
-		void postUpdate(DeviceEnumerator* de);
+		// Called before the IOSubSystems are updated, OutputCommands are updated here
+		void preUpdate();
+		// Called after the IOSubSystems are updated, InputCommands are updated here
+		void postUpdate();
 
 	};
 }

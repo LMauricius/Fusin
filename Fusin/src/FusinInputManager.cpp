@@ -1,43 +1,30 @@
 #include "FusinInputManager.h"
-#include "FusinInputSystem.h"
-#include "Commands/FusinCommand.h"
-#include "FusinDevice.h"
-#include "FusinKeyboardDevice.h"
-#include "FusinMouseDevice.h"
-#include "FusinGamepadDevice.h"
-#include "FusinXInputDevice.h"
-#include "FusinDSDevice.h"
-#include "FusinXInputDevice.h"
-#include "FusinNintendoDevice.h"
+
+#include "IOSubSystems/FusinIOSubSystem.h"
+
+#include "Devices/FusinDevice.h"
+#include "Devices/FusinKeyboardDevice.h"
+#include "Devices/FusinMouseDevice.h"
+#include "Devices/FusinGamepadDevice.h"
+#include "Devices/FusinXInputDevice.h"
+#include "Devices/FusinDSDevice.h"
+#include "Devices/FusinXInputDevice.h"
+#include "Devices/FusinNintendoDevice.h"
+
+// These won't always be built, only if needed macros are defined
+#include "IOSubSystems/FusinRawInputSubSystem.h"
+
+#include <stdexcept>
 #include <ctime>
 
-#ifdef _FUSIN_INPUT_SYSTEM1
-	#include _FUSIN_INPUT_SYSTEM1_HEADER
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM2
-	#include _FUSIN_INPUT_SYSTEM2_HEADER
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM3
-	#include _FUSIN_INPUT_SYSTEM3_HEADER
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM4
-	#include _FUSIN_INPUT_SYSTEM4_HEADER
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM5
-	#include _FUSIN_INPUT_SYSTEM5_HEADER
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM6
-	#include _FUSIN_INPUT_SYSTEM6_HEADER
-#endif
-
-#define FOR_LISTENERS(EXP) for (auto& it : mListeners) {it->EXP;}
-#define PREINIT if (mInitialized) return;
+#define FOR_LISTENERS(EXP) for (auto& it : mInputManagerListeners) {it->EXP;}
+#define PREINIT(FUNC_NAME) if (mInitialized) throw std::runtime_error("You need to call " FUNC_NAME " *before* initializing InputManager!");
 
 namespace Fusin
 {
 
 	InputManager::InputManager()
-		: mEnabledTypes(IO_ANY_DEVICE)
+		: mEnabledTypes(IOF_ANY_DEVICE)
 		, mWindowHandle(0)
 		, mInitialized(false)
 		, mLastTime(0)
@@ -47,61 +34,43 @@ namespace Fusin
 
 	InputManager::~InputManager()
 	{
-		std::list<Command*> copiedList = mGestureList;
-		for (auto g : copiedList)
-		{
-			g->setInputManager(nullptr);
-		}
-		for (auto it = mInputSystems.begin(); it != mInputSystems.end(); it++)
+		for (auto it = mIOSubSystems.begin(); it != mIOSubSystems.end(); it++)
 		{
 			delete (*it);
 		}
 	}
 
-	void InputManager::initialize(const std::map<String, String>& config)
+	void InputManager::initialize(bool registerDefaultIOSubSystems, const std::map<String, String>& config)
 	{
-		// Input Systems
-		InputSystem *is;
-		
-#ifdef _FUSIN_INPUT_SYSTEM1
-		is = new _FUSIN_INPUT_SYSTEM1(this, config, mWindowHandle);
-		mInputSystems.push_back(is);
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM2
-		is = new _FUSIN_INPUT_SYSTEM2(this);
-		mInputSystems.push_back(is);
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM3
-		is = new _FUSIN_INPUT_SYSTEM3(this);
-		mInputSystems.push_back(is);
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM4
-		is = new _FUSIN_INPUT_SYSTEM4(this);
-		mInputSystems.push_back(is);
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM5
-		is = new _FUSIN_INPUT_SYSTEM5(this);
-		mInputSystems.push_back(is);
-#endif
-#ifdef _FUSIN_INPUT_SYSTEM6
-		is = new _FUSIN_INPUT_SYSTEM5(this);
-		mInputSystems.push_back(is);
-#endif
+		// Default input Systems
+		if (registerDefaultIOSubSystems)
+		{
+			#ifdef _WIN32
+				mIOSubSystems.push_back(new RawInputIOSubSystem());
+			#else
+
+			#endif
+		}
+
+		// Init IO systems
+		for (IOSubSystem* ioSys : mIOSubSystems) {
+			ioSys->initialize(this, config, mWindowHandle);
+		}
 
 		// Global Devices
-		registerDevice(new KeyboardDevice(FUSIN_STR("Global Keyboard"), 0));
-		registerDevice(new MouseDevice(FUSIN_STR("Global Mouse"), 0));
-		registerDevice(new GamepadDevice(0, 0, false, false, FUSIN_STR("Global Gamepad"), 0));
-		registerDevice(new XInputDevice(FUSIN_STR("Global XInput Cotroller"), 0));
-		registerDevice(new DSDevice(FUSIN_STR("Global DS Cotroller"), 0));
-		registerDevice(new NintendoDevice(NDT_PRO_CONTROLLER, FUSIN_STR("Global Nintendo Controller"), 0));
+		registerDevice(new KeyboardDevice(FUSIN_STR("Global Keyboard")));
+		registerDevice(new MouseDevice(FUSIN_STR("Global Mouse")));
+		registerDevice(new GamepadDevice(FUSIN_STR("Global Gamepad")));
+		registerDevice(new XInputDevice(FUSIN_STR("Global XInput Cotroller")));
+		registerDevice(new DSDevice(FUSIN_STR("Global DS Cotroller")));
+		registerDevice(new NintendoDevice(FUSIN_STR("Global Nintendo Controller")));
 
 		mInitialized = true;
 	}
 
 	void InputManager::setInputWindow(void *handle)
 	{
-		PREINIT;
+		PREINIT("setInputWindow()");
 		mWindowHandle = handle;
 	}
 
@@ -110,12 +79,12 @@ namespace Fusin
 		return mWindowHandle;
 	}
 
-	void InputManager::enableDevices(IOType t)
+	void InputManager::enableDevices(IOFlags t)
 	{
 		mEnabledTypes = t;
 	}
 
-	IOType InputManager::getEnabledDevices()
+	IOFlags InputManager::getEnabledDevices()
 	{
 		return mEnabledTypes;
 	}
@@ -123,8 +92,6 @@ namespace Fusin
 
 	void InputManager::update(TimeMS msElapsed)
 	{
-		FOR_LISTENERS(preUpdate(this));
-
 		clock_t curTime = clock() * 1000 / CLOCKS_PER_SEC;
 		if (msElapsed == 0 && mLastTime != 0)
 		{
@@ -132,14 +99,11 @@ namespace Fusin
 		}
 		mLastTime = curTime;
 
-		// pre-_update actions
-		for (auto& it : mGestureList)
-		{
-			it->_beginUpdate();
-		}
+		// Update start
+		FOR_LISTENERS(preUpdate(this));
 
-		// Update ioType systems
-		for (auto& it : mInputSystems)
+		// Update io systems
+		for (auto& it : mIOSubSystems)
 		{
 			if (it->getTypes() & mEnabledTypes)
 			{
@@ -149,30 +113,24 @@ namespace Fusin
 		}
 
 		// Update devices
-		for (IOType type : ALL_DEVICE_TYPES)
+		for (DeviceType devType : ALL_DEVICE_TYPES)
 		{
-			for (Index i = 0; i < maxDeviceIndex(type); i++)
+			for (Index i = 0; i < maxDeviceIndex(devType); i++)
 			{
-				if (Device* device = getDevice(type, i))
+				if (Device* device = getDevice(devType, i))
 				{
 					device->_update(msElapsed);
 				}
 			}
 		}
 
-		// post-_update actions
-		for (auto& it : mGestureList)
-		{
-			it->_endUpdate();
-		}
-
 		FOR_LISTENERS(postUpdate(this))
 	}
 
-#ifdef FUSIN_MESSAGE_TYPE
-	void InputManager::handleMessage(const FUSIN_MESSAGE_TYPE* msg)
+#ifdef _WIN32
+	void InputManager::handleMessage(const MSG* msg)
 	{
-		for (auto& it : mInputSystems)
+		for (auto& it : mIOSubSystems)
 		{
 			if (it->getTypes() & mEnabledTypes)
 				it->handleMessage(msg);
@@ -183,67 +141,67 @@ namespace Fusin
 
 	KeyboardDevice* InputManager::getKeyboardDevice(Index slot)
 	{
-		return static_cast<KeyboardDevice*>(getDevice(IO_KEYBOARD, slot));
+		return static_cast<KeyboardDevice*>(getDevice(DT_KEYBOARD, slot));
 	}
 
 	unsigned int InputManager::maxKeyboardDeviceIndex()
 	{
-		return maxDeviceIndex(IO_KEYBOARD);
+		return maxDeviceIndex(DT_KEYBOARD);
 	}
 
 	MouseDevice* InputManager::getMouseDevice(Index slot)
 	{
-		return static_cast<MouseDevice*>(getDevice(IO_MOUSE, slot));
+		return static_cast<MouseDevice*>(getDevice(DT_MOUSE, slot));
 	}
 
 	unsigned int InputManager::maxMouseDeviceIndex()
 	{
-		return maxDeviceIndex(IO_MOUSE);
+		return maxDeviceIndex(DT_MOUSE);
 	}
 
 	GamepadDevice* InputManager::getGamepadDevice(Index slot)
 	{
-		return static_cast<GamepadDevice*>(getDevice(IO_GAMEPAD, slot));
+		return static_cast<GamepadDevice*>(getDevice(DT_GAMEPAD, slot));
 	}
 
 	unsigned int InputManager::maxGamepadDeviceIndex()
 	{
-		return maxDeviceIndex(IO_GAMEPAD);
+		return maxDeviceIndex(DT_GAMEPAD);
 	}
 
 	XInputDevice* InputManager::getXInputDevice(Index slot)
 	{
-		return static_cast<XInputDevice*>(getDevice(IO_XInput, slot));
+		return static_cast<XInputDevice*>(getDevice(DT_XINPUT, slot));
 	}
 
 	unsigned int InputManager::maxXInputDeviceIndex()
 	{
-		return maxDeviceIndex(IO_XInput);
+		return maxDeviceIndex(DT_XINPUT);
 	}
 
 	DSDevice* InputManager::getDSDevice(Index slot)
 	{
-		return static_cast<DSDevice*>(getDevice(IO_DS, slot));
+		return static_cast<DSDevice*>(getDevice(DT_DUALSHOCK, slot));
 	}
 
 	unsigned int InputManager::maxDSDeviceIndex()
 	{
-		return maxDeviceIndex(IO_DS);
+		return maxDeviceIndex(DT_DUALSHOCK);
 	}
 
 	NintendoDevice* InputManager::getNintendoDevice(Index slot)
 	{
-		return static_cast<NintendoDevice*>(getDevice(IO_NINTENDO, slot));
+		return static_cast<NintendoDevice*>(getDevice(DT_NINTENDO, slot));
 	}
 
 	unsigned int InputManager::maxNintendoDeviceIndex()
 	{
-		return maxDeviceIndex(IO_NINTENDO);
+		return maxDeviceIndex(DT_NINTENDO);
 	}
 
 	IOSignal * InputManager::getIOSignal(const IOCode & ic, Index deviceSlot) const
 	{
-		Device* dev = getDevice(ic.type & IO_ANY_DEVICE, deviceSlot);
+		Device* dev = getDevice(ic.deviceType, deviceSlot);
 		if (dev != nullptr)
 		{
 			return dev->getIOSignal(ic);
@@ -264,50 +222,64 @@ namespace Fusin
 
 	void InputManager::registerDevice(Device * dev)
 	{
-		Device* global = getDevice(dev->type(), 0);
-		if (global) global->_coverDevice(dev);
 		DeviceEnumerator::registerDevice(dev);
 
-		FOR_LISTENERS(deviceRegistered(this, dev));
-
-		for (auto g : mGestureList)
+		// Register to the global device
+		Device* global = getDevice(dev->type(), 0);
+		if (global)
 		{
-			g->_plug(dev);
+			for (DeviceComponent* comp : dev->getDeviceComponents())
+			{
+				for (DeviceComponent* globalComp : dev->getDeviceComponents())
+				{
+					if (globalComp->deviceType() == comp->deviceType())
+						globalComp->_coverDeviceComponent(comp);
+				}
+			}
 		}
+
+		FOR_LISTENERS(deviceRegistered(this, dev));
 	}
 
 	void InputManager::unregisterDevice(Device * dev)
 	{
 		DeviceEnumerator::unregisterDevice(dev);
+
+		// Unregister from the global device
 		Device* global = getDevice(dev->type(), 0);
-		if (global) global->_uncoverDevice(dev);
+		if (global)
+		{
+			for (DeviceComponent* comp : dev->getDeviceComponents())
+			{
+				for (DeviceComponent* globalComp : dev->getDeviceComponents())
+				{
+					if (globalComp->deviceType() == comp->deviceType())
+						globalComp->_uncoverDeviceComponent(comp);
+				}
+			}
+		}
 
 		FOR_LISTENERS(deviceUnregistered(this, dev));
-
-		for (auto g : mGestureList)
-		{
-			g->_unplug(dev);
-		}
+	}
+	
+	void InputManager::registerIOSubSystem(IOSubSystem* dev)
+	{
+		mIOSubSystems.push_back(dev);
 	}
 
-	void InputManager::addGesture(Command * g)
+	void InputManager::unregisterIOSubSystem(IOSubSystem* dev)
 	{
-		mGestureList.push_back(g);
-	}
-
-	void InputManager::removeGesture(Command * g)
-	{
-		mGestureList.remove(g);
+		mIOSubSystems.remove(dev);
 	}
 
 	void InputManager::addListener(InputManagerListener* listener)
 	{
-		mListeners.push_back(listener);
+		mInputManagerListeners.push_back(listener);
 	}
 
 	void InputManager::removeListener(InputManagerListener* listener)
 	{
-		mListeners.remove(listener);
+		mInputManagerListeners.remove(listener);
 	}
 
 	/*XInputDevice* InputManager::getXInputDevice(Index slot)

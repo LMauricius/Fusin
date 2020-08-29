@@ -41,33 +41,30 @@ namespace Fusin
 }
 
 
-#define FUSIN_SIGNED_RANGE_BYTE(VAL) ((float)(VAL) / 255.0f * 2.0f - 1.0f)
+/*#define FUSIN_SIGNED_RANGE_BYTE(VAL) ((float)(VAL) / 255.0f * 2.0f - 1.0f)
 #define FUSIN_UNSIGNED_RANGE_BYTE(VAL) ((float)(VAL) / 255.0f)
 #define FUSIN_SIGNED_RANGE_2BYTE(VAL) ((float)(VAL) / 65535.0f * 2.0f - 1.0f)
 #define FUSIN_UNSIGNED_RANGE_2BYTE(VAL) ((float)(VAL) / 65535.0f)
 #define FUSIN_SIGNED_RANGE_12BIT(VAL) ((float)(VAL) / 4095.0f * 2.0f - 1.0f)
-#define FUSIN_UNSIGNED_RANGE_12BIT(VAL) ((float)(VAL) / 4095.0f)
-#define FUSIN_RANGE_BIT(VAL, BIT) (bool)(VAL & (1 << BIT))
+#define FUSIN_UNSIGNED_RANGE_12BIT(VAL) ((float)(VAL) / 4095.0f)*/
+/*#define FUSIN_RANGE_BIT(VAL, BIT) (bool)(VAL & (1 << BIT))
 //#define FUSIN_MASK1(START, END) ((~0ULL >> (sizeof(unsigned long long)-END))<<START)
 #define FUSIN_MASK1(START, END) (((1ULL << (END-START))-1)<<START)
 #define FUSIN_MASK0(START, END) (~FUSIN_MASK1(START, END))
-#define SET_FLAG(VAR, FLAGS, SET) VAR = (VAR & ~(FLAGS)) | (FLAGS) * (SET)
+#define SET_FLAG(VAR, FLAGS, SET) VAR = (VAR & ~(FLAGS)) | (FLAGS) * (SET)*/
 
 
 #ifdef _WIN32
 
-	#define _FUSIN_INPUT_SYSTEM1 RawInputSystem
-	#define _FUSIN_INPUT_SYSTEM1_HEADER "FusinRawInputSystem.h"
+	/*#define _FUSIN_INPUT_SYSTEM1 RawInputSystem
+	#define _FUSIN_INPUT_SYSTEM1_HEADER "FusinRawInputSystem.h"*/
 	/*#define _FUSIN_INPUT_SYSTEM3 XInputSystem
 	#define _FUSIN_INPUT_SYSTEM3_HEADER "FusinXInputSystem.h"*/
-
+/*
 	struct tagMSG;
 	typedef tagMSG MSG;
 	#define FUSIN_MESSAGE_TYPE MSG
-	#define FUSIN_WINDOW_PTR_TYPE HWND
-
-	// Windows headers lack this definition, but it *supposedly* works
-	#define RI_MOUSE_HWHEEL 0x0800
+	#define FUSIN_WINDOW_PTR_TYPE HWND*/
 
 #endif
 

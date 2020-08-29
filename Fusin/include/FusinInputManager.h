@@ -4,13 +4,15 @@
 #include "IOCodes/FusinIOCode.h"
 #include "Devices/FusinDeviceEnumerator.h"
 
+#ifdef _WIN32
+	#include <windows.h>
+#endif
+
 #include <list>
 #include <map>
 
 namespace Fusin
 {
-	class Command;
-	class InputCommand;
 	class IOSignal;
 	class Device;
 	class KeyboardDevice;
@@ -19,8 +21,7 @@ namespace Fusin
 	class DSDevice;
 	class XInputDevice;
 	class NintendoDevice;
-	class InputSystem;
-	typedef std::list<Command*> GesturePtrList;
+	class IOSubSystem;
 	class InputManagerListener;
 
 	class InputManager : public DeviceEnumerator
@@ -46,7 +47,7 @@ namespace Fusin
 		/*void treatDSControllersAsGamepads(bool enable);
 		bool treatingDSControllersAsGamepads();*/
 		/*
-		If not specified, the InputSystem will create its own hidden window and ioType will always
+		If not specified, the InputSystem will create its own hidden window and input will always
 		be received even if the window is not in focus.
 		If you use this, you will need to call handleMessage() in your own window message loop to _update RawInput.
 		Call this before initializing the InputManager.
@@ -76,23 +77,25 @@ namespace Fusin
 		Default is IO_ANY_DEVICE.
 		*/
 		void enableDevices(IOFlags t = IOF_ANY_DEVICE);
-		IOType getEnabledDevices();
+		IOFlags getEnabledDevices();
 
 		/*
-		Initializes all Input Systems with previously set properties.
+		Initializes all registered Input Systems and global devices with previously set properties.
+		If 'registerDefaultIOSubSystems' is set to true, it registers the recomended IOSubSystems
+		for the target system before initializing them.
 		*/
-		void initialize(const std::map<String, String>& config = std::map<String, String>());
+		void initialize(bool registerDefaultIOSubSystems, const std::map<String, String>& config = std::map<String, String>());
 
 		/*
 		Updates the ioType values of all Devices and Gestures.
 		*/
 		void update(TimeMS msElapsed = 0);
 
-#ifdef FUSIN_MESSAGE_TYPE
+#ifdef _WIN32
 		/*
 		Call this in the game window's message loop.
 		*/
-		void handleMessage(const FUSIN_MESSAGE_TYPE* msg);
+		virtual void handleMessage(const MSG* msg) = 0;
 #endif
 
 		/*
@@ -163,21 +166,20 @@ namespace Fusin
 
 		void registerDevice(Device* dev);
 		void unregisterDevice(Device* dev);
-		void addGesture(Command* g);
-		void removeGesture(Command* g);
+		void registerIOSubSystem(IOSubSystem* dev);
+		void unregisterIOSubSystem(IOSubSystem* dev);
 		void addListener(InputManagerListener* listener);
 		void removeListener(InputManagerListener* listener);
 
 	protected:
 		//bool mTreatXInputAsGamepads, mTreatDSAsGamepads, mReceiveInputOutsideFocus;
 		void *mWindowHandle;
-		IOType mEnabledTypes;
+		IOFlags mEnabledTypes;
 		bool mInitialized;
 		TimeMS mLastTime;
 
-		std::list<Command*> mGestureList;
-		std::list<InputSystem*> mInputSystems;
-		std::list<InputManagerListener*> mListeners;
+		std::list<IOSubSystem*> mIOSubSystems;
+		std::list<InputManagerListener*> mInputManagerListeners;
 	};
 
 	class InputManagerListener
@@ -187,7 +189,10 @@ namespace Fusin
 
 		virtual void deviceRegistered(InputManager* im, Device* d);
 		virtual void deviceUnregistered(InputManager* im, Device* d);
+
+		// Called before anything is updated
 		virtual void preUpdate(InputManager* im);
+		// Called after everything was updated
 		virtual void postUpdate(InputManager* im);
 	};
 

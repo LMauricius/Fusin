@@ -7,23 +7,24 @@ namespace Fusin
 {
 	class DeviceEnumerator;
 
-	class InputSystem
+	class IOSubSystem
 	{
 	public:
-		InputSystem(DeviceEnumerator* enumerator);
-		virtual ~InputSystem();
+		IOSubSystem();
+		virtual ~IOSubSystem();
+
+		virtual void initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window);
 
 		inline IOType getTypes() { return mTypes; }
 
 		virtual void updateDeviceList() = 0;
 		virtual void update() = 0;
 
-#ifdef FUSIN_MESSAGE_TYPE
-		virtual void handleMessage(const FUSIN_MESSAGE_TYPE* msg) = 0;
+#ifdef _WIN32
+		virtual void handleMessage(const MSG* msg) = 0;
 #endif
 
 	protected:
-
 		DeviceEnumerator* mDeviceEnumerator;
 		IOType mTypes;
 	};

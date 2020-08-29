@@ -342,12 +342,15 @@ namespace Fusin
 
 	void DeviceComponent::_coverDeviceComponent(DeviceComponent* component)
 	{
-		if (typeid(*this) != typeid(*component))
-			throw std::invalid_argument((std::stringstream() <<
-				"The component to be covered must be of the same type as the cover component, i.e " << typeid(*this).name()
-				).str());
-		else
+		if (typeid(*this) != typeid(*component)) {
+			std::stringstream ss;
+			ss << "The component to be covered must be of the same type as the cover component, i.e " << typeid(*this).name();
+			
+			throw std::invalid_argument(ss.str());
+		}
+		else {
 			mCoveredComponents.insert(component);
+		}
 	}
 
 	void DeviceComponent::_uncoverDeviceComponent(DeviceComponent* component)

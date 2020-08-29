@@ -8,7 +8,7 @@ file(
     "./src/*.cpp"
 )
 
-# Target
+# Target 
 add_library(Fusin ${SOURCES})
 set_target_properties(Fusin PROPERTIES OUTPUT_NAME "Fusin${OUTPUT_FILE_SUFFIX}")
 target_include_directories(Fusin PUBLIC "./include")
