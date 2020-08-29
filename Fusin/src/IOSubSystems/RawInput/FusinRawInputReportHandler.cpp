@@ -1,5 +1,5 @@
-#include "RawInput/FusinRawInputReportHandler.h"
-#include "FusinLog.h"
+#include "IOSubSystems/RawInput/FusinRawInputReportHandler.h"
+#include "Utilities/FusinLog.h"
 #include "FusinByteDebug.h"
 #include <algorithm>
 #include <iostream>

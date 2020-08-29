@@ -34,11 +34,11 @@
 
 		protected:
 			HWND mWindow;
-			bool mCreatedHiddenWindow;
+			bool mCreatedHiddenWindow;// If the hidden message window has been created
 			RAWINPUTDEVICE *mRIDevices;
 
-			std::map<HANDLE, RawInputDeviceHandler*> mHandleMap;
-			std::map<HANDLE, int> mHandleMessageCounter;
+			std::map<HANDLE, RawInputDeviceHandler*> mHandlerPerHandle;
+			std::map<HANDLE, int> mMessageCounterPerHandle;
 
 			bool mReceiveInputOutsideFocus, mSupportXInput, mSupportDS, mSupportNintendo;
 			int mMaxGamepadMessages;
@@ -46,7 +46,7 @@
 
 	}
 
-	// Windows headers lack this definition, but it *supposedly* works
+	// Windows headers lack this definition for horizontal scroll, but it *supposedly* works
 	#define RI_MOUSE_HWHEEL 0x0800
 
 #endif // FUSIN_BUILD_RAW_INPUT

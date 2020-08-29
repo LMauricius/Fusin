@@ -1,7 +1,7 @@
-#include "RawInput/FusinRawInputDS3Handler.h"
+#include "IOSubSystems/RawInput/FusinRawInputDS3Handler.h"
 #include "FusinDSDevice.h"
 #include "FusinDS.h"
-#include "FusinLog.h"
+#include "Utilities/FusinLog.h"
 #include "FusinByteDebug.h"
 #include <algorithm>
 

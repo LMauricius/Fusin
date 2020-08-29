@@ -1,7 +1,7 @@
-#include "RawInput/FusinRawInputJoyConHandler.h"
+#include "IOSubSystems/RawInput/FusinRawInputJoyConHandler.h"
 #include "FusinNintendoDevice.h"
 #include "FusinNintendo.h"
-#include "FusinLog.h"
+#include "Utilities/FusinLog.h"
 #include "FusinByteDebug.h"
 #include <algorithm>
 #include <math.h>

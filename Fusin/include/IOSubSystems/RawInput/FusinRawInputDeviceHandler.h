@@ -2,7 +2,7 @@
 #define _FUSIN_RAW_INPUT_DEVICE_HANDLER_H
 
 #include "FusinPrerequisites.h"
-#include "FusinDevice.h"
+#include "Devices/FusinDevice.h"
 #define NOMINMAX
 #include <Windows.h>
 extern "C"

@@ -145,10 +145,6 @@ namespace Fusin
 
 	const unsigned int NINTENDO_BUTTON_NUMBER = 16;
 	const unsigned int NINTENDO_AXIS_NUMBER = 11;
-	const unsigned long NINTENDO_VENDOR_ID = 0x057E;
-	const std::vector<unsigned long> JOYCON_PRODUCT_IDS{
-		0x2006, 0x2007
-	};
 }
 
 #endif

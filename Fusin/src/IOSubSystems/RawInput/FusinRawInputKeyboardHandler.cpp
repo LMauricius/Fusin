@@ -1,6 +1,6 @@
-#include "RawInput/FusinRawInputKeyboardHandler.h"
+#include "IOSubSystems/RawInput/FusinRawInputKeyboardHandler.h"
 #include "FusinKeyboardDevice.h"
-#include "FusinLog.h"
+#include "Utilities/FusinLog.h"
 extern "C"
 {
 #include "hidsdi.h"

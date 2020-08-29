@@ -17,7 +17,7 @@ namespace Fusin
 		If set to nullptr (default) the position simply won't be stored.
 	@return true if the value was found, false otherwise
 	*/
-	template <class T, class V, class It>
+	template <class T, class V, class It=T::iterator>
 	bool quickFind(const T& iterable, const V val, It* storePosition = nullptr)
 	{
 		auto it = std::find(iterable::begin(), iterable::end(), val);
@@ -33,7 +33,7 @@ namespace Fusin
 	/*
 	Same as quickFind(), except it stores the found value's position as an index (offset from the beginning)
 	*/
-	template <class T, class V, class Ind>
+	template <class T, class V, class Ind=size_t>
 	bool quickFindIndex(const T& iterable, const V val, Ind* storeIndex = nullptr)
 	{
 		auto it = std::find(iterable::begin(), iterable::end(), val);

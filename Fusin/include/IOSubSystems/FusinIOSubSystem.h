@@ -10,7 +10,7 @@ namespace Fusin
 	class IOSubSystem
 	{
 	public:
-		IOSubSystem();
+		IOSubSystem(IOType type);
 		virtual ~IOSubSystem();
 
 		virtual void initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window);

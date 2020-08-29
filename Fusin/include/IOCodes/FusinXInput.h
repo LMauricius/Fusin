@@ -71,9 +71,6 @@ namespace Fusin
 
 	const unsigned int XINPUT_BUTTON_NUMBER = 11;
 	const unsigned int XINPUT_AXIS_NUMBER = 7;
-	const unsigned long XINPUT_VENDOR_ID = 0x045E;
-	const  std::vector<unsigned long> XINPUT_PRODUCT_IDS{ 0x028E };
-	const unsigned int XINPUT_PRODUCT_ID_COUNT = 1;
 
 }
 

@@ -1,31 +1,34 @@
-#include "FusinInputSystem.h"
+#include "IOSubSystems/FusinIOSubSystem.h"
 
 namespace Fusin
 {
 
-	InputSystem::InputSystem(DeviceEnumerator * enumerator)
-		: mDeviceEnumerator(enumerator)
+	IOSubSystem::IOSubSystem(IOType type)
+		: mTypes(type)
 	{
 	}
 
-	InputSystem::~InputSystem()
-	{
-
-	}
-
-	void InputSystem::updateDeviceList()
-	{
-	}
-
-	void InputSystem::update()
+	IOSubSystem::~IOSubSystem()
 	{
 
 	}
 
-#ifdef FUSIN_MESSAGE_TYPE
-	void InputSystem::handleMessage(const FUSIN_MESSAGE_TYPE* msg)
+	void IOSubSystem::updateDeviceList()
 	{
+	}
 
+	void IOSubSystem::initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window)
+	{
+		mDeviceEnumerator = de;
+	}
+
+	void IOSubSystem::update()
+	{
+	}
+
+#ifdef _WIN32
+	void IOSubSystem::handleMessage(const MSG* msg)
+	{
 	}
 #endif
 

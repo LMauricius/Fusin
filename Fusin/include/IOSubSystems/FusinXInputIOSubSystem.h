@@ -1,7 +1,7 @@
 #ifndef _FUSIN_XINPUT_SYSTEM_H
 #define _FUSIN_XINPUT_SYSTEM_H
 
-#include "FusinInputSystem.h"
+#include "IOSubSystems/FusinIOSubSystem.h"
 #include "FusinPrerequisites.h"
 #include <map>
 #include <vector>
@@ -13,7 +13,7 @@ namespace Fusin
 	class Device;
 	class XInputDevice;
 
-	class XInputSystem : public InputSystem
+	class XInputSystem : public IOSubSystem
 	{
 	public:
 		XInputSystem();

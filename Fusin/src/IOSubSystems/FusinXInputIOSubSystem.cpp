@@ -4,7 +4,7 @@
 #include "FusinXInputDevice.h"
 #include <Windows.h>
 #include <XInput.h>
-#include "FusinLog.h"
+#include "Utilities/FusinLog.h"
 
 namespace Fusin
 {

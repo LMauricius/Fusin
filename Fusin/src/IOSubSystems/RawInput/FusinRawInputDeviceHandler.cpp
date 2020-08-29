@@ -1,5 +1,5 @@
-#include "RawInput/FusinRawInputDeviceHandler.h"
-#include "FusinLog.h"
+#include "IOSubSystems/RawInput/FusinRawInputDeviceHandler.h"
+#include "Utilities/FusinLog.h"
 
 namespace Fusin
 {

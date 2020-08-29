@@ -138,13 +138,6 @@ namespace Fusin
 
 	const unsigned int DS_BUTTON_NUMBER = 22;
 	const unsigned int DS_AXIS_NUMBER = 22;
-	const unsigned long DS_VENDOR_ID = 0x054C;
-	const std::vector<unsigned long> DS3_PRODUCT_IDS = {
-		0x0268
-	};
-	const std::vector<unsigned long> DS4_PRODUCT_IDS = {
-		0xBA0, 0x5C4, 0x09CC
-	};
 
 }
 

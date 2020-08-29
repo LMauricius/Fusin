@@ -1,7 +1,7 @@
-#include "RawInput/FusinRawInputMouseHandler.h"
+#include "IOSubSystems/RawInput/FusinRawInputMouseHandler.h"
 #include "FusinMouseDevice.h"
 #include "FusinMouse.h"
-#include "FusinLog.h"
+#include "Utilities/FusinLog.h"
 extern "C"
 {
 #include "hidsdi.h"

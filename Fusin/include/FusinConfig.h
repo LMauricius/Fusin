@@ -18,6 +18,7 @@
 
 	#ifdef _WIN32
 		#define FUSIN_BUILD_RAW_INPUT
+		#define FUSIN_BUILD_XINPUT
 	#endif
 
 #endif
