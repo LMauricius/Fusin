@@ -21,7 +21,7 @@ namespace Fusin
 	class DSDevice;
 	class XInputDevice;
 	class NintendoDevice;
-	class IOSubSystem;
+	class IOSystem;
 	class InputManagerListener;
 
 	class InputManager : public DeviceEnumerator
@@ -81,10 +81,10 @@ namespace Fusin
 
 		/*
 		Initializes all registered Input Systems and global devices with previously set properties.
-		If 'registerDefaultIOSubSystems' is set to true, it registers the recomended IOSubSystems
+		If 'registerDefaultIOSystems' is set to true, it registers the recomended IOSystems
 		for the target system before initializing them.
 		*/
-		void initialize(bool registerDefaultIOSubSystems, const std::map<String, String>& config = std::map<String, String>());
+		void initialize(bool registerDefaultIOSystems, const std::map<String, String>& config = std::map<String, String>());
 
 		/*
 		Updates the ioType values of all Devices and Gestures.
@@ -166,8 +166,8 @@ namespace Fusin
 
 		void registerDevice(Device* dev);
 		void unregisterDevice(Device* dev);
-		void registerIOSubSystem(IOSubSystem* dev);
-		void unregisterIOSubSystem(IOSubSystem* dev);
+		void registerIOSystem(IOSystem* dev);
+		void unregisterIOSystem(IOSystem* dev);
 		void addListener(InputManagerListener* listener);
 		void removeListener(InputManagerListener* listener);
 
@@ -178,7 +178,7 @@ namespace Fusin
 		bool mInitialized;
 		TimeMS mLastTime;
 
-		std::list<IOSubSystem*> mIOSubSystems;
+		std::list<IOSystem*> mIOSystems;
 		std::list<InputManagerListener*> mInputManagerListeners;
 	};
 

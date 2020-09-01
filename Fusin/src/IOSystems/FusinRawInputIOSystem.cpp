@@ -1,4 +1,4 @@
-#include "IOSubSystems/FusinRawInputIOSubSystem.h"
+#include "IOSystems/FusinRawInputIOSystem.h"
 
 #ifdef FUSIN_BUILD_RAW_INPUT
 
@@ -11,12 +11,12 @@
 #include "IOCodes/FusinXInput.h"
 #include "IOCodes/FusinNintendo.h"
 
-#include "IOSubSystems/RawInput/FusinRawInputKeyboardHandler.h"
-#include "IOSubSystems/RawInput/FusinRawInputMouseHandler.h"
-#include "IOSubSystems/RawInput/FusinRawInputGamepadHandler.h"
-#include "IOSubSystems/RawInput/FusinRawInputDS3Handler.h"
-#include "IOSubSystems/RawInput/FusinRawInputDS4Handler.h"
-#include "IOSubSystems/RawInput/FusinRawInputJoyConHandler.h"
+#include "IOSystems/RawInput/FusinRawInputKeyboardHandler.h"
+#include "IOSystems/RawInput/FusinRawInputMouseHandler.h"
+#include "IOSystems/RawInput/FusinRawInputGamepadHandler.h"
+#include "IOSystems/RawInput/FusinRawInputDS3Handler.h"
+#include "IOSystems/RawInput/FusinRawInputDS4Handler.h"
+#include "IOSystems/RawInput/FusinRawInputJoyConHandler.h"
 
 #include "Utilities/FusinAlgorithm.h"
 #include "Utilities/FusinConfigMap.h"
@@ -31,14 +31,14 @@ namespace Fusin
 {
 	#define SET_CFG(VAR, KEY, DEFAULT) VAR = getCfgValue(config, FUSIN_STR(KEY), DEFAULT)
 
-	RawInputIOSubSystem::RawInputIOSubSystem():
-		IOSubSystem(IO_ANY)
+	RawInputIOSystem::RawInputIOSystem():
+		IOSystem(IO_ANY)
 	{
 	}
 
-	void RawInputIOSubSystem::initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window)
+	void RawInputIOSystem::initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window)
 	{
-		IOSubSystem::initialize(de, config, window);
+		IOSystem::initialize(de, config, window);
 		mWindow = ((HWND)window);
 
 		// Set config
@@ -95,7 +95,7 @@ namespace Fusin
 
 	}
 
-	RawInputIOSubSystem::~RawInputIOSubSystem()
+	RawInputIOSystem::~RawInputIOSystem()
 	{
 		if (mCreatedHiddenWindow)
 		{
@@ -115,7 +115,7 @@ namespace Fusin
 		}
 	}
 
-	void RawInputIOSubSystem::updateDeviceList()
+	void RawInputIOSystem::updateDeviceList()
 	{
 		PRAWINPUTDEVICELIST pRIDList;
 		UINT deviceCount = 0;
@@ -256,7 +256,7 @@ namespace Fusin
 
 	}
 
-	void RawInputIOSubSystem::update()
+	void RawInputIOSystem::update()
 	{
 		MSG msg = { 0 };
 
@@ -281,7 +281,7 @@ namespace Fusin
 		}
 	}
 
-	void RawInputIOSubSystem::handleMessage(const MSG* msg)
+	void RawInputIOSystem::handleMessage(const MSG* msg)
 	{
 		UINT message = msg->message;
 		WPARAM wParam = msg->wParam;

@@ -1,4 +1,4 @@
-#include "IOSubSystems/RawInput/FusinRawInputJoyConHandler.h"
+#include "IOSystems/RawInput/FusinRawInputJoyConHandler.h"
 #include "FusinNintendoDevice.h"
 #include "FusinNintendo.h"
 #include "Utilities/FusinLog.h"

@@ -99,9 +99,9 @@ namespace Fusin
 		void deviceRegistered(DeviceEnumerator* de, Device* d);
 		// Replugged
 		void deviceUnregistered(DeviceEnumerator* de, Device* d);
-		// Called before the IOSubSystems are updated, OutputCommands are updated here
+		// Called before the IOSystems are updated, OutputCommands are updated here
 		void preUpdate();
-		// Called after the IOSubSystems are updated, InputCommands are updated here
+		// Called after the IOSystems are updated, InputCommands are updated here
 		void postUpdate();
 
 	};

@@ -3,15 +3,19 @@
 
 #include "IOCodes/FusinIOCode.h"
 
+#ifdef _WIN32
+	#include <Windows.h>
+#endif
+
 namespace Fusin
 {
 	class DeviceEnumerator;
 
-	class IOSubSystem
+	class IOSystem
 	{
 	public:
-		IOSubSystem(IOType type);
-		virtual ~IOSubSystem();
+		IOSystem(IOType type);
+		virtual ~IOSystem();
 
 		virtual void initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window);
 

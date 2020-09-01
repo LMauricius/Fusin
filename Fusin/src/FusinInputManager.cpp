@@ -1,6 +1,6 @@
 #include "FusinInputManager.h"
 
-#include "IOSubSystems/FusinIOSubSystem.h"
+#include "IOSystems/FusinIOSystem.h"
 
 #include "Devices/FusinDevice.h"
 #include "Devices/FusinKeyboardDevice.h"
@@ -12,7 +12,7 @@
 #include "Devices/FusinNintendoDevice.h"
 
 // These won't always be built, only if needed macros are defined
-#include "IOSubSystems/FusinRawInputSubSystem.h"
+#include "IOSystems/FusinRawInputSubSystem.h"
 
 #include <stdexcept>
 #include <ctime>
@@ -34,26 +34,26 @@ namespace Fusin
 
 	InputManager::~InputManager()
 	{
-		for (auto it = mIOSubSystems.begin(); it != mIOSubSystems.end(); it++)
+		for (auto it = mIOSystems.begin(); it != mIOSystems.end(); it++)
 		{
 			delete (*it);
 		}
 	}
 
-	void InputManager::initialize(bool registerDefaultIOSubSystems, const std::map<String, String>& config)
+	void InputManager::initialize(bool registerDefaultIOSystems, const std::map<String, String>& config)
 	{
 		// Default input Systems
-		if (registerDefaultIOSubSystems)
+		if (registerDefaultIOSystems)
 		{
 			#ifdef _WIN32
-				mIOSubSystems.push_back(new RawInputIOSubSystem());
+				mIOSystems.push_back(new RawInputIOSystem());
 			#else
 
 			#endif
 		}
 
 		// Init IO systems
-		for (IOSubSystem* ioSys : mIOSubSystems) {
+		for (IOSystem* ioSys : mIOSystems) {
 			ioSys->initialize(this, config, mWindowHandle);
 		}
 
@@ -103,7 +103,7 @@ namespace Fusin
 		FOR_LISTENERS(preUpdate(this));
 
 		// Update io systems
-		for (auto& it : mIOSubSystems)
+		for (auto& it : mIOSystems)
 		{
 			if (it->getTypes() & mEnabledTypes)
 			{
@@ -130,7 +130,7 @@ namespace Fusin
 #ifdef _WIN32
 	void InputManager::handleMessage(const MSG* msg)
 	{
-		for (auto& it : mIOSubSystems)
+		for (auto& it : mIOSystems)
 		{
 			if (it->getTypes() & mEnabledTypes)
 				it->handleMessage(msg);
@@ -262,14 +262,14 @@ namespace Fusin
 		FOR_LISTENERS(deviceUnregistered(this, dev));
 	}
 	
-	void InputManager::registerIOSubSystem(IOSubSystem* dev)
+	void InputManager::registerIOSystem(IOSystem* dev)
 	{
-		mIOSubSystems.push_back(dev);
+		mIOSystems.push_back(dev);
 	}
 
-	void InputManager::unregisterIOSubSystem(IOSubSystem* dev)
+	void InputManager::unregisterIOSystem(IOSystem* dev)
 	{
-		mIOSubSystems.remove(dev);
+		mIOSystems.remove(dev);
 	}
 
 	void InputManager::addListener(InputManagerListener* listener)

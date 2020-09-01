@@ -1,7 +1,7 @@
 #ifndef _FUSIN_RAW_INPUT_SYSTEM_H
 #define _FUSIN_RAW_INPUT_SYSTEM_H
 
-#include "FusinIOSubSystem.h"
+#include "FusinIOSystem.h"
 #include "FusinPrerequisites.h"
 
 #ifdef FUSIN_BUILD_RAW_INPUT
@@ -20,11 +20,11 @@
 		class GamepadDevice;
 		class DSDevice;
 
-		class RawInputIOSubSystem : public IOSubSystem
+		class RawInputIOSystem : public IOSystem
 		{
 		public:
-			RawInputIOSubSystem();
-			~RawInputIOSubSystem();
+			RawInputIOSystem();
+			~RawInputIOSystem();
 
 			void initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window);
 
