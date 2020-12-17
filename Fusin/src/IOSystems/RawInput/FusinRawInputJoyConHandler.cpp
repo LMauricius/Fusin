@@ -16,8 +16,8 @@ namespace Fusin
 		if (!mSuccess) return;
 
 		//jcDevice->_setConnectionMode(mInputReportLength == 64 ? ConnectionMode::USB : ConnectionMode::BT);
-		mDevice->_setName(mProductName);
-		((NintendoDevice*)mDevice)->_setJoyConSide(rightSide ? JC_RIGHT : JC_LEFT);
+		mFusinDevice->_setName(mProductName);
+		((NintendoDevice*)mFusinDevice)->_setJoyConSide(rightSide ? JC_RIGHT : JC_LEFT);
 
 		PBYTE pReport = new BYTE[mOutputReportLength];
 
@@ -32,7 +32,7 @@ namespace Fusin
 
 	void RawInputJoyConHandler::handleInputReport(PBYTE pReport)
 	{
-		NintendoDevice& jcD = *static_cast<NintendoDevice*>(mDevice);
+		NintendoDevice& jcD = *static_cast<NintendoDevice*>(mFusinDevice);
 		PBYTE inputReport = nullptr;
 		PBYTE extraReport = nullptr;
 		PSHORT accelReport = nullptr;
@@ -208,7 +208,7 @@ namespace Fusin
 
 	void RawInputJoyConHandler::handleOutputReport(PBYTE pReport)
 	{
-		NintendoDevice& jcD = *static_cast<NintendoDevice*>(mDevice);
+		NintendoDevice& jcD = *static_cast<NintendoDevice*>(mFusinDevice);
 		DWORD bytesWritten;
 		pReport[0] = 0x01;
 

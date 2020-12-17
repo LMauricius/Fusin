@@ -14,12 +14,11 @@ namespace Fusin
 
 	class RawInputGamepadHandler : public RawInputReportHandler
 	{
-		friend RawInputSystem;
-
 	public:
 		RawInputGamepadHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);
 		~RawInputGamepadHandler();
 
+		bool initialize();
 		void handleInputReport(PBYTE pReport);
 		void handleOutputReport(PBYTE pReport);
 

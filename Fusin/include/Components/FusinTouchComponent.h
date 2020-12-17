@@ -11,6 +11,13 @@ namespace Fusin
 {
 	class TouchComponentListener;
 
+	/*
+	Component for devices with multi-touch input.
+	Each separate touch has its own index, with indices starting at 0 and
+	continuing until the value of touchCount()-1.
+	Each touch has IOSignals for the pressure (0 when not touching),
+	position and movement of the touch point on the device.
+	*/
 	class TouchComponent : public DeviceComponent
 	{
 	public:
@@ -19,6 +26,8 @@ namespace Fusin
 
 		DeviceType deviceType() const;
 		IOFlags flags() const;
+
+		size_t touchCount() const { return mTouches.size(); }
 
 		String getStateString();
 
@@ -29,6 +38,7 @@ namespace Fusin
 			IOSignal moveLeft, moveRight, moveUp, moveDown;
 			TouchSignals(DeviceType signalType, Index ind);
 		};
+		// Returns the TouchSignals structure corresponding to the index
 		TouchSignals& operator[](Index ind);
 
 		void _update(size_t msElapsed = 0);

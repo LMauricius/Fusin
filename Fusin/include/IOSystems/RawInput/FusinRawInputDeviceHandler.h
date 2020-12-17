@@ -4,7 +4,7 @@
 #include "FusinPrerequisites.h"
 #include "Devices/FusinDevice.h"
 #define NOMINMAX
-#include <Windows.h>
+#include <windows.h>
 extern "C"
 {
 #include "hidsdi.h"
@@ -19,18 +19,20 @@ namespace Fusin
 		//friend RawInputSystem;
 
 	public:
-		RawInputDeviceHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, Device* device);
+		RawInputDeviceHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);
 		virtual ~RawInputDeviceHandler() = 0;
+
+		// Returns whether successful
+		virtual bool initialize();
+
 		virtual void handleRawInput(PRAWINPUT pRawInput);
 		virtual void update();
 
-		inline bool isSuccessful() { return mSuccess; }
-		inline Device* device() { return mDevice; }
+		inline Device* fusinDevice() { return mFusinDevice; }
 		inline HANDLE riDevice() { return mRIDeviceHandle; }
 		inline HANDLE hidDevice() { return mHidDeviceHandle; }
 
 	protected:
-		bool mSuccess;
 		HANDLE mRIDeviceHandle;
 		HANDLE mHidDeviceHandle;
 		PRID_DEVICE_INFO mpDeviceInfo;
@@ -38,7 +40,7 @@ namespace Fusin
 		HIDP_CAPS mCaps;
 		USHORT mInputReportLength, mOutputReportLength;
 
-		Device *mDevice;
+		Device *mFusinDevice;
 		String mProductName;
 	};
 

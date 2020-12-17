@@ -13,8 +13,8 @@ namespace Fusin
 	{
 		if (!mSuccess) return;
 
-		mDevice->_setConnectionMode(mInputReportLength == 64 ? CM_USB : CM_BT);
-		mDevice->_setName(mProductName);
+		mFusinDevice->_setConnectionMode(mInputReportLength == 64 ? CM_USB : CM_BT);
+		mFusinDevice->_setName(mProductName);
 
 		Log::singleton() << "DS3 Device found: " << mProductName << "\n";
 	}
@@ -29,7 +29,7 @@ namespace Fusin
 		/*
 		Big thanks to sicksaxis library
 		*/
-		DSDevice& dsD = *static_cast<DSDevice*>(mDevice);
+		DSDevice& dsD = *static_cast<DSDevice*>(mFusinDevice);
 		PBYTE inputReport = nullptr;
 		PBYTE extraReport = nullptr;
 		PSHORT accelReport = nullptr;
@@ -102,7 +102,7 @@ namespace Fusin
 		/*
 		Big thanks to sicksaxis library
 		*/
-		DSDevice& dsD = *static_cast<DSDevice*>(mDevice);
+		DSDevice& dsD = *static_cast<DSDevice*>(mFusinDevice);
 
 		pReport[0] = 0x52;
 		pReport[1] = 0xff * (bool)dsD.getRightVibration();

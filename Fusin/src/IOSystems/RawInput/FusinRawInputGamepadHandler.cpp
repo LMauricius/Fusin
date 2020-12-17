@@ -10,7 +10,7 @@ namespace Fusin
 {
 
 	RawInputGamepadHandler::RawInputGamepadHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo)
-		// we don't set the device for now as we will create the GamepadDevice only after loading all the info
+		// we don't set the fusinDevice for now as we will create the GamepadDevice only after loading all the info
 		: RawInputReportHandler(riDeviceHandle, riDeviceInfo, true)
 	{
 		if (!mSuccess) return;
@@ -84,7 +84,7 @@ namespace Fusin
 		bool hasVibration = false;
 
 		// Now that we found all the info create the Device object
-		mDevice = new GamepadDevice(mButtonNum, mAxisNum, hasDPad, hasVibration, mProductName);
+		mFusinDevice = new GamepadDevice(mButtonNum, mAxisNum, hasDPad, hasVibration, mProductName);
 
 		Log::singleton() << "Gamepad Device found: " << mProductName <<
 			"\n    Button num: " << mButtonNum << 
@@ -101,7 +101,7 @@ namespace Fusin
 
 	void RawInputGamepadHandler::handleInputReport(PBYTE pReport)
 	{
-		GamepadDevice& gpDevice = *static_cast<GamepadDevice*>(mDevice);
+		GamepadDevice& gpDevice = *static_cast<GamepadDevice*>(mFusinDevice);
 		const unsigned int maxButtons = 128;
 		USAGE usage[maxButtons];
 		ULONG usageLength, value;

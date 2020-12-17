@@ -23,6 +23,8 @@ namespace Fusin
 	const IOCode MOUSE_WHEEL_DOWN = MOUSE_WHEEL.negativeVersion();
 	const IOCode MOUSE_WHEEL_LEFT = MOUSE_HORIZONTAL_WHEEL.negativeVersion();
 	const IOCode MOUSE_WHEEL_RIGHT = MOUSE_HORIZONTAL_WHEEL.positiveVersion();
+	const IOCode MOUSE_POSITION_X = IOCode(DT_MOUSE, IO_POSITION, 0);
+	const IOCode MOUSE_POSITION_Y = IOCode(DT_MOUSE, IO_POSITION, 1);
 	const IOCode MOUSE_MOVE_X = IOCode(DT_MOUSE, IO_MOVEMENT, 0);
 	const IOCode MOUSE_MOVE_Y = IOCode(DT_MOUSE, IO_MOVEMENT, 1);
 	const IOCode MOUSE_MOVE_LEFT = MOUSE_MOVE_X.negativeVersion();

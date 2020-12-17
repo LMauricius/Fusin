@@ -20,6 +20,9 @@ namespace Fusin
 		MTM_GYRO_ACCEL// Only gyro and acceleration axes can be manually controlled. Other axes will be calculated depending on these two.
 	};
 
+	/*
+	Component for devices with motion controls.
+	*/
 	class MotionTrackerComponent : public DeviceComponent
 	{
 	public:

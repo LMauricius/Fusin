@@ -17,6 +17,10 @@ namespace Fusin
 	const BatteryLevel BAT_MEDIUM = 50.0f;
 	const BatteryLevel BAT_FULL = 100.0f;
 
+	/*
+	Component for devices with a battery.
+	Used for reading the amount of energy left and if the device is charging.
+	*/
 	class BatteryComponent : public DeviceComponent
 	{
 	public:

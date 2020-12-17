@@ -20,8 +20,6 @@ namespace Fusin
 
 	class Device
 	{
-		friend InputManager;
-
 	public:
 		/*
 		@param name The name of this device

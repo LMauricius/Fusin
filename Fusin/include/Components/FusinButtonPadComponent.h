@@ -8,6 +8,11 @@
 
 namespace Fusin
 {
+	/*
+	Component for devices with normal buttons.
+	Each button has its own index, with indices starting at 0 and
+	continuing until the value of buttonCount()-1.
+	*/
 	class ButtonPadComponent : public DeviceComponent
 	{
 	public:
@@ -17,13 +22,16 @@ namespace Fusin
 		DeviceType deviceType() const;
 		IOFlags flags() const;
 
-		size_t buttonNumber() const { return mButtons.size(); }
+		size_t buttonCount() const { return mButtons.size(); }
 
 		/*
-		Returns the string with all axis values and indices of buttons that are currently held
+		Returns the string with indices of buttons that are currently held
 		*/
 		String getStateString();
 
+		/*
+		Returns the IOSignal of the button with the specified index
+		*/
 		IOSignal& operator[](Index ind);
 
 		void _setButtonCount(size_t buttonNum);

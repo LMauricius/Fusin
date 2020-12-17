@@ -13,8 +13,8 @@ namespace Fusin
 	{
 		if (!mSuccess) return;
 
-		mDevice->_setConnectionMode(mInputReportLength == 64 ? CM_USB : CM_BT);
-		mDevice->_setName(mProductName);
+		mFusinDevice->_setConnectionMode(mInputReportLength == 64 ? CM_USB : CM_BT);
+		mFusinDevice->_setName(mProductName);
 
 		Log::singleton() << "DS4 Device found: " << mProductName << "\n";
 	}
@@ -26,7 +26,7 @@ namespace Fusin
 
 	void RawInputDS4Handler::handleInputReport(PBYTE pReport)
 	{
-		DSDevice& dsD = *static_cast<DSDevice*>(mDevice);
+		DSDevice& dsD = *static_cast<DSDevice*>(mFusinDevice);
 		PBYTE inputReport = nullptr;
 		PBYTE extraReport = nullptr;
 		PSHORT accelReport = nullptr;
@@ -137,7 +137,7 @@ namespace Fusin
 
 	void RawInputDS4Handler::handleOutputReport(PBYTE pReport)
 	{
-		DSDevice& dsD = *static_cast<DSDevice*>(mDevice);
+		DSDevice& dsD = *static_cast<DSDevice*>(mFusinDevice);
 
 		if (dsD.connectionMode() == CM_BT)
 		{

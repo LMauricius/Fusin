@@ -8,6 +8,12 @@
 
 namespace Fusin
 {
+	/*
+	Component for devices with one of more analog sticks,
+	with one or more axes.
+	Each axis has its own index, with indices starting at 0 and
+	continuing until the value of axisCount()-1.
+	*/
 	class JoystickComponent : public DeviceComponent
 	{
 	public:
@@ -17,13 +23,14 @@ namespace Fusin
 		DeviceType deviceType() const;
 		IOFlags flags() const;
 
-		size_t axisNumber() const { return mAxes.size(); }
+		size_t axisCount() const { return mAxes.size(); }
 
 		/*
-		Returns the string with all axis values and indices of buttons that are currently held
+		Returns the string with all axis values
 		*/
 		String getStateString();
 
+		// Returns the IOSignal of the axis with the specified index
 		IOSignal& operator[](Index ind);
 
 		void _setAxisCount(size_t axisNum);

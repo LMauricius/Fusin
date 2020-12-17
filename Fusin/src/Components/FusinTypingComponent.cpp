@@ -38,15 +38,18 @@ namespace Fusin
 		mKeyNum = keyNum;
 		mFunctionKeyNum = functionKeyNum;
 	}
-
-	IOSignal& TypingComponent::getKey(Char c)
+	
+	IOSignal& TypingComponent::operator[](Char c)
 	{
 		auto it = mKeySignals.find(c);
 		if (it != mKeySignals.end()) {
 			return *it->second;
 		}
 		else {
-			auto p = mKeySignals.insert(std::make_pair(c, new IOSignal(AnyKey(c).withDeviceType(mSignalDeviceType)))).first;
+			auto p = mKeySignals.insert(std::make_pair(
+				c,
+				new IOSignal(AnyKey(c).withDeviceType(mSignalDeviceType))
+			)).first;
 			return *p->second;
 		}
 	}
@@ -58,7 +61,10 @@ namespace Fusin
 			return *it->second;
 		}
 		else {
-			auto p = mTypedKeySignals.insert(std::make_pair(c, new IOSignal(AnyKeyTyped(c).withDeviceType(mSignalDeviceType)))).first;
+			auto p = mTypedKeySignals.insert(std::make_pair(
+				c,
+				new IOSignal(AnyKeyTyped(c).withDeviceType(mSignalDeviceType))
+			)).first;
 			return *p->second;
 		}
 	}

@@ -12,8 +12,6 @@ namespace Fusin
 
 	class TypingComponent : public DeviceComponent
 	{
-		friend InputManager;
-
 	public:
 		TypingComponent(DeviceType signalType, size_t keyNum, size_t funcKeyNum);
 		~TypingComponent();
@@ -25,7 +23,10 @@ namespace Fusin
 		inline size_t keyNumber() { return mKeyNum; }
 		inline size_t functionKeyNumber() { return mFunctionKeyNum; }
 
-		IOSignal& getKey(Char c);
+		// Returns the IOSignal of the key corresponding to the specified character
+		IOSignal& operator[](Char c);
+
+		// Returns the IOSignal of the key type event corresponding to the specified character
 		IOSignal& getTypedKey(Char c);
 
 		/*

@@ -14,12 +14,11 @@ namespace Fusin
 
 	class RawInputDS4Handler : public RawInputReportHandler
 	{
-		friend RawInputSystem;
-
 	public:
 		RawInputDS4Handler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);
 		~RawInputDS4Handler();
 
+		bool initialize();
 		void handleInputReport(PBYTE pReport);
 		void handleOutputReport(PBYTE pReport);
 	};

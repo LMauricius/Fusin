@@ -15,6 +15,8 @@ namespace Fusin
 	public:
 		RawInputKeyboardHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);
 		~RawInputKeyboardHandler();
+		
+		bool initialize();
 		void update();
 		void handleRawInput(PRAWINPUT pRawInput);
 	};

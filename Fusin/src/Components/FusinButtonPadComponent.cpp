@@ -1,5 +1,6 @@
 #include "Components/FusinButtonPadComponent.h"
 #include "Utilities/FusinInputSignalManipulation.h"
+#include "Utilities/FusinStringBuilder.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>
@@ -46,7 +47,7 @@ namespace Fusin
 
 	IOSignal& ButtonPadComponent::operator[](Index ind)
 	{
-		if (ind >= mButtons.size()) throw std::out_of_range((std::stringstream() <<
+		if (ind >= mButtons.size()) throw std::out_of_range((StringBuilder() <<
 			"Axis index out of range. Trying to acces button " << ind <<
 			" but this device only has " << mButtons.size() << " buttons.").str());
 		return *mButtons[ind];

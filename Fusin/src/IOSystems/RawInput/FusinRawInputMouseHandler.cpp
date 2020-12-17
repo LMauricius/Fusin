@@ -10,94 +10,106 @@ extern "C"
 namespace Fusin
 {
 
-	RawInputMouseHandler::RawInputMouseHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo)
-		: RawInputDeviceHandler(riDeviceHandle, riDeviceInfo, new MouseDevice())
+	RawInputMouseHandler::RawInputMouseHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo): 
+		RawInputDeviceHandler(riDeviceHandle, riDeviceInfo)
 	{
-		if (!mSuccess) return;
-
-		mDevice->_setName(mProductName);
-		((MouseDevice*)mDevice)->_setProperties(mpDeviceInfo->mouse.dwNumberOfButtons, mpDeviceInfo->mouse.fHasHorizontalWheel);
-
-		Log::singleton() << "Mouse Device found:" << mProductName <<
-			"\n    button number: " << mpDeviceInfo->mouse.dwNumberOfButtons <<
-			"\n    has horizontal wheel: " << mpDeviceInfo->mouse.fHasHorizontalWheel << "\n";
 	}
 
 	RawInputMouseHandler::~RawInputMouseHandler()
 	{
 
 	}
+	
+	bool RawInputKeyboardHandler::initialize()
+	{
+		if (!RawInputDeviceHandler::initialize()) return false;
+
+		mFusinDevice = new MouseDevice(
+			mProductName,
+			mpDeviceInfo->mouse.dwNumberOfButtons,
+			mpDeviceInfo->mouse.fHasHorizontalWheel,
+			false
+		);
+
+		mFusinDevice->_setName(mProductName);
+		((MouseDevice*)mFusinDevice)->_setProperties(mpDeviceInfo->mouse.dwNumberOfButtons, mpDeviceInfo->mouse.fHasHorizontalWheel);
+
+		Log::singleton() << "Mouse Device found:" << mProductName <<
+			"\n    button number: " << mpDeviceInfo->mouse.dwNumberOfButtons <<
+			"\n    has horizontal wheel: " << mpDeviceInfo->mouse.fHasHorizontalWheel << "\n";
+
+		return true;
+	}
 
 	void RawInputMouseHandler::handleRawInput(PRAWINPUT pRawInput)
 	{
-		MouseDevice& md = *static_cast<MouseDevice*>(mDevice);
+		MouseDevice& md = *static_cast<MouseDevice*>(mFusinDevice);
 		RAWMOUSE& mouse = pRawInput->data.mouse;
 
 		// movement
 		if (mouse.usFlags == MOUSE_MOVE_RELATIVE)
 		{
-			md.simulateMouseMove(mouse.lLastX, mouse.lLastY);
+			md.movement.simulateMovement(mouse.lLastX, mouse.lLastY);
 		}
 		/*if (mouse.usFlags & MOUSE_MOVE_ABSOLUTE)
 		{
 			
 		}*/
-		/*if (mouse.usFlags & MOUSE_VIRTUAL_DESKTOP)
+		if (mouse.usFlags & MOUSE_VIRTUAL_DESKTOP)
 		{
-			md.movement.desktopXAxis.setValue(md.movement.desktopXAxis.nextValue() + mouse.lLastX);
-			md.movement.desktopYAxis.setValue(md.movement.desktopYAxis.nextValue() + mouse.lLastY);
-		}*/
+			md.movement.setPosition(mouse.lLastX, mouse.lLastY);
+		}
 
 		// buttons
 		if (mouse.usButtonFlags & RI_MOUSE_LEFT_BUTTON_DOWN)
 		{
-			md.getButton(MOUSE_BUTTON_LEFT.data)->press();
+			md.buttonLeft.press();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_LEFT_BUTTON_UP)
 		{
-			md.getButton(MOUSE_BUTTON_LEFT.data)->release();
+			md.buttonLeft.release();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_RIGHT_BUTTON_DOWN)
 		{
-			md.getButton(MOUSE_BUTTON_RIGHT.data)->press();
+			md.buttonRight.press();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_RIGHT_BUTTON_UP)
 		{
-			md.getButton(MOUSE_BUTTON_RIGHT.data)->release();
+			md.buttonRight.release();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_MIDDLE_BUTTON_DOWN)
 		{
-			md.getButton(MOUSE_BUTTON_MIDDLE.data)->press();
+			md.buttonMiddle.press();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_MIDDLE_BUTTON_UP)
 		{
-			md.getButton(MOUSE_BUTTON_MIDDLE.data)->release();
+			md.buttonMiddle.release();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_BUTTON_4_DOWN)
 		{
-			md.getButton(MOUSE_BUTTON_4.data)->press();
+			md.button4.press();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_BUTTON_4_UP)
 		{
-			md.getButton(MOUSE_BUTTON_4.data)->release();
+			md.button4.release();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_BUTTON_5_DOWN)
 		{
-			md.getButton(MOUSE_BUTTON_5.data)->press();
+			md.button5.press();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_BUTTON_5_UP)
 		{
-			md.getButton(MOUSE_BUTTON_5.data)->release();
+			md.button5.release();
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_WHEEL)
 		{
 			float delta = ((float)(short)mouse.usButtonData) / WHEEL_DELTA;
-			md.simulateWheelMove(delta);
+			md.wheel.simulateRotation(0, delta);
 		}
 		if (mouse.usButtonFlags & RI_MOUSE_HWHEEL)
 		{
 			float delta = ((float)(short)mouse.usButtonData) / WHEEL_DELTA;
-			md.simulateHorizontalWheelMove(delta);
+			md.wheel.simulateRotation(delta, 0);
 		}
 	}
 

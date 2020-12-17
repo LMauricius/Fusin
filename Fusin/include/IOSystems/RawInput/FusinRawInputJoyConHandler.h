@@ -15,6 +15,7 @@ namespace Fusin
 		RawInputJoyConHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool rightSide);
 		~RawInputJoyConHandler();
 
+		bool initialize();
 		void handleInputReport(PBYTE pReport);
 		void handleOutputReport(PBYTE pReport);
 	};

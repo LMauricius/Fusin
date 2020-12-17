@@ -8,6 +8,9 @@
 
 namespace Fusin
 {
+	/*
+	Component for devices with haptic feedback.
+	*/
 	class VibrationComponent : public DeviceComponent
 	{
 	public:

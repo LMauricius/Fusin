@@ -5,7 +5,7 @@
 namespace Fusin
 {
 
-	WheelComponent::WheelComponent(DeviceType signalType) :
+	WheelComponent::WheelComponent(DeviceType signalType, bool hasHorizontalWheel) :
 		DeviceComponent(
 			{ {IO_DIRECTION, &mWheelRotation} },
 			{}),
@@ -15,7 +15,8 @@ namespace Fusin
 		scrollRight(ANY_WHEEL_RIGHT.withDeviceType(signalType)),
 		scrollUp(ANY_WHEEL_UP.withDeviceType(signalType)),
 		scrollDown(ANY_WHEEL_DOWN.withDeviceType(signalType)),
-		mWheelRotation{ &scrollHorizontal, &scrollVertical }
+		mWheelRotation{ &scrollHorizontal, &scrollVertical },
+		mHasHorizontalWheel(hasHorizontalWheel)
 	{
 	}
 
@@ -42,7 +43,9 @@ namespace Fusin
 
 	String WheelComponent::getStateString()
 	{
-		return (StringStream() << "Rot(>" << scrollHorizontal.value() << ",^" << scrollVertical.value() << ")").str();
+		StringStream ss;
+		ss << "Rot(>" << scrollHorizontal.value() << ",^" << scrollVertical.value() << ")";
+		return ss.str();
 	}
 
 

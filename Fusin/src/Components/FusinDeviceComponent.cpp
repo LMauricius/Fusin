@@ -1,4 +1,5 @@
 #include "Components/FusinDeviceComponent.h"
+#include "Utilities/FusinStringBuilder.h"
 
 #define FOR_LISTENERS(EXP) for (auto it : mDeviceListeners) {it->EXP;}
 
@@ -343,10 +344,12 @@ namespace Fusin
 	void DeviceComponent::_coverDeviceComponent(DeviceComponent* component)
 	{
 		if (typeid(*this) != typeid(*component)) {
-			std::stringstream ss;
-			ss << "The component to be covered must be of the same type as the cover component, i.e " << typeid(*this).name();
-			
-			throw std::invalid_argument(ss.str());
+			throw std::invalid_argument(
+					(CStringBuilder() << 
+					"The component to be covered must be of the same type as the cover component, i.e " <<
+					typeid(*this).name()
+					).get()
+				);
 		}
 		else {
 			mCoveredComponents.insert(component);

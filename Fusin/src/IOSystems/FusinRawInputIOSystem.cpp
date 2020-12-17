@@ -108,8 +108,8 @@ namespace Fusin
 		{
 			if ((*it).second)
 			{
-				mDeviceEnumerator->unregisterDevice((*it).second->device());
-				delete (*it).second->device();
+				mDeviceEnumerator->unregisterDevice((*it).second->fusinDevice());
+				delete (*it).second->fusinDevice();
 				delete (*it).second;
 			}
 		}
@@ -214,7 +214,7 @@ namespace Fusin
 							if (newDeviceHandler->isSuccessful())
 							{
 								mHandlerPerHandle.insert(std::make_pair(handle, newDeviceHandler));
-								mDeviceEnumerator->registerDevice(newDeviceHandler->device());
+								mDeviceEnumerator->registerDevice(newDeviceHandler->fusinDevice());
 
 								//wchar_t serial[128];
 								//if (!HidD_GetSerialNumberString(riDevHandler->hidDevice(), serial, 128 * sizeof(wchar_t))) serial[0] = '\0';
@@ -242,8 +242,8 @@ namespace Fusin
 			{
 				if ((*it).second)
 				{
-					mDeviceEnumerator->unregisterDevice((*it).second->device());
-					delete (*it).second->device();
+					mDeviceEnumerator->unregisterDevice((*it).second->fusinDevice());
+					delete (*it).second->fusinDevice();
 					delete (*it).second;
 				}
 				mHandlerPerHandle.erase(it++);

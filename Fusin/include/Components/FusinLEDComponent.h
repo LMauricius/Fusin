@@ -19,6 +19,11 @@ namespace Fusin
 	const LEDFlags LED_SCROLL = LED_3;
 	const LEDFlags LED_AUTO = -1;
 
+	/*
+	Component for devices with LED lights.
+	Each LED has its own index, with indices starting at 0 and
+	continuing until the value of LEDCount()-1.
+	*/
 	class LEDComponent : public DeviceComponent
 	{
 	public:
@@ -28,7 +33,7 @@ namespace Fusin
 		DeviceType deviceType() const;
 		IOFlags flags() const;
 
-		size_t LEDNumber() const { return mLEDs.size(); }
+		size_t LEDCount() const { return mLEDs.size(); }
 
 		/*
 		Returns the string with all axis values and indices of buttons that are currently held

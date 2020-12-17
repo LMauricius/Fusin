@@ -8,6 +8,9 @@
 
 namespace Fusin
 {
+	/*
+	Component for devices with RGB changing lights.
+	*/
 	class RGBComponent : public DeviceComponent
 	{
 	public:
@@ -23,6 +26,9 @@ namespace Fusin
 		IOSignal green;
 		IOSignal blue;
 
+		/*
+		A quick method of setting red, green, and blue color.
+		*/
 		void setColor(const ColorRGB& c);
 		ColorRGB getColor();
 

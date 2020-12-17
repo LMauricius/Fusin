@@ -11,7 +11,7 @@ namespace Fusin
 	class WheelComponent : virtual public DeviceComponent
 	{
 	public:
-		WheelComponent(DeviceType signalType);
+		WheelComponent(DeviceType signalType, bool hasHorizontalWheel);
 		~WheelComponent();
 
 		DeviceType deviceType() const;
@@ -19,6 +19,7 @@ namespace Fusin
 
 		void simulateRotation(float ver, float hor =0.0f);
 		String getStateString();
+		inline bool hasHorizontalWheel() {return mHasHorizontalWheel;}
 
 		IOSignal scrollVertical, scrollHorizontal;
 		IOSignal scrollLeft, scrollRight, scrollUp, scrollDown;
@@ -27,6 +28,7 @@ namespace Fusin
 
 	protected:
 		std::vector<IOSignal*> mWheelRotation;
+		bool mHasHorizontalWheel;
 	};
 
 }
