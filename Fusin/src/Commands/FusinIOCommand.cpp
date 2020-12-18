@@ -50,10 +50,6 @@ namespace Fusin
 		}
 	}
 
-	void IOCommand::assign(Index position, const IOCommand& source, Index first, Index last)
-	{
-	}
-
 	IOCode IOCommand::getIOCode(Index slot) const
 	{
 		return mIOCodes[slot];
@@ -269,7 +265,6 @@ namespace Fusin
 	void IOCommand::replugSlot(Index ind)
 	{
 		IOSignal* sig = nullptr;
-		Index ind;
 
 		if (!mIOCodes.isSlotFree(ind))
 		{

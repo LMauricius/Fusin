@@ -101,7 +101,6 @@ namespace Fusin
 		String mName;
 		ConnectionMode mConnectionMode;
 
-		std::vector<DeviceComponent*> mIOTypeComponentMap;
 		std::map<DeviceType, DeviceComponent*> mDeviceTypeComponentMap;
 		std::map<IOType, DeviceComponent*> mIOTypeComponentMap;
 

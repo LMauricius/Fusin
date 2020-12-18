@@ -20,8 +20,8 @@ namespace Fusin
 	template <class T, class V, class It=T::iterator>
 	bool quickFind(const T& iterable, const V val, It* storePosition = nullptr)
 	{
-		auto it = std::find(iterable::begin(), iterable::end(), val);
-		if (it == iterable::end())
+		It it = std::find(iterable.begin(), iterable.end(), val);
+		if (it == iterable.end())
 			return false;
 		else
 		{
@@ -36,12 +36,12 @@ namespace Fusin
 	template <class T, class V, class Ind=size_t>
 	bool quickFindIndex(const T& iterable, const V val, Ind* storeIndex = nullptr)
 	{
-		auto it = std::find(iterable::begin(), iterable::end(), val);
-		if (it == iterable::end())
+		auto it = std::find(iterable.begin(), iterable.end(), val);
+		if (it == iterable.end())
 			return false;
 		else
 		{
-			if (storeIndex) *storeIndex = it - iterable::begin();
+			if (storeIndex) *storeIndex = it - iterable.begin();
 			return true;
 		}
 	}

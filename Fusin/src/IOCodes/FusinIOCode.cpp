@@ -18,6 +18,7 @@
 #include "IOCodes/FusinNintendo.h"
 
 #include "Utilities/FusinAlgorithm.h"
+#include "Utilities/FusinBitCast.h"
 
 #include <sstream>
 
@@ -92,9 +93,9 @@ namespace Fusin
 	}
 
 	IOCode::IOCode(uint64_t ic):
-		deviceType((DeviceType)((ic & FUSIN_MASK1(48, 64)) >> 48)),
-		ioType((IOType)((ic & FUSIN_MASK1(32, 48)) >> 32)),
-		index(ic & FUSIN_MASK1(0, 32))
+		deviceType((DeviceType)((ic & mask1(48, 64)) >> 48)),
+		ioType((IOType)((ic & mask1(32, 48)) >> 32)),
+		index(ic & mask1(0, 32))
 	{
 	}
 
@@ -355,13 +356,13 @@ namespace Fusin
 			{
 				if (signStr == FUSIN_STR("+"))
 				{
-					SET_FLAG(index, SIGNED_INDEX_FLAG, true);
-					SET_FLAG(index, POSITIVITY_INDEX_FLAG, true);
+					setFlags(index, SIGNED_INDEX_FLAG, true);
+					setFlags(index, POSITIVITY_INDEX_FLAG, true);
 				}
 				else if (signStr == FUSIN_STR("-"))
 				{
-					SET_FLAG(index, SIGNED_INDEX_FLAG, true);
-					SET_FLAG(index, POSITIVITY_INDEX_FLAG, false);
+					setFlags(index, SIGNED_INDEX_FLAG, true);
+					setFlags(index, POSITIVITY_INDEX_FLAG, false);
 				}
 			}
 		}
@@ -629,8 +630,8 @@ namespace Fusin
 	{
 		int ind2 = index;
 
-		SET_FLAG(ind2, SIGNED_INDEX_FLAG, true);
-		SET_FLAG(ind2, POSITIVITY_INDEX_FLAG, true);
+		setFlags(ind2, SIGNED_INDEX_FLAG, true);
+		setFlags(ind2, POSITIVITY_INDEX_FLAG, true);
 
 		return IOCode(deviceType, ioType, ind2);
 	}
@@ -639,8 +640,8 @@ namespace Fusin
 	{
 		int ind2 = index;
 
-		SET_FLAG(ind2, SIGNED_INDEX_FLAG, true);
-		SET_FLAG(ind2, POSITIVITY_INDEX_FLAG, false);
+		setFlags(ind2, SIGNED_INDEX_FLAG, true);
+		setFlags(ind2, POSITIVITY_INDEX_FLAG, false);
 
 		return IOCode(deviceType, ioType, ind2);
 	}
@@ -649,8 +650,8 @@ namespace Fusin
 	{
 		int ind2 = index;
 
-		SET_FLAG(ind2, SIGNED_INDEX_FLAG, false);
-		SET_FLAG(ind2, POSITIVITY_INDEX_FLAG, false);
+		setFlags(ind2, SIGNED_INDEX_FLAG, false);
+		setFlags(ind2, POSITIVITY_INDEX_FLAG, false);
 
 		return IOCode(deviceType, ioType, ind2);
 	}

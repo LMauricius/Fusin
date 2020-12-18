@@ -36,7 +36,7 @@ namespace Fusin
 	void BatteryComponent::_update(size_t msElapsed)
 	{
 		// read from covered devices
-		coverInputSignalVector(mCoveredComponents, &BatteryComponent::mBatterySignals, mBatterySignals);
+		coverInputSignalVectorStatic(mCoveredComponents, &BatteryComponent::mBatterySignals, mBatterySignals);
 
 		// update
 		updateInputSignalVector(mBatterySignals);

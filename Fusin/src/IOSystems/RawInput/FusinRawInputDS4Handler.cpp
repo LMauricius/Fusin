@@ -1,8 +1,8 @@
 #include "IOSystems/RawInput/FusinRawInputDS4Handler.h"
-#include "FusinDSDevice.h"
-#include "FusinDS.h"
+#include "Devices/FusinDSDevice.h"
+#include "IOCodes/FusinDS.h"
 #include "Utilities/FusinLog.h"
-#include "FusinByteDebug.h"
+#include "Utilities/FusinByteDebug.h"
 #include <algorithm>
 
 namespace Fusin

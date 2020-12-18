@@ -19,20 +19,6 @@ namespace Fusin
 
 	const int MAX_INT = (std::numeric_limits<int>::max)();
 	const int MIN_INT = (std::numeric_limits<int>::min)();
-
-	enum ConnectionMode { BT, USB };
-	enum BatteryLevel { BL_EMPTY = 0, BL_CRITICAL = 5, BL_LOW = 25, BL_MEDIUM = 50, BL_FULL = 100 };
-
-	typedef unsigned int LEDFlags;
-	const LEDFlags LED_NONE = 0;
-	const LEDFlags LED_1 = 1 << 0;
-	const LEDFlags LED_2 = 1 << 1;
-	const LEDFlags LED_3 = 1 << 2;
-	const LEDFlags LED_4 = 1 << 3;
-	const LEDFlags LED_CAPS = LED_1;
-	const LEDFlags LED_NUM = LED_2;
-	const LEDFlags LED_SCROLL = LED_3;
-	const LEDFlags LED_AUTO = -1;
 }
 
 #define FUSE_SIGNED_RANGE_BYTE(VAL) ((float)(VAL) / 255.0f * 2.0f - 1.0f)

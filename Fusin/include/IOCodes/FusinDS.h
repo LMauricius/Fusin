@@ -71,8 +71,8 @@ namespace Fusin
 	const IOCode DS_RIGHT_STICK_DOWN = DSPositiveAxis(3);
 	const IOCode DS_RIGHT_STICK_UP = DSNegativeAxis(3);
 
-	const IOCode DS_TOUCH1 = IOCode(DT_DUALSHOCK, IO_ACTIVATION, 0);
-	const IOCode DS_TOUCH2 = IOCode(DT_DUALSHOCK, IO_ACTIVATION, 1);
+	const IOCode DS_TOUCH1 = IOCode(DT_DUALSHOCK, IO_PRESSURE, 0);
+	const IOCode DS_TOUCH2 = IOCode(DT_DUALSHOCK, IO_PRESSURE, 1);
 	const IOCode DS_TOUCH1_X = IOCode(DT_DUALSHOCK, IO_POSITION, 0);
 	const IOCode DS_TOUCH1_Y = IOCode(DT_DUALSHOCK, IO_POSITION, 1);
 	const IOCode DS_TOUCH2_X = IOCode(DT_DUALSHOCK, IO_POSITION, 2);
@@ -106,9 +106,9 @@ namespace Fusin
 	const IOCode DS_VELOCITY_X_NEGATIVE = DS_VELOCITY_X.negativeVersion();
 	const IOCode DS_VELOCITY_Y_NEGATIVE = DS_VELOCITY_Y.negativeVersion();
 	const IOCode DS_VELOCITY_Z_NEGATIVE = DS_VELOCITY_Z.negativeVersion();
-	const IOCode DS_POSITION_X_NEGATIVE = DS_POSITION_X.negativeVersion();
-	const IOCode DS_POSITION_Y_NEGATIVE = DS_POSITION_Y.negativeVersion();
-	const IOCode DS_POSITION_Z_NEGATIVE = DS_POSITION_Z.negativeVersion();
+	const IOCode DS_WORLD_POSITION_X_NEGATIVE = DS_WORLD_POSITION_X.negativeVersion();
+	const IOCode DS_WORLD_POSITION_Y_NEGATIVE = DS_WORLD_POSITION_Y.negativeVersion();
+	const IOCode DS_WORLD_POSITION_Z_NEGATIVE = DS_WORLD_POSITION_Z.negativeVersion();
 
 	const IOCode DS_GYRO_YAW_POSITIVE = DS_GYRO_YAW.positiveVersion();
 	const IOCode DS_GYRO_PITCH_POSITIVE = DS_GYRO_PITCH.positiveVersion();
@@ -122,9 +122,9 @@ namespace Fusin
 	const IOCode DS_VELOCITY_X_POSITIVE = DS_VELOCITY_X.positiveVersion();
 	const IOCode DS_VELOCITY_Y_POSITIVE = DS_VELOCITY_Y.positiveVersion();
 	const IOCode DS_VELOCITY_Z_POSITIVE = DS_VELOCITY_Z.positiveVersion();
-	const IOCode DS_POSITION_X_POSITIVE = DS_POSITION_X.positiveVersion();
-	const IOCode DS_POSITION_Y_POSITIVE = DS_POSITION_Y.positiveVersion();
-	const IOCode DS_POSITION_Z_POSITIVE = DS_POSITION_Z.positiveVersion();
+	const IOCode DS_WORLD_POSITION_X_POSITIVE = DS_WORLD_POSITION_X.positiveVersion();
+	const IOCode DS_WORLD_POSITION_Y_POSITIVE = DS_WORLD_POSITION_Y.positiveVersion();
+	const IOCode DS_WORLD_POSITION_Z_POSITIVE = DS_WORLD_POSITION_Z.positiveVersion();
 
 	const std::vector<String> DS_BUTTON_NAMES {
 		FUSIN_STR("Square"), FUSIN_STR("Cross"), FUSIN_STR("Circle"), FUSIN_STR("Triangle"),

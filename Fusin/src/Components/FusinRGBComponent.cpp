@@ -48,7 +48,7 @@ namespace Fusin
 	void RGBComponent::_update(size_t msElapsed)
 	{
 		// cover devices
-		coverInputSignalVector(mCoveredComponents, &RGBComponent::mColorSignals, mColorSignals);
+		coverInputSignalVectorStatic(mCoveredComponents, &RGBComponent::mColorSignals, mColorSignals);
 
 		// update
 		updateInputSignalVector(mColorSignals);

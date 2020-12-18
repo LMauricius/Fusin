@@ -1,44 +1,45 @@
-#include "FusinGenericControlSetup.h"
-#include "FusinInputGesture.h"
-#include "FusinKeyboardDevice.h"
-#include "FusinMouseDevice.h"
-#include "FusinGamepadDevice.h"
-#include "FusinXInputDevice.h"
-#include "FusinDSDevice.h"
-#include "FusinNintendoDevice.h"
+#include "ControlSetups/FusinGenericControlSetup.h"
+
+#include "Commands/FusinInputCommand.h"
+#include "Devices/FusinKeyboardDevice.h"
+#include "Devices/FusinMouseDevice.h"
+#include "Devices/FusinGamepadDevice.h"
+#include "Devices/FusinXInputDevice.h"
+#include "Devices/FusinDSDevice.h"
+#include "Devices/FusinNintendoDevice.h"
 #include "FusinInputManager.h"
-#include "FusinXInput.h"
-#include "FusinDS.h"
+#include "IOCodes/FusinXInput.h"
+#include "IOCodes/FusinDS.h"
 
 #define STICK_ACTIONS &lStick, &rStick
 #define BUTTON_ACTIONS &dpadUp, &dpadDown, &dpadLeft, &dpadRight, &face1, &face2, &face3, &face4, &start, &select, &select,\
 					  &shoulderL1, &shoulderR1, &shoulderL2, &shoulderR2, &lStickPress, &rStickPress,\
 					  &ok, &cancel, &up, &down, &left, &right
 #define ALL_MEMBER_ACTIONS STICK_ACTIONS, BUTTON_ACTIONS
-#define ALL_BASIC_ACTIONS &lStick.xAxis, &lStick.yAxis, &lStick.directionAxis,\
+#define ALL_BASIC_ACTIONS &lStick.xAxis, &lStick.yAxis, &lStick.angleAxis,\
 						  &lStick.leftDirection, &lStick.rightDirection, &lStick.upDirection, &lStick.downDirection,\
-						  &rStick.xAxis, &rStick.yAxis, &rStick.directionAxis,\
+						  &rStick.xAxis, &rStick.yAxis, &rStick.angleAxis,\
 						  &rStick.leftDirection, &rStick.rightDirection, &rStick.upDirection, &rStick.downDirection,BUTTON_ACTIONS
 
-#define FOR_DEVICES(EXP) if (mEnabledInputTypes & IO_KEYBOARD) mInputManager->getKeyboardDevice(mDeviceIndices[IO_KEYBOARD])->EXP;\
-						 if (mEnabledInputTypes & IO_MOUSE) mInputManager->getMouseDevice(mDeviceIndices[IO_MOUSE])->EXP;\
-						 if (mEnabledInputTypes & IO_GAMEPAD) mInputManager->getGamepadDevice(mDeviceIndices[IO_GAMEPAD])->EXP;\
-						 if (mEnabledInputTypes & IO_XInput) mInputManager->getXInputDevice(mDeviceIndices[IO_XInput])->EXP;\
-						 if (mEnabledInputTypes & IO_DS) mInputManager->getDSDevice(mDeviceIndices[IO_DS])->EXP;\
-						 if (mEnabledInputTypes & IO_NINTENDO) mInputManager->getNintendoDevice(mDeviceIndices[IO_NINTENDO])->EXP;
+#define FOR_DEVICES(EXP) if (mDeviceIndices[DT_KEYBOARD] > 0) mInputManager->getKeyboardDevice(mDeviceIndices[DT_KEYBOARD])->EXP;\
+						 if (mDeviceIndices[DT_MOUSE] > 0) mInputManager->getMouseDevice(mDeviceIndices[DT_MOUSE])->EXP;\
+						 if (mDeviceIndices[DT_GAMEPAD] > 0) mInputManager->getGamepadDevice(mDeviceIndices[DT_GAMEPAD])->EXP;\
+						 if (mDeviceIndices[DT_XINPUT] > 0) mInputManager->getXInputDevice(mDeviceIndices[DT_XINPUT])->EXP;\
+						 if (mDeviceIndices[DT_DUALSHOCK] > 0) mInputManager->getDSDevice(mDeviceIndices[DT_DUALSHOCK])->EXP;\
+						 if (mDeviceIndices[DT_NINTENDO] > 0) mInputManager->getNintendoDevice(mDeviceIndices[DT_NINTENDO])->EXP;
 
-#define FOR_GAMEPAD_DEVICES(EXP) if (mEnabledInputTypes & IO_GAMEPAD) mInputManager->getGamepadDevice(mDeviceIndices[IO_GAMEPAD])->EXP;\
-						 if (mEnabledInputTypes & IO_XInput) mInputManager->getXInputDevice(mDeviceIndices[IO_XInput])->EXP;\
-						 if (mEnabledInputTypes & IO_DS) mInputManager->getDSDevice(mDeviceIndices[IO_DS])->EXP;\
-						 if (mEnabledInputTypes & IO_NINTENDO) mInputManager->getNintendoDevice(mDeviceIndices[IO_NINTENDO])->EXP;
+#define FOR_GAMEPAD_DEVICES(EXP) if (mDeviceIndices[DT_GAMEPAD] > 0) mInputManager->getGamepadDevice(mDeviceIndices[DT_GAMEPAD])->EXP;\
+						 if (mDeviceIndices[DT_XINPUT] > 0) mInputManager->getXInputDevice(mDeviceIndices[DT_XINPUT])->EXP;\
+						 if (mDeviceIndices[DT_DUALSHOCK] > 0) mInputManager->getDSDevice(mDeviceIndices[DT_DUALSHOCK])->EXP;\
+						 if (mDeviceIndices[DT_NINTENDO] > 0) mInputManager->getNintendoDevice(mDeviceIndices[DT_NINTENDO])->EXP;
 
 namespace Fusin
 {
 
 	GenericControlSetup::GenericControlSetup(InputManager* im)
 		: mInputManager(im)
-		, lStick(im)
-		, rStick(im)
+		, lStickPress(im)
+		, rStickPress(im)
 		, dpadUp(im)
 		, dpadDown(im)
 		, dpadLeft(im)
@@ -53,8 +54,6 @@ namespace Fusin
 		, shoulderR1(im)
 		, shoulderL2(im)
 		, shoulderR2(im)
-		, lStickPress(im)
-		, rStickPress(im)
 		, ok(im)
 		, cancel(im)
 		, up(im)
@@ -73,11 +72,11 @@ namespace Fusin
 			anyButton.trackCommand(it);
 		}
 
-		mDeviceIndices[IO_KEYBOARD] = 0;
-		mDeviceIndices[IO_MOUSE] = 0;
-		mDeviceIndices[IO_GAMEPAD] = 0;
-		mDeviceIndices[IO_XInput] = 0;
-		mDeviceIndices[IO_DS] = 0;
+		mDeviceIndices[DT_KEYBOARD] = 0;
+		mDeviceIndices[DT_MOUSE] = 0;
+		mDeviceIndices[DT_GAMEPAD] = 0;
+		mDeviceIndices[DT_XINPUT] = 0;
+		mDeviceIndices[DT_DUALSHOCK] = 0;
 	}
 
 	void GenericControlSetup::setInputManager(InputManager* im)
@@ -86,13 +85,13 @@ namespace Fusin
 
 		for (auto it : actions)
 		{
-			it->setInputManager(im);
+			it->setDeviceEnumerator(im);
 		}
 
 		mInputManager = im;
 	}
 
-	void GenericControlSetup::setDeviceIndex(unsigned int ind, IOType t)
+	void GenericControlSetup::setDeviceIndex(int ind, DeviceType t)
 	{
 		for (auto it : { STICK_ACTIONS })
 		{
@@ -105,11 +104,11 @@ namespace Fusin
 
 		for (auto it = mDeviceIndices.begin(); it != mDeviceIndices.end(); it++)
 		{
-			if ((*it).first & t) (*it).second = ind;
+			if ((*it).first == t) (*it).second = ind;
 		}
 	}
 
-	unsigned int GenericControlSetup::getDeviceIndex(IOType t)
+	int GenericControlSetup::getDeviceIndex(DeviceType t)
 	{
 		for (auto it = mDeviceIndices.begin(); it != mDeviceIndices.end(); it++)
 		{
@@ -117,7 +116,7 @@ namespace Fusin
 		}
 	}
 
-	void GenericControlSetup::setEnabledInputTypes(IOType t)
+	void GenericControlSetup::setEnabledInputTypes(IOFlags t)
 	{
 		for (auto it : { STICK_ACTIONS })
 		{
@@ -131,7 +130,7 @@ namespace Fusin
 		mEnabledInputTypes = t;
 	}
 
-	IOType GenericControlSetup::getEnabledInputTypes()
+	IOFlags GenericControlSetup::getEnabledInputTypes()
 	{
 		return mEnabledInputTypes;
 	}
@@ -156,8 +155,8 @@ namespace Fusin
 		shoulderR1.assignIOCode(XINPUT_RB, slot);
 		shoulderL2.assignIOCode(XINPUT_LT, slot);
 		shoulderR2.assignIOCode(XINPUT_RT, slot);
-		lStickPress.assignIOCode(XINPUT_LSTICK, slot);
-		rStickPress.assignIOCode(XINPUT_RSTICK, slot);
+		lStickPress.assignIOCode(XINPUT_LEFT_STICK_PRESS, slot);
+		rStickPress.assignIOCode(XINPUT_RIGHT_STICK_PRESS, slot);
 		ok.assignIOCode(XINPUT_A, slot);
 		cancel.assignIOCode(XINPUT_B, slot);
 		up.assignIOCode(XINPUT_DPAD_UP, slot);
@@ -214,22 +213,22 @@ namespace Fusin
 
 	void GenericControlSetup::setLeftVibration(float strength, unsigned int msDuration)
 	{
-		FOR_GAMEPAD_DEVICES(setLeftVibration(strength, msDuration))
+		FOR_GAMEPAD_DEVICES(vibration.setLeftVibration(strength, msDuration))
 	}
 
 	void GenericControlSetup::setRightVibration(float strength, unsigned int msDuration)
 	{
-		FOR_GAMEPAD_DEVICES(setRightVibration(strength, msDuration))
+		FOR_GAMEPAD_DEVICES(vibration.setRightVibration(strength, msDuration))
 	}
 
 	void GenericControlSetup::setVibration(float strength, unsigned int msDuration)
 	{
-		FOR_GAMEPAD_DEVICES(setVibration(strength, msDuration))
+		FOR_GAMEPAD_DEVICES(vibration.setVibration(strength, msDuration))
 	}
 
 	void GenericControlSetup::setColor(ColorRGB c)
 	{
-		if (mEnabledInputTypes & IO_DS) mInputManager->getDSDevice(mDeviceIndices[IO_DS])->setColor(c);
+		mInputManager->getDSDevice(mDeviceIndices[DT_DUALSHOCK])->rgb.setColor(c);
 		//if (mEnabledInputTypes & IO_DS) mInputManager->getDSDevice(mDeviceIndices[IO_DS]);
 	}
 

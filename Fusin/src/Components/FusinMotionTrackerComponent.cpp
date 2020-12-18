@@ -110,11 +110,11 @@ namespace Fusin
 		/*
 		Cover devices
 		*/
-		coverInputSignalVector(mCoveredComponents, &MotionTrackerComponent::mGyro, mGyro);
-		coverInputSignalVector(mCoveredComponents, &MotionTrackerComponent::mAcceleration, mAcceleration);
-		coverInputSignalVector(mCoveredComponents, &MotionTrackerComponent::mOrientation, mOrientation);
-		coverInputSignalVector(mCoveredComponents, &MotionTrackerComponent::mVelocity, mVelocity);
-		coverInputSignalVector(mCoveredComponents, &MotionTrackerComponent::mWorldPosition, mWorldPosition);
+		coverInputSignalVectorStatic(mCoveredComponents, &MotionTrackerComponent::mGyro, mGyro);
+		coverInputSignalVectorStatic(mCoveredComponents, &MotionTrackerComponent::mAcceleration, mAcceleration);
+		coverInputSignalVectorStatic(mCoveredComponents, &MotionTrackerComponent::mOrientation, mOrientation);
+		coverInputSignalVectorStatic(mCoveredComponents, &MotionTrackerComponent::mVelocity, mVelocity);
+		coverInputSignalVectorStatic(mCoveredComponents, &MotionTrackerComponent::mWorldPosition, mWorldPosition);
 
 		/*
 		Calculate new values depending on the mode

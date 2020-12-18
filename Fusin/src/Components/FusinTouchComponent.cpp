@@ -1,6 +1,7 @@
 #include "Components/FusinTouchComponent.h"
 #include "IOCOdes/FusinAnyTouch.h"
 #include "Utilities/FusinInputSignalManipulation.h"
+#include "Utilities/FusinStringBuilder.h"
 
 namespace Fusin
 {
@@ -62,9 +63,9 @@ namespace Fusin
 		/*
 		covered devices
 		*/
-		coverInputSignalVector(mCoveredComponents, &TouchComponent::mTouchActivations, mTouchActivations);
-		coverInputSignalVector(mCoveredComponents, &TouchComponent::mTouchPositions, mTouchPositions);
-		coverInputSignalVector(mCoveredComponents, &TouchComponent::mTouchMovement, mTouchMovement);
+		coverInputSignalVectorStatic(mCoveredComponents, &TouchComponent::mTouchActivations, mTouchActivations);
+		coverInputSignalVectorStatic(mCoveredComponents, &TouchComponent::mTouchPositions, mTouchPositions);
+		coverInputSignalVectorStatic(mCoveredComponents, &TouchComponent::mTouchMovement, mTouchMovement);
 
 		/*
 		Calc new values
@@ -101,7 +102,7 @@ namespace Fusin
 		// create if needed
 		for (int i = mTouches.size(); i < touchNum; i++)
 		{
-			mTouches.emplace_back(mSignalDeviceType, i);
+			mTouches.push_back(new TouchSignals(mSignalDeviceType, i));
 			mTouchActivations.push_back(&mTouches.back()->pressure);
 			mTouchPositions.push_back(&mTouches.back()->positionX);
 			mTouchPositions.push_back(&mTouches.back()->positionY);
@@ -110,7 +111,7 @@ namespace Fusin
 		}
 
 		// delete if needed
-		for (int i = touchNum; i < mTouches.size(); i++)
+		for (size_t i = touchNum; i < mTouches.size(); i++)
 			delete mTouches[i];
 		mTouches.resize(touchNum);
 		mTouchActivations.resize(touchNum);
@@ -121,9 +122,10 @@ namespace Fusin
 	TouchComponent::TouchSignals& TouchComponent::operator[](Index ind)
 	{
 		if (ind >= mTouches.size())
-			throw std::out_of_range((std::stringstream() <<
-				"Trying to access touch #" << ind << " but this device only recognizes " << mTouches.size() << " touches."
-				).str());
+			throw std::out_of_range(CStringBuilder() <<
+				"Trying to access touch #" << ind <<
+				" but this device only recognizes " << mTouches.size() << " touches."
+			);
 
 		return *mTouches[ind];
 	}

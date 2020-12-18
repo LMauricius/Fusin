@@ -40,7 +40,7 @@ namespace Fusin
 	void JoystickComponent::_update(size_t msElapsed)
 	{
 		// read from covered devices
-		coverInputSignalVector(mCoveredComponents, &JoystickComponent::mAxes, mAxes, mNegativeAxes, mPositiveAxes,
+		coverInputSignalVectorDynamic(mCoveredComponents, &JoystickComponent::mAxes, mAxes, mNegativeAxes, mPositiveAxes,
 			mSignalDeviceType, IO_AXIS);
 
 		// update

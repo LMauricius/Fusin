@@ -11,10 +11,10 @@ namespace Fusin
 	{
 	public:
 		using StreamT = std::basic_stringstream<CharT, std::char_traits<CharT>, std::allocator<CharT> >;
-		using StringT = basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> >;
+		using StringT = std::basic_string<CharT, std::char_traits<CharT>, std::allocator<CharT> >;
 
 		template<class _T>
-		StringBuilder& operator << (const _T& t)
+		GenericStringBuilder<CharT>& operator << (const _T& t)
 		{
 			stream << t;
 			return *this;

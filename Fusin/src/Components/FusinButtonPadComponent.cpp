@@ -39,7 +39,7 @@ namespace Fusin
 	void ButtonPadComponent::_update(size_t msElapsed)
 	{
 		// read from covered devices
-		coverInputSignalVector(mCoveredComponents, &ButtonPadComponent::mButtons, mButtons, mSignalDeviceType, IO_BUTTON);
+		coverInputSignalVectorDynamic(mCoveredComponents, &ButtonPadComponent::mButtons, mButtons, mSignalDeviceType, IO_BUTTON);
 
 		// update
 		updateInputSignalVector(mButtons);
@@ -47,9 +47,10 @@ namespace Fusin
 
 	IOSignal& ButtonPadComponent::operator[](Index ind)
 	{
-		if (ind >= mButtons.size()) throw std::out_of_range((StringBuilder() <<
+		if (ind >= mButtons.size()) throw std::out_of_range(CStringBuilder() <<
 			"Axis index out of range. Trying to acces button " << ind <<
-			" but this device only has " << mButtons.size() << " buttons.").str());
+			" but this device only has " << mButtons.size() << " buttons."
+		);
 		return *mButtons[ind];
 	}
 

@@ -16,10 +16,11 @@ namespace Fusin
 	public:
 		GenericControlSetup(InputManager* im = nullptr);
 		void setInputManager(InputManager* im);
-		void setDeviceIndex(unsigned int ind, IOType t = IO_ANY);
-		unsigned int getDeviceIndex(IOType t = IO_ANY);
-		void setEnabledInputTypes(IOType t = IO_ANY);
-		IOType getEnabledInputTypes();
+		// set index to -1 to disable affection this type of device
+		void setDeviceIndex(int ind, DeviceType t);
+		int getDeviceIndex(DeviceType t);
+		void setEnabledInputTypes(IOFlags t = IOF_ANY);
+		IOFlags getEnabledInputTypes();
 
 		void setDefaultXInputCodes(int slot);
 		void setDefaultDSCodes(int slot);
@@ -71,8 +72,8 @@ namespace Fusin
 
 	protected:
 		InputManager *mInputManager;
-		IOType mEnabledInputTypes;
-		std::map < IOType, unsigned int > mDeviceIndices;
+		IOFlags mEnabledInputTypes;
+		std::map < DeviceType, unsigned int > mDeviceIndices;
 	};
 
 }

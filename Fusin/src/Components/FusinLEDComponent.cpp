@@ -37,7 +37,7 @@ namespace Fusin
 	void LEDComponent::_update(size_t msElapsed)
 	{
 		// read from covered devices
-		coverInputSignalVector(mCoveredComponents, &LEDComponent::mLEDs, mLEDs, mSignalDeviceType, IO_LEDS);
+		coverInputSignalVectorDynamic(mCoveredComponents, &LEDComponent::mLEDs, mLEDs, mSignalDeviceType, IO_LEDS);
 
 		// update
 		updateInputSignalVector(mLEDs);

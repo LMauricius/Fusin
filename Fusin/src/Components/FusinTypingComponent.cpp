@@ -138,7 +138,7 @@ namespace Fusin
 				for (auto& charSignalPair : static_cast<TypingComponent*>(it)->mKeySignals)
 				{
 					if (charSignalPair.second->value())
-						getKey(charSignalPair.first).press();
+						(*this)[charSignalPair.first].press();
 				}
 				for (auto& charSignalPair : static_cast<TypingComponent*>(it)->mTypedKeySignals)
 				{
@@ -148,7 +148,7 @@ namespace Fusin
 
 				// write to devices
 				for (Char c : newlyPressedKeys)
-					static_cast<TypingComponent*>(it)->getKey(c).press();
+					(*static_cast<TypingComponent*>(it))[c].press();
 				for (Char c : newlyTypedKeys)
 					static_cast<TypingComponent*>(it)->getTypedKey(c).press();
 			}

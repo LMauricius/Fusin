@@ -54,10 +54,10 @@ namespace Fusin
 			WNDCLASS wc = { 0 };
 			wc.lpfnWndProc = DefWindowProc;
 			wc.hInstance = GetModuleHandle(0);
-			wc.lpszClassName = L"RawInputWindowClass";
+			wc.lpszClassName = "RawInputWindowClass";
 			RegisterClass(&wc);
 
-			mWindow = CreateWindow(wc.lpszClassName, L"RawInputWindow", 0, 0, 0, 100, 100, HWND_MESSAGE/*(HWND)NULL*/, NULL, GetModuleHandle(0), NULL);
+			mWindow = CreateWindow(wc.lpszClassName, "RawInputWindow", 0, 0, 0, 100, 100, HWND_MESSAGE/*(HWND)NULL*/, NULL, GetModuleHandle(0), NULL);
 			ShowWindow(mWindow, SW_HIDE);//
 			mCreatedHiddenWindow = true;
 		}
@@ -138,7 +138,7 @@ namespace Fusin
 		// get the RI devices
 		if (GetRawInputDeviceList(pRIDList, &deviceCount, ridListTypeSize) != -1)
 		{
-			for (int i = 0; i < deviceCount; i++)
+			for (size_t i = 0; i < deviceCount; i++)
 			{
 				PRAWINPUTDEVICELIST pRID = (pRIDList + i);
 				HANDLE handle = pRID->hDevice;

@@ -1,7 +1,7 @@
 #ifndef _FUSIN__ANY_LISTENER_H
 #define _FUSIN__ANY_LISTENER_H
 
-#include "Commands/FusinCommand.h"
+/*#include "Commands/FusinCommand.h"
 #include "FusinInputManager.h"
 #include "Devices/FusinDevice.h"
 #include <vector>
@@ -50,4 +50,4 @@ namespace Fusin
 	};
 }
 
-#endif
+#endif*/

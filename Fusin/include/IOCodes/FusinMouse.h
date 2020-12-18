@@ -32,7 +32,7 @@ namespace Fusin
 	const IOCode MOUSE_MOVE_UP = MOUSE_MOVE_Y.negativeVersion();
 	const IOCode MOUSE_MOVE_DOWN = MOUSE_MOVE_Y.positiveVersion();
 
-	const const std::vector<String> MOUSE_BUTTON_NAMES = {
+	const std::vector<String> MOUSE_BUTTON_NAMES = {
 		FUSIN_STR("Left"), FUSIN_STR("Right"), FUSIN_STR("Middle"), FUSIN_STR("4"), FUSIN_STR("5")
 	};
 

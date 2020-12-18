@@ -26,10 +26,10 @@ namespace Fusin
 	*/
 	IOCode AnyJoystickNegativeAxis(Index a);
 
-	const IOCode ANY_JOYSTICK_X_AXIS = GamepadAxis(0);
-	const IOCode ANY_JOYSTICK_Y_AXIS = GamepadAxis(1);
-	const IOCode ANY_JOYSTICK_Z_AXIS = GamepadAxis(2);
-	const IOCode ANY_JOYSTICK_ROTATION_Z_AXIS = GamepadAxis(3);
+	const IOCode ANY_JOYSTICK_X_AXIS = AnyJoystickAxis(0);
+	const IOCode ANY_JOYSTICK_Y_AXIS = AnyJoystickAxis(1);
+	const IOCode ANY_JOYSTICK_Z_AXIS = AnyJoystickAxis(2);
+	const IOCode ANY_JOYSTICK_ROTATION_Z_AXIS = AnyJoystickAxis(3);
 
 	const IOCode ANY_JOYSTICK_X_POSITIVE = ANY_JOYSTICK_X_AXIS.positiveVersion();
 	const IOCode ANY_JOYSTICK_X_NEGATIVE = ANY_JOYSTICK_X_AXIS.negativeVersion();

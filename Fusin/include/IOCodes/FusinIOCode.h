@@ -2,6 +2,8 @@
 #define _FUSIN_INPUT_VALUE_H
 
 #include "FusinPrerequisites.h"
+#include "Utilities/FusinBitCast.h"
+
 #include <vector>
 #include <list>
 #include <map>
@@ -123,12 +125,11 @@ namespace Fusin
 	const IOFlags IOF_DPAD           = 1ULL << (5 + IOF_DEVICE_STARTING_BIT);// Device with 4 directional inputs and an angle
 	const IOFlags IOF_TOUCHPAD       = 1ULL << (6 + IOF_DEVICE_STARTING_BIT);// Device with multiple position, movement and activation values
 	const IOFlags IOF_MOTION_TRACKER = 1ULL << (7 + IOF_DEVICE_STARTING_BIT);// Device with many values specifying real world position and orientation
-	const IOFlags IOF_BATTERY		 = 1ULL << (8 + IOF_DEVICE_STARTING_BIT);// Device with battery state values
 	const IOFlags IOF_SIGNED_VERSION = 1ULL << (0 + IOF_MODIFIER_STARTING_BIT);// A filter modifier flag, for Devices it filters only those that have signed version of some of their inputs, for InputSignals it filters only those that are signed versions of unsigned InputSignals. Name = + OR -
-	const IOFlags IOF_ANY_INPUT    = FUSIN_MASK1(IOF_INPUT_STARTING_BIT, IOF_OUTPUT_STARTING_BIT);
-	const IOFlags IOF_ANY_OUTPUT   = FUSIN_MASK1(IOF_OUTPUT_STARTING_BIT, IOF_DEVICE_STARTING_BIT);
-	const IOFlags IOF_ANY_DEVICE   = FUSIN_MASK1(IOF_DEVICE_STARTING_BIT, IOF_MODIFIER_STARTING_BIT);
-	const IOFlags IOF_ANY_MODIFIER = FUSIN_MASK1(IOF_MODIFIER_STARTING_BIT, 64);
+	const IOFlags IOF_ANY_INPUT    = mask1(IOF_INPUT_STARTING_BIT, IOF_OUTPUT_STARTING_BIT);
+	const IOFlags IOF_ANY_OUTPUT   = mask1(IOF_OUTPUT_STARTING_BIT, IOF_DEVICE_STARTING_BIT);
+	const IOFlags IOF_ANY_DEVICE   = mask1(IOF_DEVICE_STARTING_BIT, IOF_MODIFIER_STARTING_BIT);
+	const IOFlags IOF_ANY_MODIFIER = mask1(IOF_MODIFIER_STARTING_BIT, 64);
 	const IOFlags IOF_ANY = -1;
 
 	/*

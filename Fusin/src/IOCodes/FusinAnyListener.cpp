@@ -1,4 +1,4 @@
-#include "FusinAnyListener.h"
+/*#include "IOCodes/FusinAnyListener.h"
 #include <algorithm>
 
 namespace Fusin
@@ -53,9 +53,7 @@ namespace Fusin
 
 	void AnyListener::_beginUpdate()
 	{
-		/*
-		Reset mValue before the _update
-		*/
+		//Reset mValue before the _update
 		mPrevValue = mValue;
 		mValue = 0;
 		mLastIOCode = IOCode::NULLCODE;
@@ -68,9 +66,7 @@ namespace Fusin
 
 	void AnyListener::_endUpdate()
 	{
-		/*
-		Set pressed and released values
-		*/
+		//Set pressed and released values
 		mPressed = (std::abs(mValue) >= mThreshold && std::abs(mPrevValue) < mThreshold);
 		mReleased = (std::abs(mValue) < mThreshold && std::abs(mPrevValue) >= mThreshold);
 	}
@@ -261,4 +257,4 @@ namespace Fusin
 		}
 	}
 
-}
+}*/
