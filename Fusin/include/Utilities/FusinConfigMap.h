@@ -29,7 +29,11 @@ namespace Fusin
 		StringStream ss;
 
         if (cfgIt != config.cend())
-            return (cfgIt->second == FUSIN_STR("True"));
+            return (
+                cfgIt->second == FUSIN_STR("True") ||
+                cfgIt->second == FUSIN_STR("true") || 
+                cfgIt->second == FUSIN_STR("1")
+                );
         else
             return def;
     }

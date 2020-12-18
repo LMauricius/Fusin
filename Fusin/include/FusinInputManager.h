@@ -24,6 +24,22 @@ namespace Fusin
 	class IOSystem;
 	class InputManagerListener;
 
+	/*
+	Simplifies the usage of the library by encapsulating
+	Device enumeration and IOSystem creation and updating.
+
+	Can be used as a DeviceEnumerator in Command constructors.
+
+	Uses the config map to set the configuration.
+	Also see the platform-specific configurations in the IOSystems' headers, as
+	the registered IOSystems receive the configuration through the InputManager's
+	initialize() method's config map.
+
+	Possible config entries:
+	****NAME: TYPE(DEFAULT) - DESCRIPTION
+
+	****Device enumeration period: TimeMS(1000) - The time in ms between checking for new devices/plugged out devices
+	*/
 	class InputManager : public DeviceEnumerator
 	{
 	public:
@@ -46,10 +62,12 @@ namespace Fusin
 		*/
 		/*void treatDSControllersAsGamepads(bool enable);
 		bool treatingDSControllersAsGamepads();*/
+		
+		
 		/*
 		If not specified, the InputSystem will create its own hidden window and input will always
 		be received even if the window is not in focus.
-		If you use this, you will need to call handleMessage() in your own window message loop to _update RawInput.
+		If you use this, you will need to call handleMessage() in your own window message loop to update the IOSystems.
 		Call this before initializing the InputManager.
 		*/
 		void setInputWindow(void *handle);
@@ -70,6 +88,8 @@ namespace Fusin
 		Default is 10.
 		*/
 		//void setMaxMessagesPerDevice(int n);
+		
+		
 		/*
 		Specifies which Devices will be updated during an _update() call.
 		You can still manually read ioType from disabled devices, but Gestures which 
@@ -80,14 +100,14 @@ namespace Fusin
 		IOFlags getEnabledDevices();
 
 		/*
-		Initializes all registered Input Systems and global devices with previously set properties.
+		Initializes all registered Input Systems and global devices with properties set in the config map.
 		If 'registerDefaultIOSystems' is set to true, it registers the recomended IOSystems
 		for the target system before initializing them.
 		*/
 		void initialize(bool registerDefaultIOSystems, const std::map<String, String>& config = std::map<String, String>());
 
 		/*
-		Updates the ioType values of all Devices and Gestures.
+		Updates the io values of all Devices and Commands.
 		*/
 		void update(TimeMS msElapsed = 0);
 
@@ -176,7 +196,10 @@ namespace Fusin
 		void *mWindowHandle;
 		IOFlags mEnabledTypes;
 		bool mInitialized;
+		TimeMS mDeviceEnumerationPeriod;
+		
 		TimeMS mLastTime;
+		TimeMS mDeviceEnumerationTimer;
 
 		std::list<IOSystem*> mIOSystems;
 		std::list<InputManagerListener*> mInputManagerListeners;

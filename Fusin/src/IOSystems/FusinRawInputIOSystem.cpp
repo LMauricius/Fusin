@@ -29,7 +29,7 @@
 
 namespace Fusin
 {
-	#define SET_CFG(VAR, KEY, DEFAULT) VAR = getCfgValue(config, FUSIN_STR(KEY), DEFAULT)
+	#define GET_CFG(VAR, KEY, DEFAULT) VAR = getCfgValue(config, FUSIN_STR(KEY), DEFAULT)
 
 	RawInputIOSystem::RawInputIOSystem():
 		IOSystem(IO_ANY)
@@ -42,11 +42,11 @@ namespace Fusin
 		mWindow = ((HWND)window);
 
 		// Set config
-		SET_CFG(mReceiveInputOutsideFocus, "Receive input outside focus", false);
-		SET_CFG(mSupportDS, "Support DS", true);
-		SET_CFG(mSupportXInput, "Support XInput", true);
-		SET_CFG(mSupportNintendo, "Support Nintendo", true);
-		SET_CFG(mMaxGamepadMessages, "Max gamepad messages", 0);
+		GET_CFG(mReceiveInputOutsideFocus, "Receive input outside focus", false);
+		GET_CFG(mSupportDS, "Support DS", true);
+		GET_CFG(mSupportXInput, "Support XInput", false);
+		GET_CFG(mSupportNintendo, "Support Nintendo", true);
+		GET_CFG(mMaxGamepadMessages, "Max gamepad messages", 0);
 
 		// create the window
 		if (!mWindow)
@@ -54,10 +54,10 @@ namespace Fusin
 			WNDCLASS wc = { 0 };
 			wc.lpfnWndProc = DefWindowProc;
 			wc.hInstance = GetModuleHandle(0);
-			wc.lpszClassName = "RawInputWindowClass";
+			wc.lpszClassName = L"RawInputWindowClass";
 			RegisterClass(&wc);
 
-			mWindow = CreateWindow(wc.lpszClassName, "RawInputWindow", 0, 0, 0, 100, 100, HWND_MESSAGE/*(HWND)NULL*/, NULL, GetModuleHandle(0), NULL);
+			mWindow = CreateWindow(wc.lpszClassName, L"RawInputWindow", 0, 0, 0, 100, 100, HWND_MESSAGE/*(HWND)NULL*/, NULL, GetModuleHandle(0), NULL);
 			ShowWindow(mWindow, SW_HIDE);//
 			mCreatedHiddenWindow = true;
 		}
@@ -208,10 +208,11 @@ namespace Fusin
 							break;
 						}
 
-						// add it to the map
+						// if we created a device handler
 						if (newDeviceHandler)
 						{
-							if (newDeviceHandler->isSuccessful())
+						// add it to the map
+							if (newDeviceHandler->initialize())
 							{
 								mHandlerPerHandle.insert(std::make_pair(handle, newDeviceHandler));
 								mDeviceEnumerator->registerDevice(newDeviceHandler->fusinDevice());

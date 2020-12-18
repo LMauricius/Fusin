@@ -20,6 +20,17 @@
 		class GamepadDevice;
 		class DSDevice;
 
+		/*
+		IOSystem for RawInput on Windows
+		Uses the config map to set the configuration.
+		Possible config entries:
+		****NAME: TYPE - DEFAULT
+		****Receive input outside focus: bool - True
+		****Support DS: bool - True
+		****Support XInput: bool - False
+		****Support Nintendo: bool - True
+		****Max gamepad messages: int - 0 (infinite)
+		*/
 		class RawInputIOSystem : public IOSystem
 		{
 		public:

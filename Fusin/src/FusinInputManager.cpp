@@ -12,7 +12,9 @@
 #include "Devices/FusinNintendoDevice.h"
 
 // These won't always be built, only if needed macros are defined
-#include "IOSystems/FusinRawInputSubSystem.h"
+#include "IOSystems/FusinRawInputIOSystem.h"
+
+#include "Utilities/FusinConfigMap.h"
 
 #include <stdexcept>
 #include <ctime>
@@ -28,6 +30,7 @@ namespace Fusin
 		, mWindowHandle(0)
 		, mInitialized(false)
 		, mLastTime(0)
+		, mDeviceEnumerationTimer(0)
 	{
 
 	}
@@ -40,8 +43,12 @@ namespace Fusin
 		}
 	}
 
+	#define GET_CFG(VAR, KEY, DEFAULT) VAR = getCfgValue(config, FUSIN_STR(KEY), DEFAULT)
+
 	void InputManager::initialize(bool registerDefaultIOSystems, const std::map<String, String>& config)
 	{
+		GET_CFG(mDeviceEnumerationPeriod, "Device enumeration period", 1000);
+
 		// Default input Systems
 		if (registerDefaultIOSystems)
 		{
@@ -92,12 +99,16 @@ namespace Fusin
 
 	void InputManager::update(TimeMS msElapsed)
 	{
+		// default timer
 		clock_t curTime = clock() * 1000 / CLOCKS_PER_SEC;
 		if (msElapsed == 0 && mLastTime != 0)
 		{
 			msElapsed = curTime - mLastTime;
 		}
 		mLastTime = curTime;
+
+		// device listing update timer
+		mDeviceEnumerationTimer += msElapsed;
 
 		// Update start
 		FOR_LISTENERS(preUpdate(this));
@@ -107,9 +118,23 @@ namespace Fusin
 		{
 			if (it->getTypes() & mEnabledTypes)
 			{
-				it->updateDeviceList();
+				if (mDeviceEnumerationTimer > mDeviceEnumerationPeriod)
+				{
+					it->updateDeviceList();
+				}
 				it->update();
 			}
+		}
+
+		// Reset timer
+		if (mDeviceEnumerationTimer > mDeviceEnumerationPeriod)
+		{
+			mDeviceEnumerationTimer -= mDeviceEnumerationPeriod;
+			
+			// If 2 or more periods have accumulated reset it to 0, to prevent enumerating on each update() 
+			// in case the timing goes bonkers.
+			if (mDeviceEnumerationTimer > mDeviceEnumerationPeriod)
+				mDeviceEnumerationTimer = 0;
 		}
 
 		// Update devices

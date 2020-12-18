@@ -8,7 +8,7 @@ namespace Fusin
 {
 
 	RawInputReportHandler::RawInputReportHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool readEachRawInput, Device* fusinDevice)
-		: RawInputDeviceHandler(riDeviceHandle, riDeviceInfo, fusinDevice)
+		: RawInputDeviceHandler(riDeviceHandle, riDeviceInfo)
 		, mReadEachRawInput(readEachRawInput)
 		, mUpdateCounter(0)
 	{
