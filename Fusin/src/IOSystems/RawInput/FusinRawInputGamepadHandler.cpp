@@ -1,8 +1,8 @@
 #include "IOSystems/RawInput/FusinRawInputGamepadHandler.h"
-#include "FusinGamepadDevice.h"
-#include "FusinGamepad.h"
+#include "Devices/FusinGamepadDevice.h"
+#include "IOCodes/FusinGamepad.h"
 #include "Utilities/FusinLog.h"
-#include "FusinByteDebug.h"
+#include "Utilities/FusinByteDebug.h"
 #include <algorithm>
 #include <iostream>
 
@@ -10,10 +10,13 @@ namespace Fusin
 {
 
 	RawInputGamepadHandler::RawInputGamepadHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo)
-		// we don't set the fusinDevice for now as we will create the GamepadDevice only after loading all the info
 		: RawInputReportHandler(riDeviceHandle, riDeviceInfo, true)
 	{
-		if (!mSuccess) return;
+	}
+
+	bool RawInputGamepadHandler::initialize()
+	{
+		if (!RawInputDeviceHandler::initialize()) return false;
 
 		mpButtonCaps = nullptr;
 		mpValueCaps = nullptr;
@@ -27,8 +30,7 @@ namespace Fusin
 		}
 		else
 		{
-			mSuccess = false;
-			return;
+			return false;
 		}
 
 		// Value caps
@@ -76,15 +78,14 @@ namespace Fusin
 		}
 		else
 		{
-			mSuccess = false;
-			return;
+			return false;
 		}
 
 		// Check vibration
 		bool hasVibration = false;
 
 		// Now that we found all the info create the Device object
-		mFusinDevice = new GamepadDevice(mButtonNum, mAxisNum, hasDPad, hasVibration, mProductName);
+		mFusinDevice = new GamepadDevice(mProductName, mButtonNum, mAxisNum, hasDPad, hasVibration);
 
 		Log::singleton() << "Gamepad Device found: " << mProductName <<
 			"\n    Button num: " << mButtonNum << 
@@ -138,14 +139,14 @@ namespace Fusin
 					}
 					else
 					{
-						gpDevice.dPad.angle.setValue((value == 0) ? 360 : (value * 45));
+						gpDevice.dPad.angle.setValue((value == 0) ? 360.0f : (45.0f * value));
 					}
 				}
 				// Other axes
 				else
 				{
 					float tVal = (float)value / 255.0f * 2.0f - 1.0f;// -1 - 1
-					gpDevice.getAxis(mUsageAxisMap[mpValueCaps[i].Range.UsageMin]).setValue(tVal);
+					gpDevice.axes[mUsageAxisMap[mpValueCaps[i].Range.UsageMin]].setValue(tVal);
 				}
 			}
 		}
@@ -155,9 +156,9 @@ namespace Fusin
 		if (HidP_GetUsages(HidP_Input, mpButtonCaps->UsagePage, 0, usage, &usageLength, mpPreparsedData,
 			(PCHAR)pReport, mInputReportLength) == HIDP_STATUS_SUCCESS)
 		{
-			for (int i = 0; i < usageLength; i++)
+			for (size_t i = 0; i < usageLength; i++)
 			{
-				gpDevice.getButton(usage[i] - mpButtonCaps->Range.UsageMin).press();
+				gpDevice.buttons[usage[i] - mpButtonCaps->Range.UsageMin].press();
 			}
 		}
 	}

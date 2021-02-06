@@ -1,6 +1,6 @@
 #include "IOSystems/RawInput/FusinRawInputMouseHandler.h"
-#include "FusinMouseDevice.h"
-#include "FusinMouse.h"
+#include "Devices/FusinMouseDevice.h"
+#include "IOCodes/FusinMouse.h"
 #include "Utilities/FusinLog.h"
 extern "C"
 {
@@ -20,7 +20,7 @@ namespace Fusin
 
 	}
 	
-	bool RawInputKeyboardHandler::initialize()
+	bool RawInputMouseHandler::initialize()
 	{
 		if (!RawInputDeviceHandler::initialize()) return false;
 
@@ -32,8 +32,7 @@ namespace Fusin
 		);
 
 		mFusinDevice->_setName(mProductName);
-		((MouseDevice*)mFusinDevice)->_setProperties(mpDeviceInfo->mouse.dwNumberOfButtons, mpDeviceInfo->mouse.fHasHorizontalWheel);
-
+		
 		Log::singleton() << "Mouse Device found:" << mProductName <<
 			"\n    button number: " << mpDeviceInfo->mouse.dwNumberOfButtons <<
 			"\n    has horizontal wheel: " << mpDeviceInfo->mouse.fHasHorizontalWheel << "\n";
@@ -49,7 +48,7 @@ namespace Fusin
 		// movement
 		if (mouse.usFlags == MOUSE_MOVE_RELATIVE)
 		{
-			md.movement.simulateMovement(mouse.lLastX, mouse.lLastY);
+			md.movement.simulateMovement((float)mouse.lLastX, (float)mouse.lLastY);
 		}
 		/*if (mouse.usFlags & MOUSE_MOVE_ABSOLUTE)
 		{
@@ -57,7 +56,7 @@ namespace Fusin
 		}*/
 		if (mouse.usFlags & MOUSE_VIRTUAL_DESKTOP)
 		{
-			md.movement.setPosition(mouse.lLastX, mouse.lLastY);
+			md.movement.setPosition((float)mouse.lLastX, (float)mouse.lLastY);
 		}
 
 		// buttons
