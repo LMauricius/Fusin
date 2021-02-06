@@ -14,12 +14,12 @@ namespace Fusin
 	class IOSystem
 	{
 	public:
-		IOSystem(IOType type);
+		IOSystem(IOFlags flags);
 		virtual ~IOSystem();
 
 		virtual void initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window);
 
-		inline IOType getTypes() { return mTypes; }
+		inline IOFlags getFlags() { return mFlags; }
 
 		virtual void updateDeviceList() = 0;
 		virtual void update() = 0;
@@ -30,7 +30,7 @@ namespace Fusin
 
 	protected:
 		DeviceEnumerator* mDeviceEnumerator;
-		IOType mTypes;
+		IOFlags mFlags;
 	};
 
 }

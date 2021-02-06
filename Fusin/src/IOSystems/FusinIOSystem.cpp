@@ -3,8 +3,8 @@
 namespace Fusin
 {
 
-	IOSystem::IOSystem(IOType type)
-		: mTypes(type)
+	IOSystem::IOSystem(IOFlags flags)
+		: mFlags(flags)
 	{
 	}
 

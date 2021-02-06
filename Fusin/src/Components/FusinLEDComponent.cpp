@@ -1,5 +1,6 @@
 #include "Components/FusinLEDComponent.h"
 #include "Utilities/FusinInputSignalManipulation.h"
+#include "Utilities/FusinBitCast.h"
 #include <iomanip>
 #include <algorithm>
 #include <math.h>
@@ -11,7 +12,8 @@ namespace Fusin
 		DeviceComponent(
 			{ {IO_LEDS, &mLEDs} },
 			{}),
-		mSignalDeviceType(signalType)
+		mSignalDeviceType(signalType),
+		mUseDefaults(true)
 	{
 		_setLEDCount(LEDNum);
 	}
@@ -49,6 +51,34 @@ namespace Fusin
 			"LED index out of range. Trying to access LED " << ind <<
 			" but this device only has " << mLEDs.size() << " LEDs.").str());
 		return *mLEDs[ind];
+	}
+	
+	void LEDComponent::setLEDFlags(LEDFlags leds)
+	{
+		for (int i=0; i<mLEDs.size(); i++)
+		{
+			mLEDs[i]->setValue(getFlag(leds, i));
+		}
+	}
+
+	LEDFlags LEDComponent::ledFlags()
+	{
+		LEDFlags ret = LED_NONE;
+		for (int i=0; i<mLEDs.size(); i++)
+		{
+			setFlag(ret, i, mLEDs[i]->value());
+		}
+		return ret;
+	}
+	
+	void LEDComponent::setUseDefaults(bool enable)
+	{
+		mUseDefaults = enable;
+	}
+
+	bool LEDComponent::useDefaults()
+	{
+		return mUseDefaults;
 	}
 
 

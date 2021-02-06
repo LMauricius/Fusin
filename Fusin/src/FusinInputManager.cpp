@@ -116,7 +116,7 @@ namespace Fusin
 		// Update io systems
 		for (auto& it : mIOSystems)
 		{
-			if (it->getTypes() & mEnabledTypes)
+			if (it->getFlags() & mEnabledTypes)
 			{
 				if (mDeviceEnumerationTimer > mDeviceEnumerationPeriod)
 				{
@@ -157,7 +157,7 @@ namespace Fusin
 	{
 		for (auto& it : mIOSystems)
 		{
-			if (it->getTypes() & mEnabledTypes)
+			if (it->getFlags() & mEnabledTypes)
 				it->handleMessage(msg);
 		}
 	}
@@ -245,9 +245,9 @@ namespace Fusin
 		return 0.0;
 	}
 
-	void InputManager::registerDevice(Device * dev)
+	Index InputManager::registerDevice(Device * dev)
 	{
-		DeviceEnumerator::registerDevice(dev);
+		Index ind = DeviceEnumerator::registerDevice(dev);
 
 		// Register to the global device
 		Device* global = getDevice(dev->type(), 0);
@@ -264,6 +264,7 @@ namespace Fusin
 		}
 
 		FOR_LISTENERS(deviceRegistered(this, dev));
+		return ind;
 	}
 
 	void InputManager::unregisterDevice(Device * dev)

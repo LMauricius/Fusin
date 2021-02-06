@@ -84,30 +84,34 @@ namespace Fusin
 
 			for (auto dev : mCoveredComponents)
 			{
-				float a;
-
-				// Angle has dominance over directions; Calc using directions only if they have changed and the angle has not;
 				auto covDPad = static_cast<DPadComponent*>(dev);
-				if (!covDPad->angle.changed() && (
-					covDPad->up.changed() || covDPad->down.changed() || covDPad->left.changed() || covDPad->right.changed()
-					))
+				if (covDPad->angle.changed() || 
+					covDPad->up.changed() || covDPad->down.changed() || 
+					covDPad->left.changed() || covDPad->right.changed())
 				{
-					a = calcAngleFromDir(covDPad);
-				}
-				else
-				{
-					a = covDPad->angle.value();
-				}
+					float a;
 
-				if (a > maxA)
-					maxA = a;
+					// Angle has dominance over directions; Calc using directions only if they have changed and the angle has not;
+					if (covDPad->angle.changed())
+					{
+						a = covDPad->angle.value();
+					}
+					else
+					{
+						a = calcAngleFromDir(covDPad);
+					}
+
+					if (a > maxA)
+					{
+						maxA = a;
+						angle.setValue(maxA);
+						isAngleDominant = true;
+					}
+				}
 			}
-
-			angle.setValue(maxA);
-			isAngleDominant = true;
 		}
 
-		// If the angle has changed and directions haven't, _update the directions' values
+		// If the angle has changed and directions haven't, update the directions' values
 		if (isAngleDominant)
 		{
 			double x = std::sin(angle.value() * DEGTORAD_FACTOR);
@@ -119,7 +123,7 @@ namespace Fusin
 		}
 
 		/*
-		Now that all values have been properly set, _update the signals
+		Now that all values have been properly set, update the signals
 		*/
 		angle.update();
 		left.update();

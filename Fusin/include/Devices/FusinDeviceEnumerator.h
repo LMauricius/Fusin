@@ -22,8 +22,9 @@ namespace Fusin
 		/*
 		If registerComponents is enabled, the DeviceComponents of the specified device
 		will be registered automatically.
+		Returns index of the registered device
 		*/
-		virtual void registerDevice(Device* dev, bool registerComponents = true);
+		virtual Index registerDevice(Device* dev, bool registerComponents = true);
 		virtual void unregisterDevice(Device* dev);
 		virtual void registerComponent(DeviceComponent* comp);
 		virtual void unregisterComponent(DeviceComponent* comp);

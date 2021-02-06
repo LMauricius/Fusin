@@ -114,6 +114,7 @@ namespace Fusin
 		{
 			if ((*it).first & t) return (*it).second;
 		}
+		return -1;
 	}
 
 	void GenericControlSetup::setEnabledInputTypes(IOFlags t)

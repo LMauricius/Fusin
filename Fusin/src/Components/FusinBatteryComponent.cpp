@@ -17,6 +17,8 @@ namespace Fusin
 	{
 		energy.setValue(-1);
 		energy.update();
+		charging.setValue(false);
+		charging.update();
 	}
 
 	BatteryComponent::~BatteryComponent()

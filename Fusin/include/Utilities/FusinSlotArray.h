@@ -25,7 +25,7 @@ namespace Fusin
 			{
 				mSlots.reserve(slot + 1);
 				mSlotsFree.reserve(slot + 1);
-				for (int i = mSlots.size(); i < slot; i++)
+				for (size_t i = mSlots.size(); i < slot; i++)
 				{
 					mSlots.push_back(T());
 					mSlotsFree.push_back(true);
@@ -62,7 +62,7 @@ namespace Fusin
 			}
 			mSlots.push_back(T());
 			mSlotsFree.push_back(false);
-			return mSlots.size() - 1;
+			return (int)mSlots.size() - 1;
 		}
 
 		Index getFreeSlot() const

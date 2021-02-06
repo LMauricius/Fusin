@@ -39,9 +39,17 @@ namespace Fusin
     /*
     Sets or removes (depending on 'enable' param) the specified flags from the variable output
     */
+    template<typename _TF, typename _TI>
+    inline void setFlag(_TF& output, const _TI index, bool enable) {
+        output = (output & ~(_TI(1) << index)) | ((_TI(1) << index) * enable);
+    }
+
+    /*
+    Sets or removes (depending on 'enable' param) the specified flags from the variable output
+    */
     template<typename _TF>
     inline void setFlags(_TF& output, const _TF flags, bool enable) {
-        output = (output & ~flags) | (flags* enable);
+        output = (output & ~flags) | (flags * enable);
     }
 
     // Mask of 1s, start and end are 0-based

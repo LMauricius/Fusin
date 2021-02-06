@@ -44,7 +44,7 @@ namespace Fusin
 
 	protected:
 		DeviceType mSignalDeviceType;
-		int mKeyNum, mFunctionKeyNum;
+		size_t mKeyNum, mFunctionKeyNum;
 		std::map<Index, IOSignal*> mKeySignals;
 		std::map<Index, IOSignal*> mTypedKeySignals;
 		std::vector<Char> mPressedKeys;

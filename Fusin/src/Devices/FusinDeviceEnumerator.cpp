@@ -25,7 +25,7 @@ namespace Fusin
 		}
 	}
 
-	void DeviceEnumerator::registerDevice(Device * dev, bool registerComponents)
+	Index DeviceEnumerator::registerDevice(Device * dev, bool registerComponents)
 	{
 		SlotArray<Device*> &slots = mDeviceStructure[dev->type()];
 		Index ind = slots.getFreeSlot();
@@ -37,6 +37,7 @@ namespace Fusin
 		}
 
 		FOR_LISTENERS(deviceRegistered(this, dev));
+		return ind;
 	}
 
 	void DeviceEnumerator::unregisterDevice(Device * dev)

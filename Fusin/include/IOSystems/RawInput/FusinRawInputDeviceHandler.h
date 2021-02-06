@@ -16,8 +16,6 @@ namespace Fusin
 
 	class RawInputDeviceHandler
 	{
-		//friend RawInputSystem;
-
 	public:
 		RawInputDeviceHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);
 		virtual ~RawInputDeviceHandler() = 0;
@@ -27,6 +25,9 @@ namespace Fusin
 
 		virtual void handleRawInput(PRAWINPUT pRawInput);
 		virtual void update();
+
+		void setDeviceIndex(Index ind);
+		inline Index deviceIndex() { return mDeviceIndex; }
 
 		inline Device* fusinDevice() { return mFusinDevice; }
 		inline HANDLE riDevice() { return mRIDeviceHandle; }
@@ -41,6 +42,7 @@ namespace Fusin
 		USHORT mInputReportLength, mOutputReportLength;
 
 		Device *mFusinDevice;
+		Index mDeviceIndex;
 		String mProductName;
 	};
 

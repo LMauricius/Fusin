@@ -32,9 +32,8 @@ namespace Fusin
 				return false;
 			}
 		}
-		else return;
 
-		// Create fusinDevice handle for ioType/output
+		// Create hidDevice handle for ioType/output
 		mHidDeviceHandle = CreateFileW(pRegName, MAXIMUM_ALLOWED, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
 		delete[] pRegName;
 		if (mHidDeviceHandle == INVALID_HANDLE_VALUE) return false;
@@ -67,6 +66,11 @@ namespace Fusin
 	void RawInputDeviceHandler::update()
 	{
 
+	}
+
+	void RawInputDeviceHandler::setDeviceIndex(Index ind)
+	{
+		mDeviceIndex = ind;
 	}
 
 

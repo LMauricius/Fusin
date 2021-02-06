@@ -199,11 +199,11 @@ namespace Fusin
 	{
 		unsigned int c;
 		c = r * 255;
-		c << 8;
+		c = c << 8;
 		c = g * 255;
-		c << 8;
+		c = c << 8;
 		c = b * 255;
-		c << 8;
+		c = c << 8;
 		return c;
 	}
 

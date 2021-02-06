@@ -184,7 +184,7 @@ namespace Fusin
 		*/
 		float getValue(const IOCode& ic, Index deviceSlot) const;
 
-		void registerDevice(Device* dev);
+		Index registerDevice(Device* dev);
 		void unregisterDevice(Device* dev);
 		void registerIOSystem(IOSystem* dev);
 		void unregisterIOSystem(IOSystem* dev);

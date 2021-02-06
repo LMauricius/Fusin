@@ -32,7 +32,7 @@ namespace Fusin
 	#define GET_CFG(VAR, KEY, DEFAULT) VAR = getCfgValue(config, FUSIN_STR(KEY), DEFAULT)
 
 	RawInputIOSystem::RawInputIOSystem():
-		IOSystem(IO_ANY)
+		IOSystem(IOF_ANY)
 	{
 	}
 
@@ -215,7 +215,8 @@ namespace Fusin
 							if (newDeviceHandler->initialize())
 							{
 								mHandlerPerHandle.insert(std::make_pair(handle, newDeviceHandler));
-								mDeviceEnumerator->registerDevice(newDeviceHandler->fusinDevice());
+								Index ind = mDeviceEnumerator->registerDevice(newDeviceHandler->fusinDevice());
+								newDeviceHandler->setDeviceIndex(ind);
 
 								//wchar_t serial[128];
 								//if (!HidD_GetSerialNumberString(riDevHandler->hidDevice(), serial, 128 * sizeof(wchar_t))) serial[0] = '\0';
