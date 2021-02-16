@@ -9,8 +9,6 @@ namespace Fusin
 
 	class RawInputJoyConHandler : public RawInputReportHandler
 	{
-		friend RawInputSystem;
-
 	public:
 		RawInputJoyConHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool rightSide);
 		~RawInputJoyConHandler();
@@ -18,6 +16,9 @@ namespace Fusin
 		bool initialize();
 		void handleInputReport(PBYTE pReport);
 		void handleOutputReport(PBYTE pReport);
+
+	protected:
+		bool mRightSide;
 	};
 
 }
