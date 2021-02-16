@@ -3,25 +3,31 @@
 #include "IOCodes/FusinDS.h"
 #include "Utilities/FusinLog.h"
 #include "Utilities/FusinByteDebug.h"
+#include "Utilities/FusinBitCast.h"
 #include <algorithm>
 
 namespace Fusin
 {
 
 	RawInputDS4Handler::RawInputDS4Handler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo)
-		: RawInputReportHandler(riDeviceHandle, riDeviceInfo, true, new DSDevice())
+		: RawInputReportHandler(riDeviceHandle, riDeviceInfo, true)
 	{
-		if (!mSuccess) return;
-
-		mFusinDevice->_setConnectionMode(mInputReportLength == 64 ? CM_USB : CM_BT);
-		mFusinDevice->_setName(mProductName);
-
-		Log::singleton() << "DS4 Device found: " << mProductName << "\n";
 	}
 
 	RawInputDS4Handler::~RawInputDS4Handler()
 	{
 
+	}
+
+	bool RawInputDS4Handler::initialize()
+	{
+		if (!RawInputDeviceHandler::initialize()) return false;
+
+		mFusinDevice = new DSDevice(mProductName, true);
+		mFusinDevice->_setConnectionMode(mInputReportLength == 64 ? CM_USB : CM_BT);
+		mFusinDevice->_setName(mProductName);
+
+		Log::singleton() << "DS4 Device found: " << mProductName << "\n";
 	}
 
 	void RawInputDS4Handler::handleInputReport(PBYTE pReport)
@@ -56,58 +62,60 @@ namespace Fusin
 
 		if (inputReport)
 		{
-			dsD.axes.leftX.setValue(FUSIN_SIGNED_RANGE_BYTE(inputReport[0]));
-			dsD.axes.leftY.setValue(FUSIN_SIGNED_RANGE_BYTE(inputReport[1]));
-			dsD.axes.rightX.setValue(FUSIN_SIGNED_RANGE_BYTE(inputReport[2]));
-			dsD.axes.rightY.setValue(FUSIN_SIGNED_RANGE_BYTE(inputReport[3]));
-			dsD.axes.l2.setValue(FUSIN_UNSIGNED_RANGE_BYTE(inputReport[7]));
-			dsD.axes.r2.setValue(FUSIN_UNSIGNED_RANGE_BYTE(inputReport[8]));
+			dsD.axisLeftStickX.setValue(fromBitRange8(inputReport[0]));
+			dsD.axisLeftStickX.setValue(fromBitRange8(inputReport[1]));
+			dsD.axisRightStickX.setValue(fromBitRange8(inputReport[2]));
+			dsD.axisRightStickX.setValue(fromBitRange8(inputReport[3]));
+			dsD.axisL2.setValue(fromBitRange8U(inputReport[7]));
+			dsD.axisRightStickX.setValue(fromBitRange8U(inputReport[8]));
 
-			dsD.buttons.triangle.setValue(FUSIN_RANGE_BIT(inputReport[4], 7));
-			dsD.buttons.circle.setValue(FUSIN_RANGE_BIT(inputReport[4], 6));
-			dsD.buttons.cross.setValue(FUSIN_RANGE_BIT(inputReport[4], 5));
-			dsD.buttons.square.setValue(FUSIN_RANGE_BIT(inputReport[4], 4));
-			if (inputReport[4] & 0xf > 7)
+			dsD.buttonTriangle.setValue(getFlag(inputReport[4], 7));
+			dsD.buttonCircle.setValue(getFlag(inputReport[4], 6));
+			dsD.buttonCross.setValue(getFlag(inputReport[4], 5));
+			dsD.buttonSquare.setValue(getFlag(inputReport[4], 4));
+			if ((inputReport[4] & 0xf) > 7)
 			{
 				dsD.dPad.angle.setValue(0);
 			}
 			else
 			{
-				dsD.dPad.angle.setValue((inputReport[4] & 0xF == 0) ? 360 : (inputReport[4] & 0xF * 45));
+				dsD.dPad.angle.setValue((float)(((inputReport[4] & 0xF) == 0) ? 360 : ((inputReport[4] & 0xF) * 45)));
 			}
 
-			dsD.buttons.r3.setValue(FUSIN_RANGE_BIT(inputReport[5], 7));
-			dsD.buttons.l3.setValue(FUSIN_RANGE_BIT(inputReport[5], 6));
-			dsD.buttons.options.setValue(FUSIN_RANGE_BIT(inputReport[5], 5));
-			dsD.buttons.share.setValue(FUSIN_RANGE_BIT(inputReport[5], 4));
-			dsD.buttons.r2.setValue(FUSIN_RANGE_BIT(inputReport[5], 3));
-			dsD.buttons.l2.setValue(FUSIN_RANGE_BIT(inputReport[5], 2));
-			dsD.buttons.r1.setValue(FUSIN_RANGE_BIT(inputReport[5], 1));
-			dsD.buttons.l1.setValue(FUSIN_RANGE_BIT(inputReport[5], 0));
+			dsD.buttonR3.setValue(getFlag(inputReport[5], 7));
+			dsD.buttonL3.setValue(getFlag(inputReport[5], 6));
+			dsD.buttonOptions.setValue(getFlag(inputReport[5], 5));
+			dsD.buttonCreate.setValue(getFlag(inputReport[5], 4));
+			dsD.buttonR3.setValue(getFlag(inputReport[5], 3));
+			dsD.buttonL3.setValue(getFlag(inputReport[5], 2));
+			dsD.buttonR1.setValue(getFlag(inputReport[5], 1));
+			dsD.buttonL3.setValue(getFlag(inputReport[5], 0));
 
-			dsD.buttons.ps.setValue(FUSIN_RANGE_BIT(inputReport[6], 0));
-			dsD.buttons.touchPad.setValue(FUSIN_RANGE_BIT(inputReport[6], 1));
+			dsD.buttonPS.setValue(getFlag(inputReport[6], 0));
+			dsD.buttonTouchPad.setValue(getFlag(inputReport[6], 1));
 		}
 
 		if (accelReport)
 		{
-			dsD.motion.acceleration.xAxis.setValue(-(float)accelReport[0] / 8192);
-			dsD.motion.acceleration.yAxis.setValue(-(float)accelReport[1] / 8192);
-			dsD.motion.acceleration.zAxis.setValue(-(float)accelReport[2] / 8192);
+			dsD.motion.accelerationX.setValue(-(float)accelReport[0] / 8192);
+			dsD.motion.accelerationY.setValue(-(float)accelReport[1] / 8192);
+			dsD.motion.accelerationZ.setValue(-(float)accelReport[2] / 8192);
 		}
 		if (gyroReport)
 		{
-			dsD.motion.gyro.pitchAxis.setValue((float)gyroReport[0] / 32768);
-			dsD.motion.gyro.yawAxis.setValue((float)gyroReport[1] / 32768);
-			dsD.motion.gyro.rollAxis.setValue((float)gyroReport[2] / 32768);
+			dsD.motion.gyroPitch.setValue((float)gyroReport[0] / 32768);
+			dsD.motion.gyroYaw.setValue((float)gyroReport[1] / 32768);
+			dsD.motion.gyroRoll.setValue((float)gyroReport[2] / 32768);
 		}
 		if (extraReport)
 		{
 			/*dsD.mPhone = extraReport[0] & (1 << 6));
 			dsD.mMic = extraReport[0] & (1 << 5));
 			//dsD.mUsb = extraReport[0] & (1 << 5));*/
-			dsD._setCharging(FUSIN_RANGE_BIT(extraReport[0], 4));
-			dsD._setBattery((extraReport[0] & 0x0f) * 10);
+			dsD.battery.charging.setValue(getFlag(extraReport[0], 4));
+			dsD.battery.energy.setValue((float)(extraReport[0] & 0x0f) * 10);
+			/*dsD._setCharging(getFlag(extraReport[0], 4));
+			dsD._setBattery((extraReport[0] & 0x0f) * 10);*/
 		}
 
 		if (touchReport)
@@ -122,15 +130,30 @@ namespace Fusin
 				x = DAB
 				y = EFC
 				*/
-				TouchDevice::TouchSignals* touch = dsD.touchPad.getTouch(1);
-				touch->state.setValue(!FUSIN_RANGE_BIT(touchReport[touchOffset], 7));
-				touch->positionX.setValue(((UINT)(touchReport[touchOffset + 2] & 0x0f) << 8) + touchReport[touchOffset + 1]);//2, 3, 4
-				touch->positionY.setValue((((UINT)touchReport[touchOffset + 3]) << 4) + (touchReport[touchOffset + 2] >> 4));
+				int x1 = ((UINT)(touchReport[touchOffset + 2] & 0x0f) << 8) + touchReport[touchOffset + 1];//2, 3, 4
+				int y1 = (((UINT)touchReport[touchOffset + 3]) << 4) + (touchReport[touchOffset + 2] >> 4);
+				int x2 = ((UINT)(touchReport[touchOffset + 6] & 0x0f) << 8) + touchReport[touchOffset + 5];//6, 7, 8
+				int y2 = (((UINT)touchReport[touchOffset + 7]) << 4) + (touchReport[touchOffset + 6] >> 4);
 
-				touch = dsD.touchPad.getTouch(2);
-				touch->state.setValue(!FUSIN_RANGE_BIT(touchReport[touchOffset + 4], 7));
-				touch->positionX.setValue(((UINT)(touchReport[touchOffset + 6] & 0x0f) << 8) + touchReport[touchOffset + 5]);//6, 7, 8
-				touch->positionY.setValue((((UINT)touchReport[touchOffset + 7]) << 4) + (touchReport[touchOffset + 6] >> 4));
+				TouchComponent::TouchSignals* touch = &dsD.touchPad[0];
+				touch->pressure.setValue(!getFlag(touchReport[touchOffset], 7));
+				touch->positionX.setValue((float)x1);
+				touch->positionY.setValue((float)y1);
+
+				touch = &dsD.touchPad[1];
+				touch->pressure.setValue(!getFlag(touchReport[touchOffset + 4], 7));
+				touch->positionX.setValue((float)x2);
+				touch->positionY.setValue((float)y2);
+
+				/*
+				touch->positionX.setValue((float)(((UINT)(touchReport[touchOffset + 2] & 0x0f) << 8) + touchReport[touchOffset + 1]));//2, 3, 4
+				touch->positionY.setValue((float)((((UINT)touchReport[touchOffset + 3]) << 4) + (touchReport[touchOffset + 2] >> 4)));
+
+				touch = &dsD.touchPad[1];
+				touch->pressure.setValue(!getFlag(touchReport[touchOffset + 4], 7));
+				touch->positionX.setValue((float)(((UINT)(touchReport[touchOffset + 6] & 0x0f) << 8) + touchReport[touchOffset + 5]));//6, 7, 8
+				touch->positionY.setValue((float)((((UINT)touchReport[touchOffset + 7]) << 4) + (touchReport[touchOffset + 6] >> 4)));
+				*/
 			}
 		}
 	}
@@ -144,11 +167,11 @@ namespace Fusin
 			pReport[0] = 0x11;
 			pReport[1] = 0x80;
 			pReport[3] = 0xff;//enable rumble
-			pReport[6] = dsD.getRightVibration() * 255; //fast motor
-			pReport[7] = dsD.getLeftVibration() * 255; //slow motor
-			pReport[8] = dsD.getColor().r * 255; //red
-			pReport[9] = dsD.getColor().g * 255; //green
-			pReport[10] = dsD.getColor().b * 255; //blue
+			pReport[6] = (BYTE)(dsD.vibration.rightForce.value() * 255); //fast motor
+			pReport[7] = (BYTE)(dsD.vibration.leftForce.value() * 255); //slow motor
+			pReport[8] = (BYTE)(dsD.rgb.red.value() * 255); //red
+			pReport[9] = (BYTE)(dsD.rgb.green.value() * 255); //green
+			pReport[10] = (BYTE)(dsD.rgb.blue.value() * 255); //blue
 			pReport[11] = 0; //flash on duration
 			pReport[12] = 0; //flash off duration
 		}
@@ -156,11 +179,11 @@ namespace Fusin
 		{
 			pReport[0] = 0x05;
 			pReport[1] = 0xf3;
-			pReport[4] = dsD.getRightVibration() * 255; //fast motor
-			pReport[5] = dsD.getLeftVibration() * 255; //slow  motor
-			pReport[6] = dsD.getColor().r * 255; //red
-			pReport[7] = dsD.getColor().g * 255; //green
-			pReport[8] = dsD.getColor().b * 255; //blue
+			pReport[4] = (BYTE)(dsD.vibration.rightForce.value() * 255); //fast motor
+			pReport[5] = (BYTE)(dsD.vibration.leftForce.value() * 255); //slow motor
+			pReport[6] = (BYTE)(dsD.rgb.red.value() * 255); //red
+			pReport[7] = (BYTE)(dsD.rgb.green.value() * 255); //green
+			pReport[8] = (BYTE)(dsD.rgb.blue.value() * 255); //blue
 			pReport[9] = 0; //flash on duration
 			pReport[10] = 0; //flash off duration
 		}
