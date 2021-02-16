@@ -15,7 +15,7 @@ namespace Fusin
 	const IOCode ANY_CURSOR_MOVE_UP    = ANY_CURSOR_MOVE_Y.negativeVersion();
 	const IOCode ANY_CURSOR_MOVE_DOWN  = ANY_CURSOR_MOVE_Y.positiveVersion();
 
-	const const std::vector<String> CURSOR_MOVEMENT_NAMES = {
+	const std::vector<String> CURSOR_MOVEMENT_NAMES = {
 		FUSIN_STR("Move_X"), FUSIN_STR("Move_Y")
 	};
 

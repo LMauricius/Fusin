@@ -11,7 +11,7 @@ namespace Fusin
 	{
 		unsigned char a, b;
 		String str;
-		for (int i = 0; i < byteNum; i++)
+		for (size_t i = 0; i < byteNum; i++)
 		{
 			a = *((unsigned char*)begin + i) / 16;
 			b = *((unsigned char*)begin + i) % 16;
@@ -30,7 +30,7 @@ namespace Fusin
 	{
 		unsigned char a, b;
 		String str;
-		for (int i = 0; i < byteNum; i++)
+		for (size_t i = 0; i < byteNum; i++)
 		{
 			a = *((unsigned char*)begin + i) / 16;
 			b = *((unsigned char*)begin + i) % 16;
@@ -65,7 +65,7 @@ namespace Fusin
 			sepStr = L"   ";
 		}
 
-		for (int i = 0; i < byteNum; i++)
+		for (size_t i = 0; i < byteNum; i++)
 		{
 			std::wstringstream ss;
 			ss << i;
@@ -88,9 +88,8 @@ namespace Fusin
 
 	inline String bitString(void* begin, unsigned int byteNum)
 	{
-		unsigned char a, b;
 		String str;
-		for (int i = 0; i < byteNum; i++)
+		for (size_t i = 0; i < byteNum; i++)
 		{
 			for (int j = 7; j >= 0; j--)
 			{

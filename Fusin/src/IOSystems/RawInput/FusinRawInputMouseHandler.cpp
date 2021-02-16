@@ -30,8 +30,6 @@ namespace Fusin
 			mpDeviceInfo->mouse.fHasHorizontalWheel,
 			false
 		);
-
-		mFusinDevice->_setName(mProductName);
 		
 		Log::singleton() << "Mouse Device found:" << mProductName <<
 			"\n    button number: " << mpDeviceInfo->mouse.dwNumberOfButtons <<

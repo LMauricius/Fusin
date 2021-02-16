@@ -95,7 +95,7 @@ namespace Fusin
 	IOCode::IOCode(uint64_t ic):
 		deviceType((DeviceType)((ic & mask1(48, 64)) >> 48)),
 		ioType((IOType)((ic & mask1(32, 48)) >> 32)),
-		index(ic & mask1(0, 32))
+		index(int32_t(ic & mask1(0, 32)))
 	{
 	}
 
@@ -110,7 +110,7 @@ namespace Fusin
 		bool foundInput = false;
 		bool foundIndex = false;
 		bool foundModifier = false;
-		int indexFactor = 1;
+		size_t indexFactor = 1;
 
 		if (!(ss >> deviceStr))
 			return;

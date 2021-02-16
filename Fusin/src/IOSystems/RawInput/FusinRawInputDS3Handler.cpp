@@ -93,14 +93,14 @@ namespace Fusin
 			dsD.motion.accelerationZ.setValue(-(float)accelReport[1] / 8192);
 			dsD.motion.accelerationY.setValue(-(float)accelReport[2] / 8192);
 		}
-		/*if (extraReport)
-		{*/
+		if (extraReport)
+		{
 			/*dsD.mPhone = extraReport[0] & (1 << 6));
 			dsD.mMic = extraReport[0] & (1 << 5));
 			//dsD.mUsb = extraReport[0] & (1 << 5));*/
-			/*dsD._setCharging(extraReport[0] & (1 << 4));
-			dsD._setBattery((extraReport[0] & 0x0f) * 10);
-		}*/
+			/*dsD.battery.charging.setValue(extraReport[0] & (1 << 4));
+			dsD.battery.energy.setValue((extraReport[0] & 0x0f) * 10);*/
+		}
 	}
 
 	void RawInputDS3Handler::handleOutputReport(PBYTE pReport)

@@ -176,15 +176,16 @@ namespace Fusin
 						case RIM_TYPEHID:
 							if (pDInfo->hid.usUsagePage == 1 && (pDInfo->hid.usUsage == 4 || pDInfo->hid.usUsage == 5))
 							{
+								decltype(DS3_PRODUCT_IDS)::iterator it;
 								// check the kind of the gamepad device
 								switch (pDInfo->hid.dwVendorId)
 								{
 								case DS_VENDOR_ID:// dualshock
-									if (quickFind(DS3_PRODUCT_IDS, pDInfo->hid.dwProductId))// ds3
+									if (quickExists(DS3_PRODUCT_IDS, pDInfo->hid.dwProductId))// ds3
 									{
 										newDeviceHandler = new RawInputDS3Handler(handle, pDInfo);
 									}
-									else if (quickFind(DS4_PRODUCT_IDS, pDInfo->hid.dwProductId))// ds4
+									else if (quickExists(DS4_PRODUCT_IDS, pDInfo->hid.dwProductId))// ds4
 									{
 										newDeviceHandler = new RawInputDS4Handler(handle, pDInfo);
 									}
@@ -194,7 +195,7 @@ namespace Fusin
 									break;
 
 								case NINTENDO_VENDOR_ID:// Nintendo
-									if (quickFind(JOYCON_PRODUCT_IDS, pDInfo->hid.dwProductId))// joy-con
+									if (quickExists(JOYCON_PRODUCT_IDS, pDInfo->hid.dwProductId))// joy-con
 									{
 										newDeviceHandler = new RawInputJoyConHandler(handle, pDInfo, pDInfo->hid.dwProductId == JOYCON_PRODUCT_ID_RIGHT);
 									}
@@ -240,7 +241,7 @@ namespace Fusin
 		// Remove device handlers that don't have a handle anymore on the handle list;
 		for (auto it = mHandlerPerHandle.begin(); it != mHandlerPerHandle.end();)
 		{
-			if (!quickFind(activeHandles, (*it).first))
+			if (!quickExists(activeHandles, (*it).first))
 			{
 				if ((*it).second)
 				{

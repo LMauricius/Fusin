@@ -55,26 +55,26 @@ namespace Fusin
 	const IOCode ANY_MOTION_TRACKER_POSITION_Y_POSITIVE = ANY_MOTION_TRACKER_POSITION_Y.positiveVersion();
 	const IOCode ANY_MOTION_TRACKER_POSITION_Z_POSITIVE = ANY_MOTION_TRACKER_POSITION_Z.positiveVersion();
 
-	const const std::vector<String> POSITION_NAMES = {
+	const std::vector<String> POSITION_NAMES = {
 		FUSIN_STR("X"), FUSIN_STR("Y"), FUSIN_STR("Z")
 	};
-	const const std::vector<String> ROTATION_NAMES = {
+	const std::vector<String> ROTATION_NAMES = {
 		FUSIN_STR("Yaw"), FUSIN_STR("Pitch"), FUSIN_STR("Roll")
 	};
 
-	const const std::vector<String> ANY_MOTION_TRACKER_GYRO_NAMES = {
+	const std::vector<String> ANY_MOTION_TRACKER_GYRO_NAMES = {
 		FUSIN_STR("Gyro_Yaw"), FUSIN_STR("Gyro_Pitch"), FUSIN_STR("Gyro_Roll")
 	};
-	const const std::vector<String> ANY_MOTION_TRACKER_ACCELERATION_NAMES = {
+	const std::vector<String> ANY_MOTION_TRACKER_ACCELERATION_NAMES = {
 		FUSIN_STR("Accel_X"), FUSIN_STR("Accel_Y"), FUSIN_STR("Accel_Z")
 	};
-	const const std::vector<String> ANY_MOTION_TRACKER_ORIENTATION_NAMES = {
+	const std::vector<String> ANY_MOTION_TRACKER_ORIENTATION_NAMES = {
 		FUSIN_STR("Orientation_Yaw"), FUSIN_STR("Orientation_Pitch"), FUSIN_STR("Orientation_Roll")
 	};
-	const const std::vector<String> ANY_MOTION_TRACKER_VELOCITY_NAMES = {
+	const std::vector<String> ANY_MOTION_TRACKER_VELOCITY_NAMES = {
 		FUSIN_STR("Velocity_X"), FUSIN_STR("Velocity_Y"), FUSIN_STR("Velocity_Z")
 	};
-	const const std::vector<String> ANY_MOTION_TRACKER_POSITION_NAMES = {
+	const std::vector<String> ANY_MOTION_TRACKER_POSITION_NAMES = {
 		FUSIN_STR("WPosition_X"), FUSIN_STR("WPosition_Y"), FUSIN_STR("WPosition_Z")
 	};
 

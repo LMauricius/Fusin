@@ -13,7 +13,7 @@ namespace Fusin
 	const IOCode ANY_WHEEL_LEFT  = ANY_WHEEL_HORIZONTAL.negativeVersion();
 	const IOCode ANY_WHEEL_RIGHT = ANY_WHEEL_HORIZONTAL.positiveVersion();
 
-	const const std::vector<String> WHEEL_ROTATION_NAMES = {
+	const std::vector<String> WHEEL_ROTATION_NAMES = {
 		FUSIN_STR("V_Scroll"), FUSIN_STR("H_Scroll")
 	};
 
