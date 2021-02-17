@@ -16,7 +16,7 @@ namespace Fusin
 		RawInputReportHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool readEachRawInput, Device* fusinDevice = nullptr);
 		~RawInputReportHandler() = 0;
 		
-		bool initialize();
+		//bool initialize();
 		void update();
 		void handleRawInput(PRAWINPUT pRawInput);
 

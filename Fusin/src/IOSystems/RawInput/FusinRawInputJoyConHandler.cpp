@@ -30,6 +30,8 @@ namespace Fusin
 
 		Log::singleton() << "JoyCon Device found: " << mProductName << "\n" <<
 			"    " << (mRightSide? "Right-Handed" : "Left-Handed") << "\n";
+
+		return true;
 	}
 
 	RawInputJoyConHandler::~RawInputJoyConHandler()

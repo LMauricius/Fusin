@@ -1,31 +1,31 @@
-#include "FusinInputManager.h"
 #include "FusinPrerequisites.h"
+#include "FusinInputManager.h"
 
 // Gestures
-#include "FusinInputGesture.h"
-#include "FusinPositionGesture.h"
-#include "FusinShakeGesture.h"
-#include "FusinRangeGesture.h"
-#include "FusinAnyListener.h"
+#include "Commands/FusinInputCommand.h"
+#include "Commands/FusinPositionCommand.h"
+#include "Commands/FusinShakeCommand.h"
+#include "Commands/FusinRangeCommand.h"
+//#include "FusinAnyListener.h"
 
 // Input codes
-#include "FusinKey.h"
-#include "FusinMouse.h"
-#include "FusinGamepad.h"
-#include "FusinDS.h"
-#include "FusinXInput.h"
-#include "FusinNintendo.h"
+#include "IOCodes/FusinKey.h"
+#include "IOCodes/FusinMouse.h"
+#include "IOCodes/FusinGamepad.h"
+#include "IOCodes/FusinDS.h"
+#include "IOCodes/FusinXInput.h"
+#include "IOCodes/FusinNintendo.h"
 
 // Devices
-#include "FusinKeyboardDevice.h"
+/*#include "FusinKeyboardDevice.h"
 #include "FusinMouseDevice.h"
 #include "FusinGamepadDevice.h"
 #include "FusinDSDevice.h"
 #include "FusinXInputDevice.h"
-#include "FusinNintendoDevice.h"
+#include "FusinNintendoDevice.h"*/
 
 // Ctrl setups
-#include "FusinGenericControlSetup.h"
+#include "ControlSetups/FusinGenericControlSetup.h"
 
 // Utilities
 #include "Utilities/FusinColor.h"

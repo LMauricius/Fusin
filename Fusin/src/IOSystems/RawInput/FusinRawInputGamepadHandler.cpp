@@ -92,6 +92,8 @@ namespace Fusin
 			"\n    Axis num: " << mAxisNum <<
 			"\n    Has DPad: " << hasDPad <<
 			"\n    Has Vibration: " << hasVibration << "\n";
+
+		return true;
 	}
 
 	RawInputGamepadHandler::~RawInputGamepadHandler()

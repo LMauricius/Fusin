@@ -28,6 +28,8 @@ namespace Fusin
 		mFusinDevice->_setConnectionMode(mInputReportLength == 64 ? CM_USB : CM_BT);
 
 		Log::singleton() << "DS3 Device found: " << mProductName << "\n";
+
+		return true;
 	}
 
 	void RawInputDS3Handler::handleInputReport(PBYTE pReport)

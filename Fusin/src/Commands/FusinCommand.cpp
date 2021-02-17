@@ -11,7 +11,8 @@ namespace Fusin
 		mStrongestDeviceIndex(-1),
 		mPressed(false),
 		mReleased(false),
-		mUpdateAfterDeviceUpdate(true)
+		mUpdateAfterDeviceUpdate(true),
+		mDeviceEnumerator(nullptr)
 	{
 		setDeviceEnumerator(devEnum);
 	}

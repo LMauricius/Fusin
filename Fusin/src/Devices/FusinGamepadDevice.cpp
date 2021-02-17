@@ -9,7 +9,7 @@ namespace Fusin
 {
 
 	GamepadDevice::GamepadDevice(String name, size_t buttonNum, size_t axisNum, bool hasDPad, bool supportsVibration):
-		Device(name, DT_GAMEPAD, { &buttons, &axes}),
+		Device(name, DT_GAMEPAD),
 		buttons(DT_GAMEPAD, buttonNum),
 		axes(DT_GAMEPAD, axisNum),
 		dPad(DT_GAMEPAD),
@@ -17,6 +17,8 @@ namespace Fusin
 		mHasDPad(hasDPad),
 		mSupportsVibration(supportsVibration)
 	{
+		registerComponents({ &buttons, &axes});
+
 		if (mHasDPad)
 			registerComponent(&dPad);
 

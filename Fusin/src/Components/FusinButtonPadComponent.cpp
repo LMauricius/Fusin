@@ -87,7 +87,7 @@ namespace Fusin
 				mButtons.push_back(new IOSignal(IOCode(mSignalDeviceType, IO_BUTTON, i)));
 			}
 		}
-		else if (buttonNum > mReservedButtonCount)
+		else if (buttonNum >= mReservedButtonCount)
 		{
 			for (int i = buttonNum; i < mButtons.size(); i++) {
 				delete mButtons[i];

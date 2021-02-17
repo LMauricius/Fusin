@@ -64,7 +64,7 @@ namespace Fusin
 		for (auto it : { STICK_ACTIONS })
 		{
 			any.trackCommand(it);
-			it->setDeadZone(0.4);
+			it->setDeadZone(0.4f);
 		}
 		for (auto it : { BUTTON_ACTIONS })
 		{

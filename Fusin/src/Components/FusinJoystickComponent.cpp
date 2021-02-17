@@ -102,7 +102,7 @@ namespace Fusin
 					mPositiveAxes.back(), mNegativeAxes.back()));
 			}
 		}
-		else if (axisNum > mReservedJoystickAxisCount)
+		else if (axisNum >= mReservedJoystickAxisCount)
 		{
 			for (int i = axisNum; i < mAxes.size(); i++) {
 				delete mAxes[i];

@@ -9,12 +9,12 @@ namespace Fusin
 {
 
 	XInputDevice::XInputDevice(String name, bool hasBattery):
-		Device(name, DT_XINPUT, { &buttons, &axes, &dPad, &vibration }, hasBattery),
+		Device(name, DT_XINPUT, hasBattery),
 		buttons(DT_XINPUT, 0),
 		axes(DT_XINPUT, 0),
 		dPad(DT_XINPUT),
 		vibration(DT_XINPUT),
-
+		
 		buttonA(XINPUT_A),
 		buttonB(XINPUT_B),
 		buttonX(XINPUT_X),
@@ -44,6 +44,8 @@ namespace Fusin
 		axisLT(XINPUT_LT),
 		axisRT(XINPUT_RT)
 	{
+		registerComponents({ &buttons, &axes, &dPad, &vibration });
+
 		buttons._registerExternalButtons({
 				&buttonA, &buttonB, &buttonX, &buttonY, &buttonLB, &buttonRB,
 				&buttonView, &buttonMenu, &buttonLeftStick, &buttonRightStick, &buttonGuide 

@@ -13,4 +13,9 @@ add_library(Fusin ${SOURCES})
 set_target_properties(Fusin PROPERTIES OUTPUT_NAME "Fusin${OUTPUT_FILE_SUFFIX}")
 target_include_directories(Fusin PUBLIC "./include")
 
+
+if (WIN32)
+    target_link_libraries(Fusin PUBLIC "hid")
+endif()
+
 target_compile_definitions(Fusin PRIVATE FUSIN_BUILD)

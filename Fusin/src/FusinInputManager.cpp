@@ -169,7 +169,7 @@ namespace Fusin
 		return static_cast<KeyboardDevice*>(getDevice(DT_KEYBOARD, slot));
 	}
 
-	unsigned int InputManager::maxKeyboardDeviceIndex()
+	size_t InputManager::maxKeyboardDeviceIndex()
 	{
 		return maxDeviceIndex(DT_KEYBOARD);
 	}
@@ -179,7 +179,7 @@ namespace Fusin
 		return static_cast<MouseDevice*>(getDevice(DT_MOUSE, slot));
 	}
 
-	unsigned int InputManager::maxMouseDeviceIndex()
+	size_t InputManager::maxMouseDeviceIndex()
 	{
 		return maxDeviceIndex(DT_MOUSE);
 	}
@@ -189,7 +189,7 @@ namespace Fusin
 		return static_cast<GamepadDevice*>(getDevice(DT_GAMEPAD, slot));
 	}
 
-	unsigned int InputManager::maxGamepadDeviceIndex()
+	size_t InputManager::maxGamepadDeviceIndex()
 	{
 		return maxDeviceIndex(DT_GAMEPAD);
 	}
@@ -199,7 +199,7 @@ namespace Fusin
 		return static_cast<XInputDevice*>(getDevice(DT_XINPUT, slot));
 	}
 
-	unsigned int InputManager::maxXInputDeviceIndex()
+	size_t InputManager::maxXInputDeviceIndex()
 	{
 		return maxDeviceIndex(DT_XINPUT);
 	}
@@ -209,7 +209,7 @@ namespace Fusin
 		return static_cast<DSDevice*>(getDevice(DT_DUALSHOCK, slot));
 	}
 
-	unsigned int InputManager::maxDSDeviceIndex()
+	size_t InputManager::maxDSDeviceIndex()
 	{
 		return maxDeviceIndex(DT_DUALSHOCK);
 	}
@@ -219,7 +219,7 @@ namespace Fusin
 		return static_cast<NintendoDevice*>(getDevice(DT_NINTENDO, slot));
 	}
 
-	unsigned int InputManager::maxNintendoDeviceIndex()
+	size_t InputManager::maxNintendoDeviceIndex()
 	{
 		return maxDeviceIndex(DT_NINTENDO);
 	}

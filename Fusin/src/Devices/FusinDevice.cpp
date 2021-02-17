@@ -3,7 +3,7 @@
 namespace Fusin
 {
 
-	Device::Device(String name, DeviceType devType, const std::list<DeviceComponent*>& components, bool hasBattery)
+	Device::Device(String name, DeviceType devType, bool hasBattery)
 		: mName(name)
 		, mDeviceType(devType)
 		, mFlags(IOF_NONE)
@@ -11,9 +11,6 @@ namespace Fusin
 	{
 		if (hasBattery)
 			registerComponent(&battery);
-
-		for (auto comp : components)
-			registerComponent(comp);
 	}
 
 	Device::~Device()
@@ -149,5 +146,11 @@ namespace Fusin
 		for (auto t : ALL_OUTPUT_TYPES)
 			if (FLAG_PER_IO[t] & component->flags())
 				mIOTypeComponentMap[t] = component;
+	}
+
+	void Device::registerComponents(const std::vector<DeviceComponent*>& components)
+	{
+		for (auto comp : components)
+			registerComponent(comp);
 	}
 }

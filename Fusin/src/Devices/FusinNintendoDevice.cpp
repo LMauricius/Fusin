@@ -9,14 +9,14 @@ namespace Fusin
 {
 
 	NintendoDevice::NintendoDevice(String name, bool hasBattery) :
-		Device(name, DT_DUALSHOCK, { &buttons, &axes, &dPad, &vibration }, hasBattery),
+		Device(name, DT_DUALSHOCK, hasBattery),
 		buttons(DT_DUALSHOCK, 0),
 		axes(DT_DUALSHOCK, 0),
 		dPad(DT_DUALSHOCK),
 		motion(DT_DUALSHOCK),
 		touchPad(DT_DUALSHOCK, 2),
 		vibration(DT_DUALSHOCK),
-
+		
 		buttonB(NINTENDO_B),
 		buttonA(NINTENDO_A),
 		buttonY(NINTENDO_Y),
@@ -48,6 +48,8 @@ namespace Fusin
 		axisRightStickDown(NINTENDO_RIGHT_STICK_DOWN),
 		axisRightStickUp(NINTENDO_RIGHT_STICK_UP)
 	{
+		registerComponents({ &buttons, &axes, &dPad, &vibration });
+
 		buttons._registerExternalButtons({
 				&buttonB, &buttonA, &buttonY, &buttonX,
 				&buttonL, &buttonR, &buttonZL, &buttonZR, &buttonSL, &buttonSR,

@@ -9,7 +9,7 @@ namespace Fusin
 {
 
 	DSDevice::DSDevice(String name, bool hasBattery) :
-		Device(name, DT_DUALSHOCK, { &buttons, &axes, &dPad, &vibration }, hasBattery),
+		Device(name, DT_DUALSHOCK, hasBattery),
 		buttons(DT_DUALSHOCK, 0),
 		axes(DT_DUALSHOCK, 0),
 		dPad(DT_DUALSHOCK),
@@ -49,6 +49,8 @@ namespace Fusin
 		axisL2(DS_L2),
 		axisR2(DS_R2)
 	{
+		registerComponents({ &buttons, &axes, &dPad, &vibration });
+
 		buttons._registerExternalButtons({
 				&buttonCross, &buttonCircle, &buttonSquare, &buttonTriangle,
 				&buttonL1, &buttonR1,

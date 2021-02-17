@@ -115,7 +115,7 @@ namespace Fusin
 		/*
 		Call this in the game window's message loop.
 		*/
-		virtual void handleMessage(const MSG* msg) = 0;
+		void handleMessage(const MSG* msg);
 #endif
 
 		/*
@@ -138,37 +138,37 @@ namespace Fusin
 		Use index 0 to get the global KeyboardDevice.
 		*/
 		KeyboardDevice* getKeyboardDevice(Index index = 0);
-		unsigned int maxKeyboardDeviceIndex();
+		size_t maxKeyboardDeviceIndex();
 		/*
 		Returns nullptr if there is no MouseDevice with the specified index.
 		Use index 0 to get the global MouseDevice.
 		*/
 		MouseDevice* getMouseDevice(Index index = 0);
-		unsigned int maxMouseDeviceIndex();
+		size_t maxMouseDeviceIndex();
 		/*
 		Returns nullptr if there is no GamepadDevice with the specified index.
 		Use index 0 to get the global GamepadDevice.
 		*/
 		GamepadDevice* getGamepadDevice(Index index = 0);
-		unsigned int maxGamepadDeviceIndex();
+		size_t maxGamepadDeviceIndex();
 		/*
 		Returns nullptr if there is no XInputDevice with the specified index.
 		Use index 0 to get the global XInputDevice.
 		*/
 		XInputDevice* getXInputDevice(Index index = 0);
-		unsigned int maxXInputDeviceIndex();
+		size_t maxXInputDeviceIndex();
 		/*
 		Returns nullptr if there is no DSDevice with the specified index.
 		Use index 0 to get the global DSDevice.
 		*/
 		DSDevice* getDSDevice(Index index = 0);
-		unsigned int maxDSDeviceIndex();
+		size_t maxDSDeviceIndex();
 		/*
 		Returns nullptr if there is no NintendoDevice with the specified index.
 		Use index 0 to get the global NintendoDevice.
 		*/
 		NintendoDevice* getNintendoDevice(Index index = 0);
-		unsigned int maxNintendoDeviceIndex();
+		size_t maxNintendoDeviceIndex();
 
 		/*
 		Returns the IOSignal with the specified IOCode.

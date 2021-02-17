@@ -26,8 +26,7 @@ namespace Fusin
 		@param devType The type of this device, DT_NONE is default
 		@param components The components that will be registered at construction using the protected function registerComponent().
 		*/
-		Device(String name = FUSIN_STR(""), DeviceType devType = DT_NONE,
-			const std::list<DeviceComponent*>& components = {}, bool hasBattery = false);
+		Device(String name = FUSIN_STR(""), DeviceType devType = DT_NONE, bool hasBattery = false);
 		~Device();
 
 		// Device info
@@ -109,6 +108,7 @@ namespace Fusin
 		adds the component's io flags to this device's flags
 		*/
 		void registerComponent(DeviceComponent* component);
+		void registerComponents(const std::vector<DeviceComponent*>& components = {});
 	};
 
 }

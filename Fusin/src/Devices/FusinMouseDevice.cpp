@@ -6,16 +6,19 @@
 namespace Fusin
 {
 	MouseDevice::MouseDevice(String name, size_t buttonNum, bool hasHorizontalWheel, bool hasBattery):
-		Device(name, DT_MOUSE, { &movement, &buttons, &wheel }, hasBattery),
+		Device(name, DT_MOUSE, hasBattery),
 		movement(DT_MOUSE),
 		buttons(DT_MOUSE, (buttonNum>5)? buttonNum-5 : 0),
 		wheel(DT_MOUSE, hasHorizontalWheel),
+		
 		buttonLeft(MOUSE_BUTTON_LEFT), 
 		buttonRight(MOUSE_BUTTON_RIGHT),
 		buttonMiddle(MOUSE_BUTTON_MIDDLE),
 		button4(MOUSE_BUTTON_4),
 		button5(MOUSE_BUTTON_5)
 	{
+		registerComponents({ &movement, &buttons, &wheel });
+
 		std::vector<IOSignal*> usableButtons;
 		if (buttonNum>0) usableButtons.push_back(&buttonLeft);
 		if (buttonNum>1) usableButtons.push_back(&buttonRight);

@@ -44,7 +44,7 @@ namespace Fusin
 
 		// If it is, we need to calculate directions based on the angle.
 		// If not, the angle has already been calculated based on directions
-		bool isAngleDominant;
+		bool isAngleDominant = false;
 
 		// we will need this. Made into lambda cuz it seemed simpler
 		auto calcAngleFromDir = [](DPadComponent* comp)

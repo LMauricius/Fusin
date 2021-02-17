@@ -10,6 +10,7 @@ namespace Fusin
 	IOCommand::IOCommand(DeviceEnumerator* devEnum) :
 		Command(devEnum)
 	{
+		mDeviceIndices[DT_ANY] = 0;
 		mDeadZones[DT_ANY][IO_ANY] = 0.0f;
 		mMaxValues[DT_ANY][IO_ANY] = std::numeric_limits<float>::max();
 		mFactors[DT_ANY][IO_ANY] = 1.0f;

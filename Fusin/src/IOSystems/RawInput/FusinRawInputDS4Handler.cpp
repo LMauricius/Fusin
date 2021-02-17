@@ -28,6 +28,8 @@ namespace Fusin
 		mFusinDevice->_setName(mProductName);
 
 		Log::singleton() << "DS4 Device found: " << mProductName << "\n";
+
+		return true;
 	}
 
 	void RawInputDS4Handler::handleInputReport(PBYTE pReport)
