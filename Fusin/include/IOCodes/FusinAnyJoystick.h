@@ -9,22 +9,22 @@ namespace Fusin
 	/*
 	Returns the DT_COMPONENT_JOYSTICK, IO_BUTTON IOCode for the specified button
 	*/
-	IOCode AnyJoystickButton(Index b);
+	IOCode _FUSIN_EXPORT AnyJoystickButton(Index b);
 
 	/*
 	Returns the DT_COMPONENT_JOYSTICK, IO_AXIS IOCode for the specified gamepad axis.
 	*/
-	IOCode AnyJoystickAxis(Index a);
+	IOCode _FUSIN_EXPORT AnyJoystickAxis(Index a);
 
 	/*
 	Returns the DT_COMPONENT_JOYSTICK, IO_AXIS IOCode for the specified gamepad axis' positive direction.
 	*/
-	IOCode AnyJoystickPositiveAxis(Index a);
+	IOCode _FUSIN_EXPORT AnyJoystickPositiveAxis(Index a);
 
 	/*
 	Returns the DT_COMPONENT_JOYSTICK, IO_AXIS IOCode for the specified gamepad axis' negative direction.
 	*/
-	IOCode AnyJoystickNegativeAxis(Index a);
+	IOCode _FUSIN_EXPORT AnyJoystickNegativeAxis(Index a);
 
 	const IOCode ANY_JOYSTICK_X_AXIS = AnyJoystickAxis(0);
 	const IOCode ANY_JOYSTICK_Y_AXIS = AnyJoystickAxis(1);

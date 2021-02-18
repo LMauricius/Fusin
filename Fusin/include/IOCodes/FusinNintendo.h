@@ -9,27 +9,27 @@ namespace Fusin
 	/*
 	Returns the DT_NINTENDO, IO_BUTTON IOCode for the specified button
 	*/
-	IOCode NintendoButton(Index b);
+	IOCode _FUSIN_EXPORT NintendoButton(Index b);
 
 	/*
 	Returns the DT_NINTENDO, IO_AXIS IOCode for the specified gamepad axis.
 	*/
-	IOCode NintendoAxis(Index a);
+	IOCode _FUSIN_EXPORT NintendoAxis(Index a);
 
 	/*
 	Returns the DT_NINTENDO, IO_DIRECTION IOCode for the specified value.
 	*/
-	IOCode NintendoDPadButton(Index a);
+	IOCode _FUSIN_EXPORT NintendoDPadButton(Index a);
 
 	/*
 	Returns the DT_NINTENDO, IO_AXIS IOCode for the specified gamepad axis' positive direction.
 	*/
-	IOCode NintendoPositiveAxis(Index a);
+	IOCode _FUSIN_EXPORT NintendoPositiveAxis(Index a);
 
 	/*
 	Returns the DT_NINTENDO, IO_AXIS IOCode for the specified gamepad axis' negative direction.
 	*/
-	IOCode NintendoNegativeAxis(Index a);
+	IOCode _FUSIN_EXPORT NintendoNegativeAxis(Index a);
 
 	const IOCode NINTENDO_A = NintendoButton(0);
 	const IOCode NINTENDO_B = NintendoButton(1);

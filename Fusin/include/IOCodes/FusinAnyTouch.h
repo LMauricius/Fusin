@@ -11,32 +11,32 @@ namespace Fusin
 	/*
 	Returns the DT_TOUCHPAD, IO_ACTIVATION IOCode for the specified touch's activation state
 	*/
-	IOCode AnyTouchActivation(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchActivation(Index touchInd = 0);
 
 	/*
 	Returns the DT_TOUCHPAD, IO_POSITION IOCode for the specified touch's x position
 	*/
-	IOCode AnyTouchPositionX(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchPositionX(Index touchInd = 0);
 
 	/*
 	Returns the DT_TOUCHPAD, IO_POSITION IOCode for the specified touch's y position
 	*/
-	IOCode AnyTouchPositionY(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchPositionY(Index touchInd = 0);
 
 	/*
 	Returns the DT_TOUCHPAD, IO_MOVEMENT IOCode for the specified touch's x movement
 	*/
-	IOCode AnyTouchMoveX(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchMoveX(Index touchInd = 0);
 
 	/*
 	Returns the DT_TOUCHPAD, IO_MOVEMENT IOCode for the specified touch's y movement
 	*/
-	IOCode AnyTouchMoveY(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchMoveY(Index touchInd = 0);
 
-	IOCode AnyTouchMoveLeft(Index touchInd = 0);
-	IOCode AnyTouchMoveRight(Index touchInd = 0);
-	IOCode AnyTouchMoveUp(Index touchInd = 0);
-	IOCode AnyTouchMoveDown(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchMoveLeft(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchMoveRight(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchMoveUp(Index touchInd = 0);
+	IOCode _FUSIN_EXPORT AnyTouchMoveDown(Index touchInd = 0);
 
 	const std::vector<String> TOUCH_PRESSURE_NAMES{
 		FUSIN_STR("Pressure")

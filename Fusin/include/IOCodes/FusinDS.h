@@ -10,27 +10,27 @@ namespace Fusin
 	/*
 	Returns the DT_DUALSHOCK, IO_BUTTON IOCode for the specified button
 	*/
-	IOCode DSButton(Index b);
+	IOCode _FUSIN_EXPORT DSButton(Index b);
 
 	/*
 	Returns the DT_DUALSHOCK, IO_AXIS IOCode for the specified axis.
 	*/
-	IOCode DSAxis(Index a);
+	IOCode _FUSIN_EXPORT DSAxis(Index a);
 
 	/*
 	Returns the DT_DUALSHOCK, IO_DIRECTION IOCode for the specified value.
 	*/
-	IOCode DSDPadButton(Index a);
+	IOCode _FUSIN_EXPORT DSDPadButton(Index a);
 
 	/*
 	Returns the DT_DUALSHOCK, IO_AXIS IOCode for the specified gamepad axis' positive direction.
 	*/
-	IOCode DSPositiveAxis(Index a);
+	IOCode _FUSIN_EXPORT DSPositiveAxis(Index a);
 
 	/*
 	Returns the DT_DUALSHOCK, IO_AXIS IOCode for the specified gamepad axis' negative direction.
 	*/
-	IOCode DSNegativeAxis(Index a);
+	IOCode _FUSIN_EXPORT DSNegativeAxis(Index a);
 
 	const IOCode DS_SQUARE = DSButton(0);
 	const IOCode DS_CROSS = DSButton(1);

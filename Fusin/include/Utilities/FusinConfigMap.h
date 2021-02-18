@@ -23,7 +23,7 @@ namespace Fusin
     }
 
     template<>
-    bool getCfgValue<bool>(const std::map<String, String>& config, String key, const bool def);
+    _FUSIN_EXPORT bool getCfgValue<bool>(const std::map<String, String>& config, String key, const bool def);
 }
 
 #endif

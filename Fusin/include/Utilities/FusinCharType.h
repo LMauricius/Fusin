@@ -45,7 +45,7 @@ namespace Fusin
 	const CharType CT_MATH_ENG = CT_IDENTIFIER | CT_SINGLE_SPACE | CT_SYMBOL_MATH;// Characters that can be found in math expressions, without non-english letters (Only ASCII symbols)
 	const CharType CT_ALL = -1; // All flags
 
-	CharType getCharType(Char c);
+	CharType _FUSIN_EXPORT getCharType(Char c);
 }
 
 #endif

@@ -8,41 +8,41 @@ namespace Fusin
 	/*
 	Returns the DT_KEYBOARD, IO_BUTTON IOCode for the specified character
 	*/
-	IOCode Key(Char c);
+	IOCode _FUSIN_EXPORT Key(Char c);
 
 	/*
 	Returns the DT_KEYBOARD, IO_BUTTON version of the specified IOCode
 	*/
-	IOCode Key(const IOCode& ic);
+	IOCode _FUSIN_EXPORT Key(const IOCode& ic);
 
 	/*
 	Returns the DT_KEYBOARD, IO_BUTTON IOCode for the specified numpad key
 	*/
-	IOCode NumpadKey(int n);
+	IOCode _FUSIN_EXPORT NumpadKey(int n);
 
 	/*
 	Returns the DT_KEYBOARD, IO_BUTTON IOCode for the specified function key
 	*/
-	IOCode FunctionKey(int n);
+	IOCode _FUSIN_EXPORT FunctionKey(int n);
 
 	/*
 	Returns the DT_KEYBOARD, IO_TYPED_BUTTON IOCode for the specified character
 	*/
-	IOCode KeyTyped(Char c);
+	IOCode _FUSIN_EXPORT KeyTyped(Char c);
 
 	/*
 	Returns the DT_KEYBOARD, IO_TYPED_BUTTON version of the specified IOCode
 	*/
-	IOCode KeyTyped(const IOCode& ic);
+	IOCode _FUSIN_EXPORT KeyTyped(const IOCode& ic);
 
 	/*
 	Returns the name of the key, as specified by the constants below, or '<key>' for printable characters
 	*/
-	String keyToName(Char c);
+	String _FUSIN_EXPORT keyToName(Char c);
 	/*
 	Returns the character corresponding to the name. Inverse of keyToName().
 	*/
-	Char nameToKey(String name);
+	Char _FUSIN_EXPORT nameToKey(String name);
 
 	const IOCode KEY_BACKSPACE = Key(0x08);
 	const IOCode KEY_TAB = Key(0x09);

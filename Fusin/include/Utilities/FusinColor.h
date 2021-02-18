@@ -1,6 +1,8 @@
 #ifndef _FUSIN_COLOR_VALUE_H
 #define _FUSIN_COLOR_VALUE_H
 
+#include "FusinPrerequisites.h"
+
 namespace Fusin
 {
 	class ColorHSV;
@@ -65,23 +67,23 @@ namespace Fusin
 
 	namespace Color
 	{
-		extern const ColorRGB Red;
-		extern const ColorRGB Green;
-		extern const ColorRGB Blue;
-		extern const ColorRGB Black;
-		extern const ColorRGB White;
+		_FUSIN_EXPORT extern const ColorRGB Red;
+		_FUSIN_EXPORT extern const ColorRGB Green;
+		_FUSIN_EXPORT extern const ColorRGB Blue;
+		_FUSIN_EXPORT extern const ColorRGB Black;
+		_FUSIN_EXPORT extern const ColorRGB White;
 
-		extern const ColorRGB Yellow;
-		extern const ColorRGB Cyan;
-		extern const ColorRGB Magenta;
+		_FUSIN_EXPORT extern const ColorRGB Yellow;
+		_FUSIN_EXPORT extern const ColorRGB Cyan;
+		_FUSIN_EXPORT extern const ColorRGB Magenta;
 
-		extern const ColorRGB Orange;
-		extern const ColorRGB Lime;
-		extern const ColorRGB Spring;
-		extern const ColorRGB Azure;
-		extern const ColorRGB Purple;
-		extern const ColorRGB Spring;
-		extern const ColorRGB Rose;
+		_FUSIN_EXPORT extern const ColorRGB Orange;
+		_FUSIN_EXPORT extern const ColorRGB Lime;
+		_FUSIN_EXPORT extern const ColorRGB Spring;
+		_FUSIN_EXPORT extern const ColorRGB Azure;
+		_FUSIN_EXPORT extern const ColorRGB Purple;
+		_FUSIN_EXPORT extern const ColorRGB Spring;
+		_FUSIN_EXPORT extern const ColorRGB Rose;
 	}
 
 }

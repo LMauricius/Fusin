@@ -168,11 +168,11 @@ namespace Fusin
 	/*
 	Just performs _update() on all IOSignals in the vector
 	*/
-	void updateInputSignalVector(std::vector<IOSignal*>& signals);
+	_FUSIN_EXPORT void updateInputSignalVector(std::vector<IOSignal*>& signals);
 
-	void releaseInputSignalVector(std::vector<IOSignal*>& signals);
+	_FUSIN_EXPORT void releaseInputSignalVector(std::vector<IOSignal*>& signals);
 
-	void pressInputSignalVector(std::vector<IOSignal*>& signals);
+	_FUSIN_EXPORT void pressInputSignalVector(std::vector<IOSignal*>& signals);
 }
 
 #endif

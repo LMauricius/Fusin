@@ -9,7 +9,7 @@ namespace Fusin
 	/*
 	Returns the DT_MOUSE, IO_BUTTON IOCode for the specified mouse button
 	*/
-	IOCode MouseButton(Index b);
+	IOCode _FUSIN_EXPORT MouseButton(Index b);
 
 	const IOCode MOUSE_BUTTON_LEFT = MouseButton(0);
 	const IOCode MOUSE_BUTTON_RIGHT = MouseButton(1);

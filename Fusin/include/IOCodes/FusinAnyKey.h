@@ -18,32 +18,32 @@ namespace Fusin
 	/*
 	Returns the DT_COMPONENT_TYPING, IO_BUTTON IOCode for the specified character
 	*/
-	IOCode AnyKey(Char c);
+	IOCode _FUSIN_EXPORT AnyKey(Char c);
 
 	/*
 	Returns the DT_COMPONENT_TYPING, IO_BUTTON version of the specified IOCode
 	*/
-	IOCode AnyKey(const IOCode& ic);
+	IOCode _FUSIN_EXPORT AnyKey(const IOCode& ic);
 
 	/*
 	Returns the DT_COMPONENT_TYPING, IO_BUTTON IOCode for the specified numpad key
 	*/
-	IOCode AnyNumpadKey(int n);
+	IOCode _FUSIN_EXPORT AnyNumpadKey(int n);
 
 	/*
 	Returns the DT_COMPONENT_TYPING, IO_BUTTON IOCode for the specified function key
 	*/
-	IOCode AnyFunctionKey(int n);
+	IOCode _FUSIN_EXPORT AnyFunctionKey(int n);
 
 	/*
 	Returns the DT_COMPONENT_TYPING, IO_TYPED_BUTTON IOCode for the specified character
 	*/
-	IOCode AnyKeyTyped(Char c);
+	IOCode _FUSIN_EXPORT AnyKeyTyped(Char c);
 
 	/*
 	Returns the DT_COMPONENT_TYPING, IO_TYPED_BUTTON version of the specified IOCode
 	*/
-	IOCode AnyKeyTyped(const IOCode& ic);
+	IOCode _FUSIN_EXPORT AnyKeyTyped(const IOCode& ic);
 }
 
 #endif

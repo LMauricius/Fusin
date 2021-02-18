@@ -9,22 +9,22 @@ namespace Fusin
 	/*
 	Returns the DT_GAMEPAD, IO_BUTTON IOCode for the specified button
 	*/
-	IOCode GamepadButton(Index b);
+	IOCode _FUSIN_EXPORT GamepadButton(Index b);
 
 	/*
 	Returns the DT_GAMEPAD, IO_AXIS IOCode for the specified gamepad axis.
 	*/
-	IOCode GamepadAxis(Index a);
+	IOCode _FUSIN_EXPORT GamepadAxis(Index a);
 
 	/*
 	Returns the DT_GAMEPAD, IO_AXIS IOCode for the specified gamepad axis' positive direction.
 	*/
-	IOCode GamepadPositiveAxis(Index a);
+	IOCode _FUSIN_EXPORT GamepadPositiveAxis(Index a);
 
 	/*
 	Returns the DT_GAMEPAD, IO_AXIS IOCode for the specified gamepad axis' negative direction.
 	*/
-	IOCode GamepadNegativeAxis(Index a);
+	IOCode _FUSIN_EXPORT GamepadNegativeAxis(Index a);
 
 	const IOCode GAMEPAD_X_AXIS = GamepadAxis(0);
 	const IOCode GAMEPAD_Y_AXIS = GamepadAxis(1);
