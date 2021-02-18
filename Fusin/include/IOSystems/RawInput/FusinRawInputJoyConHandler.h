@@ -7,7 +7,7 @@ namespace Fusin
 {
 	class NintendoDevice;
 
-	class RawInputJoyConHandler : public RawInputReportHandler
+	class _FUSIN_EXPORT RawInputJoyConHandler : public RawInputReportHandler
 	{
 	public:
 		RawInputJoyConHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool rightSide);

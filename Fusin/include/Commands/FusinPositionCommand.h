@@ -15,7 +15,7 @@ namespace Fusin
 	An example would be interpreting an analog stick as the position
 	or a D-Pad as the angle.
 	*/
-	class PositionCommand : public Command
+	class _FUSIN_EXPORT PositionCommand : public Command
 	{
 	public:
 		PositionCommand(DeviceEnumerator* devEnum = nullptr);

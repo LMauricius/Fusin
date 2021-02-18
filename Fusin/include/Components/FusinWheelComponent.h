@@ -8,7 +8,7 @@
 
 namespace Fusin
 {
-	class WheelComponent : virtual public DeviceComponent
+	class _FUSIN_EXPORT WheelComponent : virtual public DeviceComponent
 	{
 	public:
 		WheelComponent(DeviceType signalType, bool hasHorizontalWheel);

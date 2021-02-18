@@ -10,7 +10,7 @@
 
 namespace Fusin
 {
-	class AnyListener : public Command, InputManagerListener
+	class _FUSIN_EXPORT AnyListener : public Command, InputManagerListener
 	{
 	public:
 		AnyListener(InputManager* im = nullptr);

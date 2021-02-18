@@ -9,13 +9,13 @@ namespace Fusin
 {
 
 	NintendoDevice::NintendoDevice(String name, bool hasBattery) :
-		Device(name, DT_DUALSHOCK, hasBattery),
-		buttons(DT_DUALSHOCK, 0),
-		axes(DT_DUALSHOCK, 0),
-		dPad(DT_DUALSHOCK),
-		motion(DT_DUALSHOCK),
-		touchPad(DT_DUALSHOCK, 2),
-		vibration(DT_DUALSHOCK),
+		Device(name, DT_NINTENDO, hasBattery),
+		buttons(DT_NINTENDO, 0),
+		axes(DT_NINTENDO, 0),
+		dPad(DT_NINTENDO),
+		motion(DT_NINTENDO),
+		touchPad(DT_NINTENDO, 2),
+		vibration(DT_NINTENDO),
 		
 		buttonB(NINTENDO_B),
 		buttonA(NINTENDO_A),

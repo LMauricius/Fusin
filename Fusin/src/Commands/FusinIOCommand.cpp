@@ -14,6 +14,7 @@ namespace Fusin
 		mDeadZones[DT_ANY][IO_ANY] = 0.0f;
 		mMaxValues[DT_ANY][IO_ANY] = std::numeric_limits<float>::max();
 		mFactors[DT_ANY][IO_ANY] = 1.0f;
+		mEnabledInputFlags = IOF_ANY;
 	}
 
 	IOCommand::~IOCommand()
@@ -251,8 +252,15 @@ namespace Fusin
 		// handle slots
 		for (Index i = 0; i < mSignalIndexPairs.size(); i++)
 		{
-			if (!mSignalIndexPairs.isSlotFree(i) && mIOCodes[i].fitsFilter(mEnabledInputFlags))
-				syncValueSignal(mSignalIndexPairs[i].first, mSignalIndexPairs[i].second);
+			if (!mSignalIndexPairs.isSlotFree(i))
+			{
+				if (mIOCodes[i].fitsFilter(mEnabledInputFlags))
+					syncValueSignal(mSignalIndexPairs[i].first, mSignalIndexPairs[i].second);
+			}
+			else
+			{
+				replugSlot(i);
+			}
 		}
 	}
 
@@ -266,22 +274,23 @@ namespace Fusin
 	void IOCommand::replugSlot(Index ind)
 	{
 		IOSignal* sig = nullptr;
+		Index devind;
 
 		if (!mIOCodes.isSlotFree(ind))
 		{
 			IOCode code = mIOCodes[ind];
-			ind = getDeviceIndex(code.deviceType);
+			devind = getDeviceIndex(code.deviceType);
 
 			if (code.deviceType >= DT_FIRST_COMPONENT && code.deviceType <= DT_LAST_COMPONENT)
 			{
-				DeviceComponent* comp = mDeviceEnumerator->getDeviceComponent(code.deviceType, ind);
+				DeviceComponent* comp = mDeviceEnumerator->getDeviceComponent(code.deviceType, devind);
 
 				if (comp)
 					sig = comp->getIOSignal(code);
 			}
 			else
 			{
-				Device* dev = mDeviceEnumerator->getDevice(code.deviceType, ind);
+				Device* dev = mDeviceEnumerator->getDevice(code.deviceType, devind);
 
 				if (dev)
 					sig = dev->getIOSignal(code);
@@ -289,7 +298,7 @@ namespace Fusin
 		}
 
 		if (sig)
-			mSignalIndexPairs[ind] = { sig, ind };
+			mSignalIndexPairs[ind] = { sig, devind };
 		else
 			mSignalIndexPairs.freeSlot(ind);
 	}

@@ -10,7 +10,7 @@
 namespace Fusin
 {
 
-	class TypingComponent : public DeviceComponent
+	class _FUSIN_EXPORT TypingComponent : public DeviceComponent
 	{
 	public:
 		TypingComponent(DeviceType signalType, size_t keyNum, size_t funcKeyNum);

@@ -11,7 +11,7 @@
 
 namespace Fusin
 {
-	class MouseDevice : public Device
+	class _FUSIN_EXPORT MouseDevice : public Device
 	{
 	public:
 		MouseDevice(String name = FUSIN_STR("Mouse"), size_t buttonNum = 5, bool hasHorizontalWheel = false, bool hasBattery = false);

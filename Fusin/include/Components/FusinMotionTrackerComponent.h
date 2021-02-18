@@ -23,7 +23,7 @@ namespace Fusin
 	/*
 	Component for devices with motion controls.
 	*/
-	class MotionTrackerComponent : public DeviceComponent
+	class _FUSIN_EXPORT MotionTrackerComponent : public DeviceComponent
 	{
 	public:
 		MotionTrackerComponent(DeviceType signalType);

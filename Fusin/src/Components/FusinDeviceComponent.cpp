@@ -36,8 +36,8 @@ namespace Fusin
 
 	IOSignal* DeviceComponent::getIOSignal(const IOCode& ic) const
 	{
-		if (ic.deviceType != DT_ANY && ic.deviceType != deviceType())
-			return nullptr;
+		//if (ic.deviceType != DT_ANY && ic.deviceType != deviceType())
+		//	return nullptr;
 
 		Index absInd = ic.index & IOCode::INDEX_VALUE;
 		IOSignal* signal = nullptr;
@@ -286,8 +286,8 @@ namespace Fusin
 					// change values based on the largest covered signal
 					for (auto comp : mCoveredComponents)
 						if (auto fromSig = comp->getIOSignal(signal->ioCode()))
-							if (fromSig->distance() > signal->distance())
-								signal->setValue(fromSig->value());
+							if (fromSig->nextDistance() > signal->distance())
+								signal->setValue(fromSig->nextValue());
 				}
 			}
 		}

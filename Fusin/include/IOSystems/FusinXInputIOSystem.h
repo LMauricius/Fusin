@@ -3,30 +3,35 @@
 
 #include "IOSystems/FusinIOSystem.h"
 #include "FusinPrerequisites.h"
-#include <map>
-#include <vector>
-#include <list>
 
-namespace Fusin
-{
-	class InputManager;
-	class Device;
-	class XInputDevice;
+#ifdef FUSIN_BUILD_XINPUT
 
-	class XInputSystem : public IOSystem
+	#include <map>
+	#include <vector>
+	#include <list>
+
+	namespace Fusin
 	{
-	public:
-		XInputSystem();
-		~XInputSystem();
+		class InputManager;
+		class Device;
+		class XInputDevice;
 
-		void initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window);
-		void updateDeviceList();
-		void update();
+		class _FUSIN_EXPORT XInputIOSystem : public IOSystem
+		{
+		public:
+			XInputIOSystem();
+			~XInputIOSystem();
 
-	protected:
-		std::vector<XInputDevice*> mDevices;
-	};
+			void initialize(DeviceEnumerator* de, const std::map<String, String>& config, void* window);
+			void updateDeviceList();
+			void update();
 
-}
+		protected:
+			std::vector<XInputDevice*> mDevices;
+		};
+
+	}
+
+#endif//FUSIN_BUILD_XINPUT
 
 #endif

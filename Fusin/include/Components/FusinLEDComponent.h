@@ -24,7 +24,7 @@ namespace Fusin
 	Each LED has its own index, with indices starting at 0 and
 	continuing until the value of LEDCount()-1.
 	*/
-	class LEDComponent : public DeviceComponent
+	class _FUSIN_EXPORT LEDComponent : public DeviceComponent
 	{
 	public:
 		LEDComponent(DeviceType signalType, size_t ledNum);

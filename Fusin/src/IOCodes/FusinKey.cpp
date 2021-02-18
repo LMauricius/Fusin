@@ -6,7 +6,7 @@ namespace Fusin
 
 	IOCode Key(Char c)
 	{
-		return IOCode(DT_KEYBOARD, IO_TYPED_BUTTON, c);
+		return IOCode(DT_KEYBOARD, IO_BUTTON, c);
 	}
 
 	IOCode Key(const IOCode& ic)

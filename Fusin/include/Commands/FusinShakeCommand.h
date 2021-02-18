@@ -13,7 +13,7 @@ namespace Fusin
 	as shaking.
 	
 	*/
-	class ShakeCommand : public Command
+	class _FUSIN_EXPORT ShakeCommand : public Command
 	{
 	public:
 		ShakeCommand(DeviceEnumerator* devEnum = nullptr);

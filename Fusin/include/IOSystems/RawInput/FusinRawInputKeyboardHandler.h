@@ -8,7 +8,7 @@ namespace Fusin
 {
 	class KeyboardDevice;
 
-	class RawInputKeyboardHandler : public RawInputDeviceHandler
+	class _FUSIN_EXPORT RawInputKeyboardHandler : public RawInputDeviceHandler
 	{
 		friend RawInputSystem;
 

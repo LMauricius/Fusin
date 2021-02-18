@@ -25,8 +25,7 @@ namespace Fusin
 		DT_NONE,
 		DT_ANY,
 
-		DT_FIRST_COMPONENT,
-		DT_COMPONENT_TYPING = DT_FIRST_COMPONENT,// Device that has buttons corresponding to characters, typed versions of button InputSignals (with a typing delay between signals), and a String value containing characters typed since last _update
+		DT_COMPONENT_TYPING,// Device that has buttons corresponding to characters, typed versions of button InputSignals (with a typing delay between signals), and a String value containing characters typed since last _update
 		DT_COMPONENT_CURSOR,// Device with position and movement values
 		DT_COMPONENT_BUTTONPAD,// Device containing buttons
 		DT_COMPONENT_WHEEL,// Device containing horizontal and vertical rotation axes interpreted as direction buttons
@@ -38,10 +37,10 @@ namespace Fusin
 		DT_COMPONENT_LEDS,// Device with LEDs
 		DT_COMPONENT_VIBRATION,// Device with vibration support
 		DT_COMPONENT_RGB,// Device with RGB support (such as the DS4 controller)
+		DT_FIRST_COMPONENT = DT_COMPONENT_TYPING,
 		DT_LAST_COMPONENT = DT_COMPONENT_RGB,
 
-		DT_FIRST_DEVICE,
-		DT_KEYBOARD = DT_FIRST_DEVICE,// A typing device with LED outputs
+		DT_KEYBOARD,// A typing device with LED outputs
 		DT_MOUSE,// Mouse device, a cursor with at least 3 buttons and 2 wheel axes
 		DT_TOUCHSCREEN,// Touchpad device with a screen
 		DT_GAMEPAD,// A generic gamepad with buttons, axes and a DPad
@@ -49,6 +48,7 @@ namespace Fusin
 		DT_DUALSHOCK,// Dualshock or SixAxis controller
 		DT_NINTENDO,// Gamepad used for Nintendo consoles
 		DT_LAST_DEVICE = DT_NINTENDO,
+		DT_FIRST_DEVICE = DT_KEYBOARD,
 		DT_LAST
 	};
 

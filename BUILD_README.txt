@@ -1,3 +1,3 @@
 On windows, when building Fusin as a dll, you have to define FUSIN_BUILD macro. Otherwise the headers think we are including them for client programs.
-If building Fusin as a static library, you have to define FUSIN_STATIC_LIB macro, both when building the library and when including the headers for other projects.
+If you are using Fusin as a static library, you have to define FUSIN_STATIC_LIB macro, both when building the library and when including the headers for other projects.
 On other platforms you dont need to define extra headers, that insanity is only for windows.

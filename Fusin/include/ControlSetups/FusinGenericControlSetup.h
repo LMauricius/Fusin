@@ -11,7 +11,7 @@ namespace Fusin
 
 	class InputManager;
 
-	class GenericControlSetup
+	class _FUSIN_EXPORT GenericControlSetup
 	{
 	public:
 		GenericControlSetup(InputManager* im = nullptr);

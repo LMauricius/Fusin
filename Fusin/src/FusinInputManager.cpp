@@ -13,13 +13,14 @@
 
 // These won't always be built, only if needed macros are defined
 #include "IOSystems/FusinRawInputIOSystem.h"
+#include "IOSystems/FusinXInputIOSystem.h"
 
 #include "Utilities/FusinConfigMap.h"
 
 #include <stdexcept>
 #include <ctime>
 
-#define FOR_LISTENERS(EXP) for (auto& it : mInputManagerListeners) {it->EXP;}
+#define FOR_LISTENERS(EXP) for (auto& it : mInputManagerListeners) {it->EXP;} for (auto& it : mDeviceEnumeratorListeners) {it->EXP;}
 #define PREINIT(FUNC_NAME) if (mInitialized) throw std::runtime_error("You need to call " FUNC_NAME " *before* initializing InputManager!");
 
 namespace Fusin
@@ -52,10 +53,11 @@ namespace Fusin
 		// Default input Systems
 		if (registerDefaultIOSystems)
 		{
-			#ifdef _WIN32
+			#ifdef FUSIN_BUILD_RAW_INPUT
 				mIOSystems.push_back(new RawInputIOSystem());
-			#else
-
+			#endif
+			#ifdef FUSIN_BUILD_XINPUT
+				mIOSystems.push_back(new XInputIOSystem());
 			#endif
 		}
 
@@ -149,7 +151,11 @@ namespace Fusin
 			}
 		}
 
-		FOR_LISTENERS(postUpdate(this))
+		for (auto& it : mInputManagerListeners) {it->postUpdate(this);}
+		for (auto& it : mDeviceEnumeratorListeners) {
+			it->postUpdate(this);
+		}
+		//FOR_LISTENERS(postUpdate(this))
 	}
 
 #ifdef _WIN32
@@ -245,20 +251,23 @@ namespace Fusin
 		return 0.0;
 	}
 
-	Index InputManager::registerDevice(Device * dev)
+	Index InputManager::registerDevice(Device * dev, bool registerComponents)
 	{
 		Index ind = DeviceEnumerator::registerDevice(dev);
 
 		// Register to the global device
-		Device* global = getDevice(dev->type(), 0);
-		if (global)
+		if (ind != 0)// if the current device isn't the global one
 		{
-			for (DeviceComponent* comp : dev->getDeviceComponents())
+			Device* global = getDevice(dev->type(), 0);
+			if (global)
 			{
-				for (DeviceComponent* globalComp : dev->getDeviceComponents())
+				for (DeviceComponent* comp : dev->getDeviceComponents())
 				{
-					if (globalComp->deviceType() == comp->deviceType())
-						globalComp->_coverDeviceComponent(comp);
+					for (DeviceComponent* globalComp : global->getDeviceComponents())
+					{
+						if (globalComp->deviceType() == comp->deviceType())
+							globalComp->_coverDeviceComponent(comp);
+					}
 				}
 			}
 		}

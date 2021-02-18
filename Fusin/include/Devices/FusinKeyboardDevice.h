@@ -10,7 +10,7 @@
 
 namespace Fusin
 {
-	class KeyboardDevice : public Device
+	class _FUSIN_EXPORT KeyboardDevice : public Device
 	{
 	public:
 		KeyboardDevice(String name = FUSIN_STR("Keyboard"), size_t keyNum = 0, size_t funcKeyNum = 0, size_t ledNum = 0);

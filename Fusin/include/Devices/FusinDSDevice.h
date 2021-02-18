@@ -16,7 +16,7 @@
 
 namespace Fusin
 {
-	class DSDevice : public Device
+	class _FUSIN_EXPORT DSDevice : public Device
 	{
 	public:
 		DSDevice(String name = FUSIN_STR("DS Controller"), bool hasBattery = false);

@@ -11,7 +11,7 @@ namespace Fusin
 
 	The default range is [MIN_FLOAT, MAX_FLOAT], i.e. all float values
 	*/
-	class RangeCommand : public InputCommand
+	class _FUSIN_EXPORT RangeCommand : public InputCommand
 	{
 	public:
 		RangeCommand(DeviceEnumerator* devEnum = nullptr, float min = MIN_FLOAT, float max = MAX_FLOAT);

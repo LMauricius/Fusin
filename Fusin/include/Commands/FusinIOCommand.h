@@ -26,7 +26,7 @@ namespace Fusin
 	They are divided into InputCommands and OutputCommands
 	and their detailed descriptions can be found in their respective files.
 	*/
-	class IOCommand : public Command
+	class _FUSIN_EXPORT IOCommand : public Command
 	{
 	public:
 		IOCommand(DeviceEnumerator* devEnum = nullptr);

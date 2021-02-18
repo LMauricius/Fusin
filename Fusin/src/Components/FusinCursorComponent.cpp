@@ -67,8 +67,11 @@ namespace Fusin
 		DeviceComponent::_update(msElapsed);
 
 		// _update signals
-		moveX.release();// The cursor's movement shouldn't have memory, i.e. it should stop if not specified otherwise
-		moveY.release();
+		if (mCoveredComponents.size() == 0)
+		{
+			moveX.release();// The cursor's movement shouldn't have memory, i.e. it should stop if not specified otherwise
+			moveY.release();
+		}
 	}
 
 }

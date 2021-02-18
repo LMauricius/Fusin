@@ -16,7 +16,7 @@
 
 namespace Fusin
 {
-	class NintendoDevice : public Device
+	class _FUSIN_EXPORT NintendoDevice : public Device
 	{
 	public:
 		NintendoDevice(String name = FUSIN_STR("Nintendo Controller"), bool hasBattery = false);

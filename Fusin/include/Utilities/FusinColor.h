@@ -5,7 +5,7 @@ namespace Fusin
 {
 	class ColorHSV;
 
-	class ColorRGB
+	class _FUSIN_EXPORT ColorRGB
 	{
 	public:
 		ColorRGB();
@@ -35,7 +35,7 @@ namespace Fusin
 		float r, g, b;
 	};
 
-	class ColorHSV
+	class _FUSIN_EXPORT ColorHSV
 	{
 	public:
 		ColorHSV();

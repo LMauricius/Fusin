@@ -5,7 +5,7 @@
 
 namespace Fusin
 {
-	class RawInputMouseHandler : public RawInputDeviceHandler
+	class _FUSIN_EXPORT RawInputMouseHandler : public RawInputDeviceHandler
 	{
 	public:
 		RawInputMouseHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);

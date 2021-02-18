@@ -12,7 +12,7 @@ namespace Fusin
 	Component for devices with directional buttons or
 	other methods of representing a direction.
 	*/
-	class DPadComponent : public DeviceComponent
+_FUSIN_EXPORT 
 	{
 	public:
 		DPadComponent(DeviceType signalType);

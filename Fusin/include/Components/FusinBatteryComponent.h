@@ -21,7 +21,7 @@ namespace Fusin
 	Component for devices with a battery.
 	Used for reading the amount of energy left and if the device is charging.
 	*/
-	class BatteryComponent : public DeviceComponent
+	class _FUSIN_EXPORT BatteryComponent : public DeviceComponent
 	{
 	public:
 		BatteryComponent(DeviceType signalType);

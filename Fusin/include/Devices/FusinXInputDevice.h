@@ -12,7 +12,7 @@
 
 namespace Fusin
 {
-	class XInputDevice : public Device
+	class _FUSIN_EXPORT XInputDevice : public Device
 	{
 	public:
 		XInputDevice(String name = FUSIN_STR("XInput Controller"), bool hasBattery = false);

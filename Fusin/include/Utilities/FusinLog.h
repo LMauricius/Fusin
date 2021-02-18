@@ -6,7 +6,7 @@
 namespace Fusin
 {
 
-	class Log
+	class _FUSIN_EXPORT Log
 	{
 	public:
 		static inline Log& singleton()

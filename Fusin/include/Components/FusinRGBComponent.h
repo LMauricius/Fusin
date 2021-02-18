@@ -11,7 +11,7 @@ namespace Fusin
 	/*
 	Component for devices with RGB changing lights.
 	*/
-	class RGBComponent : public DeviceComponent
+	class _FUSIN_EXPORT RGBComponent : public DeviceComponent
 	{
 	public:
 		RGBComponent(DeviceType signalType);

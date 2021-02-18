@@ -77,13 +77,13 @@ namespace Fusin
 		replug();
 	}
 
-	void Command::preUpdate()
+	void Command::preUpdate(DeviceEnumerator* de)
 	{
 		if (!mUpdateAfterDeviceUpdate)
 			update();
 	}
 
-	void Command::postUpdate()
+	void Command::postUpdate(DeviceEnumerator* de)
 	{
 		if (mUpdateAfterDeviceUpdate)
 			update();

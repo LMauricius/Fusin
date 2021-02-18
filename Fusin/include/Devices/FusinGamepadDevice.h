@@ -12,7 +12,7 @@
 
 namespace Fusin
 {
-	class GamepadDevice : public Device
+	class _FUSIN_EXPORT GamepadDevice : public Device
 	{
 	public:
 		GamepadDevice(String name = FUSIN_STR("Gamepad"), size_t buttonNum = 0, size_t axisNum = 0,

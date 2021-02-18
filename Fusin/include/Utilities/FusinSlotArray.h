@@ -6,7 +6,7 @@
 
 namespace Fusin
 {
-	class SlotException : public std::runtime_error
+	class _FUSIN_EXPORT SlotException : public std::runtime_error
 	{
 	public:
 		inline explicit SlotException(const std::string& what_arg) : std::runtime_error(what_arg) {}

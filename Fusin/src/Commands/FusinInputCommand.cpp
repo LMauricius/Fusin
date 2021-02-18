@@ -43,5 +43,12 @@ namespace Fusin
 	{
 		updateValue(sig->value(), sig->ioCode(), devInd);
 	}
+	
+	void InputCommand::preUpdate(DeviceEnumerator* de)
+	{
+		mValue = 0.0f;
+		mStrongestIOCode = IOCode::NULLCODE;
+		mStrongestDeviceIndex = -1;
+	}
 
 }

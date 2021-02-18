@@ -49,8 +49,8 @@ namespace Fusin
 		// we will need this. Made into lambda cuz it seemed simpler
 		auto calcAngleFromDir = [](DPadComponent* comp)
 		{
-			double x = comp->right.value() - comp->left.value();
-			double y = comp->down.value() - comp->up.value();
+			double x = comp->right.nextValue() - comp->left.nextValue();
+			double y = comp->down.nextValue() - comp->up.nextValue();
 			if (x == 0 && y == 0) {
 				return 0.0;
 			}
@@ -76,9 +76,9 @@ namespace Fusin
 
 			// change covered
 			for (auto dev : mCoveredComponents)
-				static_cast<DPadComponent*>(dev)->angle.setValue(angle.value());
+				static_cast<DPadComponent*>(dev)->angle.setValue(angle.nextValue());
 		}
-		else// Set the angle to the max angle of covered devices
+		else if (mCoveredComponents.size() > 0)// Set the angle to the max angle of covered devices
 		{
 			float maxA = 0.0f;
 
@@ -94,7 +94,7 @@ namespace Fusin
 					// Angle has dominance over directions; Calc using directions only if they have changed and the angle has not;
 					if (covDPad->angle.changed())
 					{
-						a = covDPad->angle.value();
+						a = covDPad->angle.nextValue();
 					}
 					else
 					{
@@ -104,11 +104,12 @@ namespace Fusin
 					if (a > maxA)
 					{
 						maxA = a;
-						angle.setValue(maxA);
-						isAngleDominant = true;
 					}
 				}
 			}
+					
+			angle.setValue(maxA);
+			isAngleDominant = true;
 		}
 
 		// If the angle has changed and directions haven't, update the directions' values

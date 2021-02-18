@@ -8,7 +8,7 @@
 
 namespace Fusin
 {
-	class IOSignal
+	class _FUSIN_EXPORT IOSignal
 	{
 	public:
 		/*

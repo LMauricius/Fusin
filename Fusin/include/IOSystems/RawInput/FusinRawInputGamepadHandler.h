@@ -12,7 +12,7 @@ namespace Fusin
 {
 	class GamepadDevice;
 
-	class RawInputGamepadHandler : public RawInputReportHandler
+	class _FUSIN_EXPORT RawInputGamepadHandler : public RawInputReportHandler
 	{
 	public:
 		RawInputGamepadHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);

@@ -22,7 +22,7 @@ namespace Fusin
 	More specific descriptions for Command usage are given
 	in the respective files for each Command type.
 	*/
-	class Command : protected DeviceEnumeratorListener
+	class _FUSIN_EXPORT Command : protected DeviceEnumeratorListener
 	{
 	public:
 		Command(DeviceEnumerator* devEnum = nullptr);
@@ -100,9 +100,9 @@ namespace Fusin
 		// Replugged
 		void deviceUnregistered(DeviceEnumerator* de, Device* d);
 		// Called before the IOSystems are updated, OutputCommands are updated here
-		void preUpdate();
+		void preUpdate(DeviceEnumerator* de);
 		// Called after the IOSystems are updated, InputCommands are updated here
-		void postUpdate();
+		void postUpdate(DeviceEnumerator* de);
 
 	};
 }

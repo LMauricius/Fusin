@@ -12,7 +12,7 @@
 namespace Fusin
 {
 
-	class DeviceComponent
+	class _FUSIN_EXPORT DeviceComponent
 	{
 	public:
 		DeviceComponent(

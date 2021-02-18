@@ -11,7 +11,7 @@ namespace Fusin
 {
 	class DeviceEnumerator;
 
-	class IOSystem
+	class _FUSIN_EXPORT IOSystem
 	{
 	public:
 		IOSystem(IOFlags flags);
@@ -25,7 +25,7 @@ namespace Fusin
 		virtual void update() = 0;
 
 #ifdef _WIN32
-		virtual void handleMessage(const MSG* msg) = 0;
+		virtual void handleMessage(const MSG* msg);
 #endif
 
 	protected:

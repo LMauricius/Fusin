@@ -13,7 +13,7 @@ namespace Fusin
 	Each button has its own index, with indices starting at 0 and
 	continuing until the value of buttonCount()-1.
 	*/
-	class ButtonPadComponent : public DeviceComponent
+	class _FUSIN_EXPORT ButtonPadComponent : public DeviceComponent
 	{
 	public:
 		ButtonPadComponent(DeviceType signalType, size_t buttonNum);

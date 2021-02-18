@@ -18,7 +18,7 @@ namespace Fusin
 	the change in movement doesn't have to correspond 1:1 to
 	the acceleration of the position change
 	*/
-	class CursorComponent : virtual public DeviceComponent
+	class _FUSIN_EXPORT CursorComponent : virtual public DeviceComponent
 	{
 	public:
 		CursorComponent(DeviceType signalType);

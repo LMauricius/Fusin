@@ -13,7 +13,7 @@ namespace Fusin
 	class Command;
 	class DeviceEnumeratorListener;
 
-	class DeviceEnumerator
+	class _FUSIN_EXPORT DeviceEnumerator
 	{
 	public:
 		DeviceEnumerator();
@@ -64,20 +64,20 @@ namespace Fusin
 	Inherit this class by objects that should listen to the DeviceEnumerator events
 	and register them to the DeviceEnumerator.
 	*/
-	class DeviceEnumeratorListener
+	class _FUSIN_EXPORT DeviceEnumeratorListener
 	{
 	public:
 		virtual ~DeviceEnumeratorListener() = 0;
 
 		// called after a device has been registered
-		virtual void deviceRegistered(DeviceEnumerator* de, Device* d);
+		virtual void deviceRegistered(DeviceEnumerator* de, Device* d) = 0;
 		// called after a device has been unregistered
-		virtual void deviceUnregistered(DeviceEnumerator* de, Device* d);
+		virtual void deviceUnregistered(DeviceEnumerator* de, Device* d) = 0;
 
 		// called before the devices are updated
-		virtual void preUpdate(DeviceEnumerator* de);
+		virtual void preUpdate(DeviceEnumerator* de) = 0;
 		// called after the devices were updated
-		virtual void postUpdate(DeviceEnumerator* de);
+		virtual void postUpdate(DeviceEnumerator* de) = 0;
 	};
 
 }

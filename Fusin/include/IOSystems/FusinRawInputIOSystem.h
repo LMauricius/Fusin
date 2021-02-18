@@ -31,7 +31,7 @@
 		****Support Nintendo: bool - True
 		****Max gamepad messages: int - 0 (infinite)
 		*/
-		class RawInputIOSystem : public IOSystem
+		class _FUSIN_EXPORT RawInputIOSystem : public IOSystem
 		{
 		public:
 			RawInputIOSystem();

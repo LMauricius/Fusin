@@ -11,7 +11,7 @@ namespace Fusin
 	/*
 	Component for devices with haptic feedback.
 	*/
-	class VibrationComponent : public DeviceComponent
+	class _FUSIN_EXPORT VibrationComponent : public DeviceComponent
 	{
 	public:
 		VibrationComponent(DeviceType signalType);

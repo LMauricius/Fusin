@@ -12,7 +12,7 @@ namespace Fusin
 	Used to provide feedback to the user,
 	such as an explosion being interpreted as vibration.
 	*/
-	class OutputCommand : public IOCommand
+	class _FUSIN_EXPORT OutputCommand : public IOCommand
 	{
 	public:
 		OutputCommand(DeviceEnumerator* devEnum = nullptr);

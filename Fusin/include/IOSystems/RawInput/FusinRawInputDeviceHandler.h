@@ -14,7 +14,7 @@ namespace Fusin
 {
 	class RawInputSystem;
 
-	class RawInputDeviceHandler
+	class _FUSIN_EXPORT RawInputDeviceHandler
 	{
 	public:
 		RawInputDeviceHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);

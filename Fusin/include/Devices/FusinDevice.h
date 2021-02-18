@@ -18,7 +18,7 @@ namespace Fusin
 	typedef std::list<Command*> GesturePtrList;
 	class DeviceListener;
 
-	class Device
+	class _FUSIN_EXPORT Device
 	{
 	public:
 		/*

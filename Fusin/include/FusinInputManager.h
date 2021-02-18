@@ -40,7 +40,7 @@ namespace Fusin
 
 	****Device enumeration period: TimeMS(1000) - The time in ms between checking for new devices/plugged out devices
 	*/
-	class InputManager : public DeviceEnumerator
+	class _FUSIN_EXPORT InputManager : public DeviceEnumerator
 	{
 	public:
 		InputManager();
@@ -184,7 +184,7 @@ namespace Fusin
 		*/
 		float getValue(const IOCode& ic, Index deviceSlot) const;
 
-		Index registerDevice(Device* dev);
+		Index registerDevice(Device* dev, bool registerComponents = true);
 		void unregisterDevice(Device* dev);
 		void registerIOSystem(IOSystem* dev);
 		void unregisterIOSystem(IOSystem* dev);
@@ -205,18 +205,18 @@ namespace Fusin
 		std::list<InputManagerListener*> mInputManagerListeners;
 	};
 
-	class InputManagerListener
+	class _FUSIN_EXPORT InputManagerListener
 	{
 	public:
 		virtual ~InputManagerListener() = 0;
 
-		virtual void deviceRegistered(InputManager* im, Device* d);
-		virtual void deviceUnregistered(InputManager* im, Device* d);
+		virtual void deviceRegistered(InputManager* im, Device* d) = 0;
+		virtual void deviceUnregistered(InputManager* im, Device* d) = 0;
 
 		// Called before anything is updated
-		virtual void preUpdate(InputManager* im);
+		virtual void preUpdate(InputManager* im) = 0;
 		// Called after everything was updated
-		virtual void postUpdate(InputManager* im);
+		virtual void postUpdate(InputManager* im) = 0;
 	};
 
 }

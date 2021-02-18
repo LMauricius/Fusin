@@ -18,7 +18,7 @@ namespace Fusin
 	Each touch has IOSignals for the pressure (0 when not touching),
 	position and movement of the touch point on the device.
 	*/
-	class TouchComponent : public DeviceComponent
+	class _FUSIN_EXPORT TouchComponent : public DeviceComponent
 	{
 	public:
 		TouchComponent(DeviceType signalType, size_t touchNum);

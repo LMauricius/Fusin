@@ -12,7 +12,7 @@ namespace Fusin
 {
 	class DSDevice;
 
-	class RawInputDS3Handler : public RawInputReportHandler
+	class _FUSIN_EXPORT RawInputDS3Handler : public RawInputReportHandler
 	{
 	public:
 		RawInputDS3Handler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);

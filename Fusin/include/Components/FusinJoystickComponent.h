@@ -14,7 +14,7 @@ namespace Fusin
 	Each axis has its own index, with indices starting at 0 and
 	continuing until the value of axisCount()-1.
 	*/
-	class JoystickComponent : public DeviceComponent
+	class _FUSIN_EXPORT JoystickComponent : public DeviceComponent
 	{
 	public:
 		JoystickComponent(DeviceType signalType, size_t axisNum);

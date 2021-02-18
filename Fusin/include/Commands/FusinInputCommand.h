@@ -12,7 +12,7 @@ namespace Fusin
 	Used to receive inputs from the user and interpret them as abstract simple commands,
 	such as a button press being interpreted as player jumping
 	*/
-	class InputCommand : public IOCommand
+	class _FUSIN_EXPORT InputCommand : public IOCommand
 	{
 	public:
 		InputCommand(DeviceEnumerator* devEnum = nullptr);
@@ -29,6 +29,7 @@ namespace Fusin
 
 	protected:
 		void syncValueSignal(IOSignal* sig, Index devInd);
+		void preUpdate(DeviceEnumerator* de);
 	};
 }
 
