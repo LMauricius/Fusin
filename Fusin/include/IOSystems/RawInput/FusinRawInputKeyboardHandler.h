@@ -1,26 +1,30 @@
 #ifndef _FUSIN_RAW_INPUT_KEYBOARD_HANDLER_H
 #define _FUSIN_RAW_INPUT_KEYBOARD_HANDLER_H
 
-#include "FusinRawInputDeviceHandler.h"
-#include <Windows.h>
+#ifdef FUSIN_BUILD_RAW_INPUT
 
-namespace Fusin
-{
-	class KeyboardDevice;
+	#include "FusinRawInputDeviceHandler.h"
+	#include <Windows.h>
 
-	class _FUSIN_EXPORT RawInputKeyboardHandler : public RawInputDeviceHandler
+	namespace Fusin
 	{
-		friend RawInputSystem;
+		class KeyboardDevice;
 
-	public:
-		RawInputKeyboardHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);
-		~RawInputKeyboardHandler();
-		
-		bool initialize();
-		void update();
-		void handleRawInput(PRAWINPUT pRawInput);
-	};
+		class _FUSIN_EXPORT RawInputKeyboardHandler : public RawInputDeviceHandler
+		{
+			friend RawInputSystem;
 
-}
+		public:
+			RawInputKeyboardHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo);
+			~RawInputKeyboardHandler();
+			
+			bool initialize();
+			void update();
+			void handleRawInput(PRAWINPUT pRawInput);
+		};
+
+	}
+
+#endif // FUSIN_BUILD_RAW_INPUT
 
 #endif

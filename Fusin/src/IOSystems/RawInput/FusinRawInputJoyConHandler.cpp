@@ -1,3 +1,5 @@
+#ifdef FUSIN_BUILD_RAW_INPUT
+
 #include "IOSystems/RawInput/FusinRawInputJoyConHandler.h"
 #include "Devices/FusinNintendoDevice.h"
 #include "IOCodes/FusinNintendo.h"
@@ -255,3 +257,5 @@ namespace Fusin
 	}
 
 }
+
+#endif // FUSIN_BUILD_RAW_INPUT

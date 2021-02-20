@@ -1,26 +1,30 @@
 #ifndef _FUSIN_RAW_INPUT_JOYCON_HANDLER_H
 #define _FUSIN_RAW_INPUT_JOYCON_HANDLER_H
 
-#include "FusinRawInputReportHandler.h"
+#ifdef FUSIN_BUILD_RAW_INPUT
 
-namespace Fusin
-{
-	class NintendoDevice;
+	#include "FusinRawInputReportHandler.h"
 
-	class _FUSIN_EXPORT RawInputJoyConHandler : public RawInputReportHandler
+	namespace Fusin
 	{
-	public:
-		RawInputJoyConHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool rightSide);
-		~RawInputJoyConHandler();
+		class NintendoDevice;
 
-		bool initialize();
-		void handleInputReport(PBYTE pReport);
-		void handleOutputReport(PBYTE pReport);
+		class _FUSIN_EXPORT RawInputJoyConHandler : public RawInputReportHandler
+		{
+		public:
+			RawInputJoyConHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool rightSide);
+			~RawInputJoyConHandler();
 
-	protected:
-		bool mRightSide;
-	};
+			bool initialize();
+			void handleInputReport(PBYTE pReport);
+			void handleOutputReport(PBYTE pReport);
 
-}
+		protected:
+			bool mRightSide;
+		};
+
+	}
+
+#endif // FUSIN_BUILD_RAW_INPUT
 
 #endif

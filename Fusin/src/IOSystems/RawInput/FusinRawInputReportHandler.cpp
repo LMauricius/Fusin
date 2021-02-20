@@ -1,3 +1,5 @@
+#ifdef FUSIN_BUILD_RAW_INPUT
+
 #include "IOSystems/RawInput/FusinRawInputReportHandler.h"
 #include "Utilities/FusinLog.h"
 #include "Utilities/FusinByteDebug.h"
@@ -81,3 +83,5 @@ namespace Fusin
 	void RawInputReportHandler::handleInputReport(PBYTE pReport) {}
 	void RawInputReportHandler::handleOutputReport(PBYTE pReport) {}
 }
+
+#endif // FUSIN_BUILD_RAW_INPUT

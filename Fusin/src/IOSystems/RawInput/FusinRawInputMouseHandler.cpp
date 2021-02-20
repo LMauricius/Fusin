@@ -1,3 +1,5 @@
+#ifdef FUSIN_BUILD_RAW_INPUT
+
 #include "IOSystems/RawInput/FusinRawInputMouseHandler.h"
 #include "Devices/FusinMouseDevice.h"
 #include "IOCodes/FusinMouse.h"
@@ -111,3 +113,5 @@ namespace Fusin
 	}
 
 }
+
+#endif // FUSIN_BUILD_RAW_INPUT

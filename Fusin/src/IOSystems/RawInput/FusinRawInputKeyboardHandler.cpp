@@ -1,3 +1,5 @@
+#ifdef FUSIN_BUILD_RAW_INPUT
+
 #include "IOSystems/RawInput/FusinRawInputKeyboardHandler.h"
 #include "Devices/FusinKeyboardDevice.h"
 #include "Utilities/FusinLog.h"
@@ -63,3 +65,5 @@ namespace Fusin
 	}
 
 }
+
+#endif // FUSIN_BUILD_RAW_INPUT

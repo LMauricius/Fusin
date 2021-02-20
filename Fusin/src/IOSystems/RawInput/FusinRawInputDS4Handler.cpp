@@ -1,3 +1,5 @@
+#ifdef FUSIN_BUILD_RAW_INPUT
+
 #include "IOSystems/RawInput/FusinRawInputDS4Handler.h"
 #include "Devices/FusinDSDevice.h"
 #include "IOCodes/FusinDS.h"
@@ -192,3 +194,5 @@ namespace Fusin
 	}
 
 }
+
+#endif // FUSIN_BUILD_RAW_INPUT
