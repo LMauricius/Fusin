@@ -176,7 +176,6 @@ namespace Fusin
 						case RIM_TYPEHID:
 							if (pDInfo->hid.usUsagePage == 1 && (pDInfo->hid.usUsage == 4 || pDInfo->hid.usUsage == 5))
 							{
-								decltype(DS3_PRODUCT_IDS)::iterator it;
 								// check the kind of the gamepad device
 								switch (pDInfo->hid.dwVendorId)
 								{

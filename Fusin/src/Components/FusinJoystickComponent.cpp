@@ -49,9 +49,13 @@ namespace Fusin
 
 	IOSignal& JoystickComponent::operator[](Index ind)
 	{
-		if (ind >= mAxes.size()) throw std::out_of_range((std::stringstream() <<
-			"Axis index out of range. Trying to acces axis " << ind <<
-			" but this device only has " << mAxes.size() << " axes.").str());
+		if (ind >= mAxes.size())
+		{
+			std::stringstream ss;
+			ss << "Axis index out of range. Trying to acces axis " << ind <<
+					" but this device only has " << mAxes.size() << " axes.";
+			throw std::out_of_range(ss.str());
+		}
 		return *mAxes[ind];
 	}
 

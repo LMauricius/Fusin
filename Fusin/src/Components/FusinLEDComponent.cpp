@@ -47,9 +47,13 @@ namespace Fusin
 
 	IOSignal& LEDComponent::operator[](size_t ind)
 	{
-		if (ind >= mLEDs.size()) throw std::out_of_range((std::stringstream() <<
-			"LED index out of range. Trying to access LED " << ind <<
-			" but this device only has " << mLEDs.size() << " LEDs.").str());
+		if (ind >= mLEDs.size())
+		{
+			std::stringstream ss;
+			ss << "LED index out of range. Trying to access LED " << ind <<
+					" but this device only has " << mLEDs.size() << " LEDs.";
+			throw std::out_of_range(ss.str());
+		}
 		return *mLEDs[ind];
 	}
 	
