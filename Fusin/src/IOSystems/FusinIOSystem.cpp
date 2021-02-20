@@ -32,5 +32,11 @@ namespace Fusin
 	}
 #endif
 
+#ifdef unix
+	void IOSystem::handleMessage(XEvent* msg)
+	{
+	}
+#endif
+
 
 }

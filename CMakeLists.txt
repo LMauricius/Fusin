@@ -33,6 +33,8 @@ if (FUSIN_NO_DEFAULT_SUBSYSTEMS)
   if (WIN32)
     set(FUSIN_BUILD_RAW_INPUT false CACHE BOOL "Builds RawInput subsystem")
     set(FUSIN_BUILD_XINPUT false CACHE BOOL "Builds XInput subsystem")
+  elseif (UNIX)
+    set(FUSIN_BUILD_X11 false CACHE BOOL "Builds X11 IO subsystem")
   endif()
 endif()
 

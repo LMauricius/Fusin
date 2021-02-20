@@ -20,6 +20,10 @@
 		#define FUSIN_BUILD_RAW_INPUT
 		#define FUSIN_BUILD_XINPUT
 	#endif
+	
+	#ifdef unix
+		#define FUSIN_BUILD_X11
+	#endif
 
 #endif
 

@@ -14,6 +14,7 @@
 // These won't always be built, only if needed macros are defined
 #include "IOSystems/FusinRawInputIOSystem.h"
 #include "IOSystems/FusinXInputIOSystem.h"
+#include "IOSystems/FusinX11IOSystem.h"
 
 #include "Utilities/FusinConfigMap.h"
 
@@ -58,6 +59,9 @@ namespace Fusin
 			#endif
 			#ifdef FUSIN_BUILD_XINPUT
 				mIOSystems.push_back(new XInputIOSystem());
+			#endif
+			#ifdef FUSIN_BUILD_X11
+				mIOSystems.push_back(new X11IOSystem());
 			#endif
 		}
 

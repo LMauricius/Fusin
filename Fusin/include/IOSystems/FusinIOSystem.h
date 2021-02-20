@@ -7,6 +7,10 @@
 	#include <Windows.h>
 #endif
 
+#ifdef unix
+	#include <X11/Xlib.h>
+#endif
+
 namespace Fusin
 {
 	class DeviceEnumerator;
@@ -26,6 +30,10 @@ namespace Fusin
 
 #ifdef _WIN32
 		virtual void handleMessage(const MSG* msg);
+#endif
+
+#ifdef unix
+		virtual void handleMessage(XEvent* msg);
 #endif
 
 	protected:
