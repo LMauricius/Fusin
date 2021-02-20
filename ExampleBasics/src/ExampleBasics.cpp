@@ -23,10 +23,17 @@ int main()
 	im.update();
 	cLeft.assignIOCode(Fusin::KEY_LEFT);
 	cRight.assignIOCode(Fusin::KEY_RIGHT);
+
 	cLeft.assignIOCode(Fusin::GAMEPAD_X_NEGATIVE);
 	cRight.assignIOCode(Fusin::GAMEPAD_X_POSITIVE);
 	cLeft.assignIOCode(Fusin::GAMEPAD_DPAD_LEFT);
 	cRight.assignIOCode(Fusin::GAMEPAD_DPAD_RIGHT);
+	
+	cLeft.assignIOCode(Fusin::XINPUT_LEFT_STICK_LEFT);
+	cRight.assignIOCode(Fusin::XINPUT_LEFT_STICK_RIGHT);
+	cLeft.assignIOCode(Fusin::XINPUT_DPAD_LEFT);
+	cRight.assignIOCode(Fusin::XINPUT_DPAD_RIGHT);
+
 	cLeft.assignIOCode(Fusin::MOUSE_MOVE_LEFT);
 	cRight.assignIOCode(Fusin::MOUSE_MOVE_RIGHT);
 
