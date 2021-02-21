@@ -50,7 +50,7 @@ namespace Fusin
 		/*
 		Updates all registered Devices
 		*/
-		virtual void update(TimeMS msElapsed = 0);
+		virtual void update(DurationMS msElapsed = 0);
 		void addListener(DeviceEnumeratorListener* listener);
 		void removeListener(DeviceEnumeratorListener* listener);
 

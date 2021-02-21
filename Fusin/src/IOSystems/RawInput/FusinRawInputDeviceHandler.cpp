@@ -1,6 +1,7 @@
+#include "IOSystems/RawInput/FusinRawInputDeviceHandler.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-#include "IOSystems/RawInput/FusinRawInputDeviceHandler.h"
 #include "Utilities/FusinLog.h"
 
 namespace Fusin

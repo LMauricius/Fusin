@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
+            "name": "(gdb) Example basics",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/ExampleBasics_d",
@@ -24,7 +24,26 @@
             ]
         },
         {
-            "name": "Launch VS executable",
+            "name": "(gdb) Example morse",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/ExampleMorse_d",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "VS ExampleBasics",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/Debug/ExampleBasics.exe",

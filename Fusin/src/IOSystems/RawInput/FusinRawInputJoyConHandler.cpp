@@ -1,6 +1,7 @@
+#include "IOSystems/RawInput/FusinRawInputJoyConHandler.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-#include "IOSystems/RawInput/FusinRawInputJoyConHandler.h"
 #include "Devices/FusinNintendoDevice.h"
 #include "IOCodes/FusinNintendo.h"
 #include "Utilities/FusinLog.h"

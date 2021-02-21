@@ -1,4 +1,5 @@
 #include "Devices/FusinKeyboardDevice.h"
+#include "IOCodes/FusinKey.h"
 
 namespace Fusin
 {
@@ -16,7 +17,13 @@ namespace Fusin
 
 	String KeyboardDevice::getStateString()
 	{
-		return String(FUSIN_STR("Keys: ")) + keys.getKeyString() + String(FUSIN_STR("LEDs: ")) + leds.getStateString();
+		String str;
+		for (Char c : keys.getKeyString())
+		{
+			str += keyToName(c);
+			str += ' ';
+		}
+		return String(FUSIN_STR("Keys: ")) + str + String(FUSIN_STR("LEDs: ")) + leds.getStateString();
 	}
 
 }

@@ -1,6 +1,7 @@
+#include "IOSystems/RawInput/FusinRawInputMouseHandler.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-#include "IOSystems/RawInput/FusinRawInputMouseHandler.h"
 #include "Devices/FusinMouseDevice.h"
 #include "IOCodes/FusinMouse.h"
 #include "Utilities/FusinLog.h"

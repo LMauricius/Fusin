@@ -23,6 +23,7 @@ elseif (UNIX)
 	target_link_libraries(Fusin PUBLIC "X11")
 	target_link_libraries(Fusin PUBLIC "Xi")
 	target_link_libraries(Fusin PUBLIC "Xrandr")
+	target_link_libraries(Fusin PUBLIC "xkbcommon")
 endif()
 
 # build config

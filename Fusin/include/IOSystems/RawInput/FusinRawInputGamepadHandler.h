@@ -1,9 +1,10 @@
 #ifndef _FUSIN_RAW_INPUT_GAMEPAD_HANDLER_H
 #define _FUSIN_RAW_INPUT_GAMEPAD_HANDLER_H
 
+#include "FusinPrerequisites.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-	#include "FusinRawInputReportHandler.h"
 	#include <Windows.h>
 	extern "C"
 	{

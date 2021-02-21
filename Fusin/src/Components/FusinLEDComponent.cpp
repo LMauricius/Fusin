@@ -12,8 +12,8 @@ namespace Fusin
 		DeviceComponent(
 			{ {IO_LEDS, &mLEDs} },
 			{}),
-		mSignalDeviceType(signalType),
-		mUseDefaults(true)
+		mSignalDeviceType(signalType)/*,
+		mUseDefaults(true)*/
 	{
 		_setLEDCount(LEDNum);
 	}
@@ -74,8 +74,18 @@ namespace Fusin
 		}
 		return ret;
 	}
+
+	LEDFlags LEDComponent::nextLedFlags()
+	{
+		LEDFlags ret = LED_NONE;
+		for (int i=0; i<mLEDs.size(); i++)
+		{
+			setFlag(ret, i, mLEDs[i]->nextValue());
+		}
+		return ret;
+	}
 	
-	void LEDComponent::setUseDefaults(bool enable)
+	/*void LEDComponent::setUseDefaults(bool enable)
 	{
 		mUseDefaults = enable;
 	}
@@ -83,7 +93,7 @@ namespace Fusin
 	bool LEDComponent::useDefaults()
 	{
 		return mUseDefaults;
-	}
+	}*/
 
 
 	String LEDComponent::getStateString()

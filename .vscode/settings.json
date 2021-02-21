@@ -66,6 +66,25 @@
         "xstddef": "cpp",
         "xstring": "cpp",
         "xtree": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "array": "cpp",
+        "atomic": "cpp",
+        "bit": "cpp",
+        "*.tcc": "cpp",
+        "clocale": "cpp",
+        "cwctype": "cpp",
+        "iterator": "cpp",
+        "memory_resource": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp",
+        "string_view": "cpp",
+        "cinttypes": "cpp",
+        "hash_map": "cpp",
+        "compare": "cpp",
+        "future": "cpp",
+        "ranges": "cpp",
+        "stop_token": "cpp",
+        "valarray": "cpp",
+        "variant": "cpp"
     }
 }

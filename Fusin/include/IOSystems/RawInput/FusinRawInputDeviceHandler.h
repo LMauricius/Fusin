@@ -1,9 +1,10 @@
 #ifndef _FUSIN_RAW_INPUT_DEVICE_HANDLER_H
 #define _FUSIN_RAW_INPUT_DEVICE_HANDLER_H
 
+#include "FusinPrerequisites.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-	#include "FusinPrerequisites.h"
 	#include "Devices/FusinDevice.h"
 	#define NOMINMAX
 	#include <windows.h>

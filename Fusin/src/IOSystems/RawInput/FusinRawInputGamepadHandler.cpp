@@ -1,6 +1,7 @@
+#include "IOSystems/RawInput/FusinRawInputGamepadHandler.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-#include "IOSystems/RawInput/FusinRawInputGamepadHandler.h"
 #include "Devices/FusinGamepadDevice.h"
 #include "IOCodes/FusinGamepad.h"
 #include "Utilities/FusinLog.h"

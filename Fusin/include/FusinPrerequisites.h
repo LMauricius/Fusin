@@ -27,7 +27,7 @@ namespace Fusin
 #endif
 
 	typedef unsigned int Index;
-	typedef unsigned long TimeMS;
+	typedef double DurationMS;
 
 	const double PI = 4 * atan(1);
 	const double RADTODEG_FACTOR = 180.0 / PI;

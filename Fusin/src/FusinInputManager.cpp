@@ -19,7 +19,7 @@
 #include "Utilities/FusinConfigMap.h"
 
 #include <stdexcept>
-#include <ctime>
+#include <chrono>
 
 #define FOR_LISTENERS(EXP) for (auto& it : mInputManagerListeners) {it->EXP;} for (auto& it : mDeviceEnumeratorListeners) {it->EXP;}
 #define PREINIT(FUNC_NAME) if (mInitialized) throw std::runtime_error("You need to call " FUNC_NAME " *before* initializing InputManager!");
@@ -31,7 +31,7 @@ namespace Fusin
 		: mEnabledTypes(IOF_ANY_DEVICE)
 		, mWindowHandle(0)
 		, mInitialized(false)
-		, mLastTime(0)
+		, mLastTime(std::chrono::system_clock::now())
 		, mDeviceEnumerationTimer(0)
 	{
 
@@ -103,13 +103,13 @@ namespace Fusin
 	}
 
 
-	void InputManager::update(TimeMS msElapsed)
+	void InputManager::update(DurationMS msElapsed)
 	{
 		// default timer
-		clock_t curTime = clock() * 1000 / CLOCKS_PER_SEC;
-		if (msElapsed == 0 && mLastTime != 0)
+		std::chrono::system_clock::time_point curTime = std::chrono::system_clock::now();
+		if (msElapsed == 0 && mLastTime.time_since_epoch().count() != 0)
 		{
-			msElapsed = curTime - mLastTime;
+			msElapsed = (curTime - mLastTime).count();// * 1000 / CLOCKS_PER_SEC;
 		}
 		mLastTime = curTime;
 
@@ -290,7 +290,7 @@ namespace Fusin
 		{
 			for (DeviceComponent* comp : dev->getDeviceComponents())
 			{
-				for (DeviceComponent* globalComp : dev->getDeviceComponents())
+				for (DeviceComponent* globalComp : global->getDeviceComponents())
 				{
 					if (globalComp->deviceType() == comp->deviceType())
 						globalComp->_uncoverDeviceComponent(comp);

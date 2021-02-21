@@ -1,9 +1,9 @@
 #ifndef _FUSIN_RAW_INPUT_JOYCON_HANDLER_H
 #define _FUSIN_RAW_INPUT_JOYCON_HANDLER_H
 
-#ifdef FUSIN_BUILD_RAW_INPUT
+#include "FusinPrerequisites.h"
 
-	#include "FusinRawInputReportHandler.h"
+#ifdef FUSIN_BUILD_RAW_INPUT
 
 	namespace Fusin
 	{

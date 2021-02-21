@@ -1,9 +1,9 @@
 #ifndef _FUSIN_RAW_INPUT_MOUSE_DEVICE_HANDLER_H
 #define _FUSIN_RAW_INPUT_MOUSE_DEVICE_HANDLER_H
 
-#ifdef FUSIN_BUILD_RAW_INPUT
+#include "FusinPrerequisites.h"
 
-	#include "FusinRawInputDeviceHandler.h"
+#ifdef FUSIN_BUILD_RAW_INPUT
 
 	namespace Fusin
 	{

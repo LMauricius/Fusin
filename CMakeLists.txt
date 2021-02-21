@@ -70,6 +70,7 @@ endif()
 add_subdirectory("./Fusin")
 if (FUSIN_BUILD_EXAMPLES)
   add_subdirectory("./ExampleBasics")
+  add_subdirectory("./ExampleMorse")
 endif()
 
 ######################################

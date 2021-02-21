@@ -100,7 +100,7 @@ namespace Fusin
 		return size_t();
 	}
 
-	void DeviceEnumerator::update(TimeMS msElapsed)
+	void DeviceEnumerator::update(DurationMS msElapsed)
 	{
 		FOR_LISTENERS(preUpdate(this));
 

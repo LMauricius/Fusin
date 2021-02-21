@@ -1,6 +1,7 @@
+#include "IOSystems/RawInput/FusinRawInputKeyboardHandler.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-#include "IOSystems/RawInput/FusinRawInputKeyboardHandler.h"
 #include "Devices/FusinKeyboardDevice.h"
 #include "Utilities/FusinLog.h"
 extern "C"

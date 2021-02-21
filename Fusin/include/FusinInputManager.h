@@ -10,6 +10,7 @@
 
 #include <list>
 #include <map>
+#include <chrono>
 
 namespace Fusin
 {
@@ -38,7 +39,7 @@ namespace Fusin
 	Possible config entries:
 	****NAME: TYPE(DEFAULT) - DESCRIPTION
 
-	****Device enumeration period: TimeMS(1000) - The time in ms between checking for new devices/plugged out devices
+	****Device enumeration period: DurationMS(1000) - The time in ms between checking for new devices/plugged out devices
 	*/
 	class _FUSIN_EXPORT InputManager : public DeviceEnumerator
 	{
@@ -109,7 +110,7 @@ namespace Fusin
 		/*
 		Updates the io values of all Devices and Commands.
 		*/
-		void update(TimeMS msElapsed = 0);
+		void update(DurationMS msElapsed = 0);
 
 #ifdef _WIN32
 		/*
@@ -196,10 +197,10 @@ namespace Fusin
 		void *mWindowHandle;
 		IOFlags mEnabledTypes;
 		bool mInitialized;
-		TimeMS mDeviceEnumerationPeriod;
+		DurationMS mDeviceEnumerationPeriod;
 		
-		TimeMS mLastTime;
-		TimeMS mDeviceEnumerationTimer;
+		std::chrono::system_clock::time_point mLastTime;
+		DurationMS mDeviceEnumerationTimer;
 
 		std::list<IOSystem*> mIOSystems;
 		std::list<InputManagerListener*> mInputManagerListeners;

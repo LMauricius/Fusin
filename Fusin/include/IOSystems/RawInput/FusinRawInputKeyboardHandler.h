@@ -1,9 +1,10 @@
 #ifndef _FUSIN_RAW_INPUT_KEYBOARD_HANDLER_H
 #define _FUSIN_RAW_INPUT_KEYBOARD_HANDLER_H
 
+#include "FusinPrerequisites.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-	#include "FusinRawInputDeviceHandler.h"
 	#include <Windows.h>
 
 	namespace Fusin

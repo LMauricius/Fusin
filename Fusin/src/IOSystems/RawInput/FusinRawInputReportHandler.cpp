@@ -1,6 +1,7 @@
+#include "IOSystems/RawInput/FusinRawInputReportHandler.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-#include "IOSystems/RawInput/FusinRawInputReportHandler.h"
 #include "Utilities/FusinLog.h"
 #include "Utilities/FusinByteDebug.h"
 #include <algorithm>

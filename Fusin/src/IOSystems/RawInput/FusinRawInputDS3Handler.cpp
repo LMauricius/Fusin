@@ -1,6 +1,7 @@
+#include "IOSystems/RawInput/FusinRawInputDS3Handler.h"
+
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-#include "IOSystems/RawInput/FusinRawInputDS3Handler.h"
 #include "Devices/FusinDSDevice.h"
 #include "IOCodes/FusinDS.h"
 #include "Utilities/FusinLog.h"

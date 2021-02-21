@@ -10,6 +10,7 @@ It shows how to setup the InputManager, assign several inputs, and read the inpu
 #include <thread>
 //#include <windows.h>
 #include "Fusin.h"
+#include "Devices/FusinKeyboardDevice.h"
 
 using namespace std::chrono_literals;
 
@@ -18,9 +19,10 @@ int main()
 	bool running = true;
 	Fusin::InputManager im;
 	im.initialize(true);
-	Fusin::InputCommand cLeft(&im), cRight(&im);
+	Fusin::InputCommand cLeft(&im), cRight(&im), cQuit(&im);
 
-	im.update();
+	cQuit.assignIOCode(Fusin::KEY_ESCAPE);
+
 	cLeft.assignIOCode(Fusin::KEY_LEFT);
 	cRight.assignIOCode(Fusin::KEY_RIGHT);
 
@@ -41,9 +43,14 @@ int main()
 	while (running)
 	{
 		im.update();
-		if (cLeft.check()) std::wcout << "Left: "<< cLeft.value() << " ";
-		if (cRight.check()) std::wcout << "Right: " << cRight.value() << " ";
-		std::wcout << std::endl;
+		std::wcout << im.getDevice(Fusin::DT_KEYBOARD, 0)->getStateString() << std::endl;
+		if (cQuit.check()) running = false;
+		if (cLeft.check() || cRight.check())
+		{
+			if (cLeft.check()) std::wcout << "Left: "<< cLeft.value() << " ";
+			if (cRight.check()) std::wcout << "Right: " << cRight.value() << " ";
+			std::wcout << std::endl;
+		}
 
 		std::this_thread::sleep_for(33ms);
 	}
