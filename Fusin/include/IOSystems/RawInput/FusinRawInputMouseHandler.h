@@ -5,6 +5,8 @@
 
 #ifdef FUSIN_BUILD_RAW_INPUT
 
+	#include "FusinRawInputDeviceHandler.h"
+
 	namespace Fusin
 	{
 		class _FUSIN_EXPORT RawInputMouseHandler : public RawInputDeviceHandler

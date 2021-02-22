@@ -12,8 +12,8 @@ namespace Fusin
 		DeviceComponent(
 			{ {IO_LEDS, &mLEDs} },
 			{}),
-		mSignalDeviceType(signalType)/*,
-		mUseDefaults(true)*/
+		mSignalDeviceType(signalType),
+		mUseDefaults(true)
 	{
 		_setLEDCount(LEDNum);
 	}
@@ -38,6 +38,14 @@ namespace Fusin
 
 	void LEDComponent::_update(size_t msElapsed)
 	{
+		for (int i=0; i<mLEDs.size(); i++)
+		{
+			if (mLEDs[i]->changed())
+			{
+				mUseDefaults = false;
+			}
+		}
+
 		// read from covered devices
 		coverInputSignalVectorDynamic(mCoveredComponents, &LEDComponent::mLEDs, mLEDs, mSignalDeviceType, IO_LEDS);
 
@@ -59,20 +67,34 @@ namespace Fusin
 	
 	void LEDComponent::setLEDFlags(LEDFlags leds)
 	{
-		for (int i=0; i<mLEDs.size(); i++)
+		if (leds == LED_AUTO)
 		{
-			mLEDs[i]->setValue(getFlag(leds, i));
+			mUseDefaults = true;
+		}
+		else
+		{
+			for (int i=0; i<mLEDs.size(); i++)
+			{
+				mLEDs[i]->setValue(getFlag(leds, i));
+			}
 		}
 	}
 
 	LEDFlags LEDComponent::ledFlags()
 	{
-		LEDFlags ret = LED_NONE;
-		for (int i=0; i<mLEDs.size(); i++)
+		if (mUseDefaults)
 		{
-			setFlag(ret, i, mLEDs[i]->value());
+			return LED_AUTO;
 		}
-		return ret;
+		else
+		{
+			LEDFlags ret = LED_NONE;
+			for (int i=0; i<mLEDs.size(); i++)
+			{
+				setFlag(ret, i, mLEDs[i]->value());
+			}
+			return ret;
+		}
 	}
 
 	LEDFlags LEDComponent::nextLedFlags()
@@ -85,7 +107,7 @@ namespace Fusin
 		return ret;
 	}
 	
-	/*void LEDComponent::setUseDefaults(bool enable)
+	void LEDComponent::setUseDefaults(bool enable)
 	{
 		mUseDefaults = enable;
 	}
@@ -93,7 +115,7 @@ namespace Fusin
 	bool LEDComponent::useDefaults()
 	{
 		return mUseDefaults;
-	}*/
+	}
 
 
 	String LEDComponent::getStateString()

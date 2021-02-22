@@ -5,6 +5,8 @@
 
 #ifdef FUSIN_BUILD_RAW_INPUT
 
+	#include "FusinRawInputDeviceHandler.h"
+
 	#include <Windows.h>
 	extern "C"
 	{
@@ -16,7 +18,7 @@
 		class _FUSIN_EXPORT RawInputReportHandler : public RawInputDeviceHandler
 		{
 		public:
-			RawInputReportHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool readEachRawInput, Device* fusinDevice = nullptr);
+			RawInputReportHandler(HANDLE riDeviceHandle, PRID_DEVICE_INFO riDeviceInfo, bool readEachRawInput);
 			~RawInputReportHandler() = 0;
 			
 			//bool initialize();

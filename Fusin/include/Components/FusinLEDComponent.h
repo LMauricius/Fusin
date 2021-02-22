@@ -49,15 +49,15 @@ namespace Fusin
 		/*
 		If enabled, the LEDs will be set to their default values depending on the device
 		*/
-		/*void setUseDefaults(bool enable);
-		bool useDefaults();*/
+		void setUseDefaults(bool enable);
+		bool useDefaults();
 
 		void _setLEDCount(size_t ledNum);
 		void _update(size_t msElapsed = 0);
 
 	protected:
 		DeviceType mSignalDeviceType;
-		//bool mUseDefaults;
+		bool mUseDefaults;
 		std::vector<IOSignal*> mLEDs;
 	};
 

@@ -52,17 +52,17 @@ namespace Fusin
 		if (byteNum < 100)
 		{
 			space = 3;
-			sepStr = L" ";
+			sepStr = FUSIN_STR(" ");
 		}
 		else if (byteNum < 1000)
 		{
 			space = 4;
-			sepStr = L"  ";
+			sepStr = FUSIN_STR("  ");
 		}
 		else if (byteNum < 10000)
 		{
 			space = 5;
-			sepStr = L"   ";
+			sepStr = FUSIN_STR("   ");
 		}
 
 		for (size_t i = 0; i < byteNum; i++)

@@ -5,6 +5,8 @@
 
 #ifdef FUSIN_BUILD_RAW_INPUT
 
+	#include "FusinRawInputReportHandler.h"
+
 	namespace Fusin
 	{
 		class NintendoDevice;

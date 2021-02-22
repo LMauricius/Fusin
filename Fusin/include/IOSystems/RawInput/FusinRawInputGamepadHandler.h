@@ -5,11 +5,15 @@
 
 #ifdef FUSIN_BUILD_RAW_INPUT
 
+	#include "FusinRawInputReportHandler.h"
+
 	#include <Windows.h>
 	extern "C"
 	{
 	#include "hidsdi.h"
 	}
+
+	#include <map>
 
 	namespace Fusin
 	{

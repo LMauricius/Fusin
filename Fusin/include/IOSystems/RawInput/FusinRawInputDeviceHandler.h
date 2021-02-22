@@ -6,6 +6,7 @@
 #ifdef FUSIN_BUILD_RAW_INPUT
 
 	#include "Devices/FusinDevice.h"
+	
 	#define NOMINMAX
 	#include <windows.h>
 	extern "C"
