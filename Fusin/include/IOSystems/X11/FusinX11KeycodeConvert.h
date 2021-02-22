@@ -1,5 +1,5 @@
-#ifndef _FUSIN_X11_DEVICE_HANDLER_H
-#define _FUSIN_X11_DEVICE_HANDLER_H
+#ifndef _FUSIN_X11_KC_CONVERT_H
+#define _FUSIN_X11_KC_CONVERT_H
 
 #include "FusinPrerequisites.h"
 

@@ -1,11 +1,11 @@
 #include "IOSystems/X11/FusinX11KeycodeConvert.h"
 
-#include "IOCodes/FusinKey.h"
-
-#include <X11/keysym.h>
-#include <xkbcommon/xkbcommon.h>
-
 #ifdef FUSIN_BUILD_X11
+
+	#include "IOCodes/FusinKey.h"
+
+	#include <X11/keysym.h>
+	#include <xkbcommon/xkbcommon.h>
 
 	namespace Fusin
 	{

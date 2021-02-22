@@ -188,81 +188,81 @@ namespace Fusin
 			ss >> n;
 			return FUNCTION_KEYS_START + n - 1;
 		}
-		else if (name == L"Backspace")
+		else if (name == FUSIN_STR("Backspace"))
 			return 0x08;
-		else if (name == L"Tab")
+		else if (name == FUSIN_STR("Tab"))
 			return 0x09;
-		else if (name == L"New_Line")
+		else if (name == FUSIN_STR("New_Line"))
 			return 0x0A;
-		else if (name == L"Clear")
+		else if (name == FUSIN_STR("Clear"))
 			return 0x0C;
-		else if (name == L"Return")
+		else if (name == FUSIN_STR("Return"))
 			return 0x0D;
-		else if (name == L"Shift")
+		else if (name == FUSIN_STR("Shift"))
 			return 0x10;
-		else if (name == L"Ctrl")
+		else if (name == FUSIN_STR("Ctrl"))
 			return 0x11;
-		else if (name == L"Alt")
+		else if (name == FUSIN_STR("Alt"))
 			return 0x12;
-		else if (name == L"Pause")
+		else if (name == FUSIN_STR("Pause"))
 			return 0x13;
-		else if (name == L"Caps_Lock")
+		else if (name == FUSIN_STR("Caps_Lock"))
 			return 0x14;
-		else if (name == L"Esc")
+		else if (name == FUSIN_STR("Esc"))
 			return 0x1B;
-		else if (name == L"Space")
+		else if (name == FUSIN_STR("Space"))
 			return 0x20;
-		else if (name == L"Page_Up")
+		else if (name == FUSIN_STR("Page_Up"))
 			return 0x21;
-		else if (name == L"Page_Down")
+		else if (name == FUSIN_STR("Page_Down"))
 			return 0x22;
-		else if (name == L"End")
+		else if (name == FUSIN_STR("End"))
 			return 0x23;
-		else if (name == L"Home")
+		else if (name == FUSIN_STR("Home"))
 			return 0x24;
-		else if (name == L"Left")
+		else if (name == FUSIN_STR("Left"))
 			return 0x25;
-		else if (name == L"Up")
+		else if (name == FUSIN_STR("Up"))
 			return 0x26;
-		else if (name == L"Right")
+		else if (name == FUSIN_STR("Right"))
 			return 0x27;
-		else if (name == L"Down")
+		else if (name == FUSIN_STR("Down"))
 			return 0x28;
-		else if (name == L"Print_Scr")
+		else if (name == FUSIN_STR("Print_Scr"))
 			return 0x2C;
-		else if (name == L"Insert")
+		else if (name == FUSIN_STR("Insert"))
 			return 0x2D;
-		else if (name == L"Del")
+		else if (name == FUSIN_STR("Del"))
 			return 0x2E;
-		else if (name == L"L_Win")
+		else if (name == FUSIN_STR("L_Win"))
 			return 0x5B;
-		else if (name == L"R_Win")
+		else if (name == FUSIN_STR("R_Win"))
 			return 0x5C;
-		else if (name == L"'*'")
+		else if (name == FUSIN_STR("'*'"))
 			return 0x6A;
-		else if (name == L"'+'")
+		else if (name == FUSIN_STR("'+'"))
 			return 0x6B;
-		else if (name == L"'-'")
+		else if (name == FUSIN_STR("'-'"))
 			return 0x6C;
-		else if (name == L"'.'")
+		else if (name == FUSIN_STR("'.'"))
 			return 0x6E;
-		else if (name == L"'/'")
+		else if (name == FUSIN_STR("'/'"))
 			return 0x6F;
-		else if (name == L"Num_Lock")
+		else if (name == FUSIN_STR("Num_Lock"))
 			return 0x90;
-		else if (name == L"Scroll_Lock")
+		else if (name == FUSIN_STR("Scroll_Lock"))
 			return 0x91;
-		else if (name == L"L_Shift")
+		else if (name == FUSIN_STR("L_Shift"))
 			return 0xA0;
-		else if (name == L"R_Shift")
+		else if (name == FUSIN_STR("R_Shift"))
 			return 0xA1;
-		else if (name == L"L_Ctrl")
+		else if (name == FUSIN_STR("L_Ctrl"))
 			return 0xA2;
-		else if (name == L"R_Ctrl")
+		else if (name == FUSIN_STR("R_Ctrl"))
 			return 0xA3;
-		else if (name == L"L_Menu")
+		else if (name == FUSIN_STR("L_Menu"))
 			return 0xA4;
-		else if (name == L"R_Menu")
+		else if (name == FUSIN_STR("R_Menu"))
 			return 0xA5;
 		else if (name[0] == '\'')
 			return name[1];//'c'
