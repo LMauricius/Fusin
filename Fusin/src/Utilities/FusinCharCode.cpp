@@ -8,44 +8,50 @@ namespace Fusin
 	namespace
 	{
 		const std::map<String, Char> NameToKeyMap = {
+			{FUSIN_STR("Home"), CC_HOME},
+			{FUSIN_STR("End"), CC_END},
+			{FUSIN_STR("L_Shift"), CC_LSHIFT},
+			{FUSIN_STR("R_Shift"), CC_RSHIFT},
+			{FUSIN_STR("L_Ctrl"), CC_LCONTROL},
+			{FUSIN_STR("R_Ctrl"), CC_RCONTROL},
+
 			{FUSIN_STR("Backspace"), CC_BACKSPACE},
 			{FUSIN_STR("Tab"), CC_TAB},
 			{FUSIN_STR("New_Line"), CC_NEW_LINE},
 			{FUSIN_STR("Clear"), CC_CLEAR},
 			{FUSIN_STR("Return"), CC_RETURN},
-			{FUSIN_STR("Shift"), CC_SHIFT},
-			{FUSIN_STR("Ctrl"), CC_CONTROL},
-			{FUSIN_STR("Alt"), CC_ALT},
-			{FUSIN_STR("Pause"), CC_PAUSE},
-			{FUSIN_STR("Caps_Lock"), CC_CAPSLOCK},
-			{FUSIN_STR("Esc"), CC_ESCAPE},
-			{FUSIN_STR("Space"), CC_SPACE},
 			{FUSIN_STR("Page_Up"), CC_PAGE_UP},
 			{FUSIN_STR("Page_Down"), CC_PAGE_DOWN},
-			{FUSIN_STR("End"), CC_END},
-			{FUSIN_STR("Home"), CC_HOME},
+
+			{FUSIN_STR("Pause"), CC_PAUSE},
+			{FUSIN_STR("Num_Lock"), CC_NUM_LOCK},
+			{FUSIN_STR("Scroll_Lock"), CC_SCROLL_LOCK},
+			{FUSIN_STR("Caps_Lock"), CC_CAPSLOCK},
+			
+			{FUSIN_STR("L_Alt"), CC_LALT},
+			{FUSIN_STR("R_Alt"), CC_RALT},
+			{FUSIN_STR("L_Menu"), CC_LMENU},
+			{FUSIN_STR("R_Menu"), CC_RMENU},
+			{FUSIN_STR("L_Win"), CC_LSUPER},
+			{FUSIN_STR("R_Win"), CC_RSUPER},
+
+			{FUSIN_STR("Esc"), CC_ESCAPE},
+			{FUSIN_STR("Print_Scr"), CC_PRINT_SCREEN},
+			{FUSIN_STR("Insert"), CC_INSERT},
+
+			{FUSIN_STR("Space"), CC_SPACE},
+			
+			{FUSIN_STR("Multiply"), CC_MULTIPLY},
+			{FUSIN_STR("Add"), CC_ADD},
+			{FUSIN_STR("Subtract"), CC_SUBTRACT},
+			{FUSIN_STR("Decimal"), CC_DECIMAL},
+			{FUSIN_STR("Divide"), CC_DIVIDE},
+
 			{FUSIN_STR("Left"), CC_LEFT},
 			{FUSIN_STR("Up"), CC_UP},
 			{FUSIN_STR("Right"), CC_RIGHT},
 			{FUSIN_STR("Down"), CC_DOWN},
-			{FUSIN_STR("Print_Scr"), CC_PRINT_SCREEN},
-			{FUSIN_STR("Insert"), CC_INSERT},
 			{FUSIN_STR("Del"), CC_DELETE},
-			{FUSIN_STR("L_Win"), CC_LSUPER},
-			{FUSIN_STR("R_Win"), CC_RSUPER},
-			{FUSIN_STR("'*'"), CC_MULTIPLY},
-			{FUSIN_STR("'+'"), CC_ADD},
-			{FUSIN_STR("'-'"), CC_SUBTRACT},
-			{FUSIN_STR("'.'"), CC_DECIMAL},
-			{FUSIN_STR("'/'"), CC_DIVIDE},
-			{FUSIN_STR("Num_Lock"), CC_NUM_LOCK},
-			{FUSIN_STR("Scroll_Lock"), CC_SCROLL_LOCK},
-			{FUSIN_STR("L_Shift"), CC_LSHIFT},
-			{FUSIN_STR("R_Shift"), CC_RSHIFT},
-			{FUSIN_STR("L_Ctrl"), CC_LCONTROL},
-			{FUSIN_STR("R_Ctrl"), CC_RCONTROL},
-			{FUSIN_STR("L_Menu"), CC_LMENU},
-			{FUSIN_STR("R_Menu"), CC_RMENU}
 		};
 	}
 
@@ -65,44 +71,51 @@ namespace Fusin
 		{
 			switch (c)
 			{
+			case CC_HOME: ss << "Home"; break;
+			case CC_END: ss << "End"; break;
+			case CC_LSHIFT: ss << "L_Shift"; break;
+			case CC_RSHIFT: ss << "R_Shift"; break;
+			case CC_LCONTROL: ss << "L_Ctrl"; break;
+			case CC_RCONTROL: ss << "R_Ctrl"; break;
+
 			case CC_BACKSPACE: ss << "Backspace"; break;
 			case CC_TAB: ss << "Tab"; break;
 			case CC_NEW_LINE: ss << "New_Line"; break;
 			case CC_CLEAR: ss << "Clear"; break;
 			case CC_RETURN: ss << "Return"; break;
-			case CC_SHIFT: ss << "Shift"; break;
-			case CC_CONTROL: ss << "Ctrl"; break;
-			case CC_ALT: ss << "Alt"; break;
-			case CC_PAUSE: ss << "Pause"; break;
-			case CC_CAPSLOCK: ss << "Caps_Lock"; break;
-			case CC_ESCAPE: ss << "Esc"; break;
-			case CC_SPACE: ss << "Space"; break;
 			case CC_PAGE_UP: ss << "Page_Up"; break;
 			case CC_PAGE_DOWN: ss << "Page_Down"; break;
-			case CC_END: ss << "End"; break;
-			case CC_HOME: ss << "Home"; break;
+
+			case CC_PAUSE: ss << "Pause"; break;
+			case CC_NUM_LOCK: ss << "Num_Lock"; break;
+			case CC_SCROLL_LOCK: ss << "Scroll_Lock"; break;
+			case CC_CAPSLOCK: ss << "Caps_Lock"; break;
+			
+			case CC_LALT: ss << "L_Alt"; break;
+			case CC_RALT: ss << "R_Alt"; break;
+			case CC_LMENU: ss << "L_Menu"; break;
+			case CC_RMENU: ss << "R_Menu"; break;
+			case CC_LSUPER: ss << "L_Win"; break;
+			case CC_RSUPER: ss << "R_Win"; break;
+
+			case CC_ESCAPE: ss << "Esc"; break;
+			case CC_PRINT_SCREEN: ss << "Print_Scr"; break;
+			case CC_INSERT: ss << "Insert"; break;
+
+			case CC_SPACE: ss << "Space"; break;
+			
+			case CC_MULTIPLY: ss << "Multiply"; break;
+			case CC_ADD: ss << "Add"; break;
+			case CC_SUBTRACT: ss << "Subtract"; break;
+			case CC_DECIMAL: ss << "Decimal"; break;
+			case CC_DIVIDE: ss << "Divide"; break;
+			
 			case CC_LEFT: ss << "Left"; break;
 			case CC_UP: ss << "Up"; break;
 			case CC_RIGHT: ss << "Right"; break;
 			case CC_DOWN: ss << "Down"; break;
-			case CC_PRINT_SCREEN: ss << "Print_Scr"; break;
-			case CC_INSERT: ss << "Insert"; break;
 			case CC_DELETE: ss << "Del"; break;
-			case CC_LSUPER: ss << "L_Win"; break;
-			case CC_RSUPER: ss << "R_Win"; break;
-			case CC_MULTIPLY: ss << "'*'"; break;
-			case CC_ADD: ss << "'+'"; break;
-			case CC_SUBTRACT: ss << "'-'"; break;
-			case CC_DECIMAL: ss << "'.'"; break;
-			case CC_DIVIDE: ss << "'/'"; break;
-			case CC_NUM_LOCK: ss << "Num_Lock"; break;
-			case CC_SCROLL_LOCK: ss << "Scroll_Lock"; break;
-			case CC_LSHIFT: ss << "L_Shift"; break;
-			case CC_RSHIFT: ss << "R_Shift"; break;
-			case CC_LCONTROL: ss << "L_Ctrl"; break;
-			case CC_RCONTROL: ss << "R_Ctrl"; break;
-			case CC_LMENU: ss << "L_Menu"; break;
-			case CC_RMENU      : ss << "R_Menu"; break;
+
 			default:
 				ss << "'" << c << "'";
 			}

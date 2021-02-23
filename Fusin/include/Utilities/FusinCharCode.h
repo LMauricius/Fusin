@@ -48,34 +48,42 @@ namespace Fusin
 	*/
 	Char _FUSIN_EXPORT nameToKey(String name);
 
+	const Char CC_HOME = 0x02;
+	const Char CC_END = 0x03;
+	const Char CC_LSHIFT = 0x04;
+	const Char CC_RSHIFT = 0x05;
+	const Char CC_LCONTROL = 0x06;
+	const Char CC_RCONTROL = 0x07;
+
 	const Char CC_BACKSPACE = 0x08;
 	const Char CC_TAB = 0x09;
 	const Char CC_NEW_LINE = 0x0A;// not used in modern keyboards
 	const Char CC_CLEAR = 0x0C;
 	const Char CC_RETURN = 0x0D;// Carriage return i.e. 'Enter' key in modern keyboards
 	const Char CC_ENTER = CC_RETURN;// 'Enter' key usually produces the Carriage Return character (CC_RETURN), but I also defined it as CC_ENTER in case someone from modern times (like me) forgets this
-	const Char CC_SHIFT = 0x10;
-	const Char CC_CONTROL = 0x11;
-	const Char CC_ALT = 0x12;
-	const Char CC_PAUSE = 0x13;
+	const Char CC_PAGE_UP = 0x0E;
+	const Char CC_PAGE_DOWN = 0x0F;
+	
+	const Char CC_PAUSE = 0x11;
+	const Char CC_NUM_LOCK = 0x12;
+	const Char CC_SCROLL_LOCK = 0x13;
 	const Char CC_CAPSLOCK = 0x14;
-	const Char CC_ESCAPE = 0x1B;
-	const Char CC_SPACE = 0x20;
-	const Char CC_PAGE_UP = 0x21;
-	const Char CC_PAGE_DOWN = 0x22;
-	const Char CC_END = 0x23;
-	const Char CC_HOME = 0x24;
-	const Char CC_LEFT = 0x25;
-	const Char CC_UP = 0x26;
-	const Char CC_RIGHT = 0x27;
-	const Char CC_DOWN = 0x28;
-	const Char CC_PRINT_SCREEN = 0x2C;
-	const Char CC_INSERT = 0x2D;
-	const Char CC_DELETE = 0x2E;
-	const Char CC_LSUPER = 0x5B;
-	const Char CC_RSUPER = 0x5C;
+
+	const Char CC_LALT = 0x15;
+	const Char CC_RALT = 0x16;
+	const Char CC_LMENU = 0x17;
+	const Char CC_RMENU = 0x18;
+	const Char CC_LSUPER = 0x19;
+	const Char CC_RSUPER = 0x1A;
 	const Char CC_LWIN = CC_LSUPER;
 	const Char CC_RWIN = CC_RSUPER;
+
+	const Char CC_ESCAPE = 0x1B;
+	const Char CC_PRINT_SCREEN = 0x1C;
+	const Char CC_INSERT = 0x1D;
+
+	const Char CC_SPACE = 0x20;
+
 	const Char CC_NUMPAD_0 = 0x60;
 	const Char CC_NUMPAD_1 = 0x61;
 	const Char CC_NUMPAD_2 = 0x62;
@@ -91,31 +99,31 @@ namespace Fusin
 	const Char CC_SUBTRACT = 0x6D;
 	const Char CC_DECIMAL = 0x6E;
 	const Char CC_DIVIDE = 0x6F;
-	const Char CC_F1 = 0x70;
-	const Char CC_F2 = 0x71;
-	const Char CC_F3 = 0x72;
-	const Char CC_F4 = 0x73;
-	const Char CC_F5 = 0x74;
-	const Char CC_F6 = 0x75;
-	const Char CC_F7 = 0x76;
-	const Char CC_F8 = 0x77;
-	const Char CC_F9 = 0x78;
-	const Char CC_F10 = 0x79;
-	const Char CC_F11 = 0x7A;
-	const Char CC_F12 = 0x7B;
-	const Char CC_NUM_LOCK = 0x90;
-	const Char CC_SCROLL_LOCK = 0x91;
-	const Char CC_LSHIFT = 0xA0;
-	const Char CC_RSHIFT = 0xA1;
-	const Char CC_LCONTROL = 0xA2;
-	const Char CC_RCONTROL = 0xA3;
-	const Char CC_LMENU = 0xA4;
-	const Char CC_RMENU = 0xA5;
+
+	const Char CC_LEFT = 0x70;
+	const Char CC_UP = 0x71;
+	const Char CC_RIGHT = 0x72;
+	const Char CC_DOWN = 0x73;
+
+	const Char CC_DELETE = 0x7F;
+
+	const Char CC_F1 = 0x80;
+	const Char CC_F2 = 0x81;
+	const Char CC_F3 = 0x82;
+	const Char CC_F4 = 0x83;
+	const Char CC_F5 = 0x84;
+	const Char CC_F6 = 0x85;
+	const Char CC_F7 = 0x86;
+	const Char CC_F8 = 0x87;
+	const Char CC_F9 = 0x88;
+	const Char CC_F10 = 0x89;
+	const Char CC_F11 = 0x8A;
+	const Char CC_F12 = 0x8B;
 
 	const Char CC_NUMPAD_FIRST = CC_NUMPAD_0;
 	const Char CC_NUMPAD_LAST = CC_NUMPAD_9;
 	const Char CC_FUNCTION_FIRST = CC_F1;
-	const Char CC_FUNCTION_LAST = 0x87;
+	const Char CC_FUNCTION_LAST = 0x9F;
 }
 
 #endif
