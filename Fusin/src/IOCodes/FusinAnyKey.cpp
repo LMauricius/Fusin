@@ -15,12 +15,12 @@ namespace Fusin
 
 	IOCode AnyNumpadKey(int n)
 	{
-		return IOCode(DT_COMPONENT_TYPING, IO_TYPED_BUTTON, NUMPAD_KEYS_START + n);
+		return IOCode(DT_COMPONENT_TYPING, IO_TYPED_BUTTON, CC_NUMPAD_FIRST + n);
 	}
 
 	IOCode AnyFunctionKey(int n)
 	{
-		return IOCode(DT_COMPONENT_TYPING, IO_TYPED_BUTTON, FUNCTION_KEYS_START + n);
+		return IOCode(DT_COMPONENT_TYPING, IO_TYPED_BUTTON, CC_FUNCTION_FIRST + n);
 	}
 
 	IOCode AnyKeyTyped(Char c)

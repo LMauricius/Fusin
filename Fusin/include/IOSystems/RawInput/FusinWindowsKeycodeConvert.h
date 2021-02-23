@@ -5,9 +5,11 @@
 
 #ifdef FUSIN_BUILD_RAW_INPUT
 
+	#include <windows.h>
+	
 	namespace Fusin
 	{
-        Char virtualKeycodeToVirtualKey(int vk);
+        Char virtualKeycodeToVirtualKey(int vk, int scancode, USHORT flags);
 	}
 
 #endif // FUSIN_BUILD_RAW_INPUT

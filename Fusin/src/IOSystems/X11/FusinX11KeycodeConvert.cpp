@@ -11,72 +11,82 @@
 	{
         Char keysymToVirtualKey(int keysym)
 		{
-			// try unicode
-			Char ret = xkb_keysym_to_utf32(xkb_keysym_to_upper(keysym));
-			if (ret != 0) return (ret);
-
 			// special codes
 			switch (keysym)
 			{
-			case XK_BackSpace: return KEY_BACKSPACE.index; break;
-			case XK_Tab: return KEY_TAB.index; break;
-			case XK_Linefeed: return KEY_NEW_LINE.index; break;// not used in modern keyboards
-			case XK_Clear: return KEY_CLEAR.index; break;
-			case XK_Return: return KEY_RETURN.index; break;
-			case XK_Alt_L: return KEY_ALT.index; break;
-			case XK_Pause: return KEY_PAUSE.index; break;
-			case XK_Caps_Lock: return KEY_CAPSLOCK.index; break;
-			case XK_Escape: return KEY_ESCAPE.index; break;
-			case XK_space: return KEY_SPACE.index; break;
-			case XK_Page_Up: return KEY_PAGE_UP.index; break;
-			case XK_Page_Down: return KEY_PAGE_DOWN.index; break;
-			case XK_End: return KEY_END.index; break;
-			case XK_Home: return KEY_HOME.index; break;
-			case XK_Left: return KEY_LEFT.index; break;
-			case XK_Up: return KEY_UP.index; break;
-			case XK_Right: return KEY_RIGHT.index; break;
-			case XK_Down: return KEY_DOWN.index; break;
-			case XK_Print: return KEY_PRINT_SCREEN.index; break;
-			case XK_Insert: return KEY_INSERT.index; break;
-			case XK_Delete: return KEY_DELETE.index; break;
-			case XK_Super_L: return KEY_LWIN.index; break;
-			case XK_Super_R: return KEY_RWIN.index; break;
-			case XK_KP_Multiply: return KEY_MULTIPLY.index; break;
-			case XK_KP_Add: return KEY_ADD.index; break;
-			case XK_KP_Subtract: return KEY_SUBTRACT.index; break;
-			case XK_KP_Decimal: return KEY_DECIMAL.index; break;
-			case XK_KP_Divide: return KEY_DIVIDE.index; break;
-			case XK_Num_Lock: return KEY_NUM_LOCK.index; break;
-			case XK_Scroll_Lock: return KEY_SCROLL_LOCK.index; break;
-			case XK_Shift_L: return KEY_LSHIFT.index; break;
-			case XK_Shift_R: return KEY_RSHIFT.index; break;
-			case XK_Control_L: return KEY_LCONTROL.index; break;
-			case XK_Control_R: return KEY_RCONTROL.index; break;
-			case XK_Menu: return KEY_LMENU.index; break;
+			case XK_Home: return CC_HOME;
+			case XK_End: return CC_END;
+			case XK_Shift_L: return CC_LSHIFT;
+			case XK_Shift_R: return CC_RSHIFT;
+			case XK_Control_L: return CC_LCONTROL;
+			case XK_Control_R: return CC_RCONTROL;
 
-			case XK_KP_Insert: return KEY_NUMPAD_0.index; break;
-			case XK_KP_End: return KEY_NUMPAD_1.index; break;
-			case XK_KP_Down: return KEY_NUMPAD_2.index; break;
-			case XK_KP_Page_Down: return KEY_NUMPAD_3.index; break;
-			case XK_KP_Left: return KEY_NUMPAD_4.index; break;
-			case XK_KP_Begin: return KEY_NUMPAD_5.index; break;
-			case XK_KP_Right: return KEY_NUMPAD_6.index; break;
-			case XK_KP_Home: return KEY_NUMPAD_7.index; break;
-			case XK_KP_Up: return KEY_NUMPAD_8.index; break;
-			case XK_KP_Page_Up: return KEY_NUMPAD_9.index; break;
+			case XK_BackSpace: return CC_BACKSPACE;
+			case XK_Tab: return CC_TAB;
+			case XK_Linefeed: return CC_NEW_LINE;// not used in modern keyboards
+			case XK_Clear: return CC_CLEAR;
+			case XK_Return: return CC_RETURN;
+			case XK_Page_Up: return CC_PAGE_UP;
+			case XK_Page_Down: return CC_PAGE_DOWN;
+
+			case XK_Pause: return CC_PAUSE;
+			case XK_Num_Lock: return CC_NUM_LOCK;
+			case XK_Scroll_Lock: return CC_SCROLL_LOCK;
+			case XK_Caps_Lock: return CC_CAPSLOCK;
+			
+			case XK_Alt_L: return CC_LALT;
+			case XK_ISO_Level3_Shift:
+			case XK_Alt_R: return CC_RALT;
+			case XK_Menu: return CC_LMENU;
+			case XK_Super_L: return CC_LSUPER;
+			case XK_Super_R: return CC_RSUPER;
+
+			case XK_Escape: return CC_ESCAPE;
+			case XK_Print: return CC_PRINT_SCREEN;
+			case XK_Insert: return CC_INSERT;
+
+			case XK_space: return CC_SPACE;
+
+			case XK_KP_Multiply: return CC_MULTIPLY;
+			case XK_KP_Add: return CC_ADD;
+			case XK_KP_Subtract: return CC_SUBTRACT;
+			case XK_KP_Delete:
+			case XK_KP_Decimal: return CC_DECIMAL;
+			case XK_KP_Divide: return CC_DIVIDE;
+
+			case XK_KP_Insert: return CC_NUMPAD_0;
+			case XK_KP_End: return CC_NUMPAD_1;
+			case XK_KP_Down: return CC_NUMPAD_2;
+			case XK_KP_Page_Down: return CC_NUMPAD_3;
+			case XK_KP_Left: return CC_NUMPAD_4;
+			case XK_KP_Begin: return CC_NUMPAD_5;
+			case XK_KP_Right: return CC_NUMPAD_6;
+			case XK_KP_Home: return CC_NUMPAD_7;
+			case XK_KP_Up: return CC_NUMPAD_8;
+			case XK_KP_Page_Up: return CC_NUMPAD_9;
+			
+			case XK_Left: return CC_LEFT;
+			case XK_Up: return CC_UP;
+			case XK_Right: return CC_RIGHT;
+			case XK_Down: return CC_DOWN;
+			case XK_Delete: return CC_DELETE;
 			}
 
 			// Numpad
 			if (keysym >= XK_KP_0 && keysym <= XK_KP_9)
 			{
-				return KEY_NUMPAD_0.index + (keysym - XK_KP_0);
+				return CC_NUMPAD_FIRST + (keysym - XK_KP_0);
 			}
 
 			// Function
 			if (keysym >= XK_F1 && keysym <= XK_F35)
 			{
-				return KEY_F1.index + (keysym - XK_F1);
+				return CC_FUNCTION_FIRST + (keysym - XK_F1);
 			}
+
+			// try unicode
+			Char ret = xkb_keysym_to_utf32(xkb_keysym_to_upper(keysym));
+			if (ret != 0) return (ret);
 
 			// If not converted return the raw keysym, even if it's wrong
 			return keysym; 

@@ -2,7 +2,7 @@
 
 #ifdef FUSIN_BUILD_RAW_INPUT
 
-#include "IOSystems/RawInput/FusinRawInputKeyboardHandler.h"
+#include "IOSystems/RawInput/FusinWindowsKeycodeConvert.h"
 
 #include "Devices/FusinKeyboardDevice.h"
 #include "Utilities/FusinLog.h"
@@ -53,21 +53,8 @@ namespace Fusin
 	{
 		KeyboardDevice* kbD = static_cast<KeyboardDevice*>(mFusinDevice);
 		RAWKEYBOARD& kb = pRawInput->data.keyboard;
-
-		std::vector<BYTE> keyBuf(256, 0);
-		int sc = MapVirtualKey(kb.VKey, MAPVK_VK_TO_VSC);
-		
-		Char keyc = kb.VKey;
-		wchar_t unicodeC;
-		int retVal = ToUnicode(
-				kb.VKey, sc, 
-				keyBuf.data(),
-				&unicodeC, 1, 0
-			);
-		if (retVal > 0)
-		{
-			keyc = unicodeC;
-		}
+		kb.Flags & RI_KEY_E0;
+		Char keyc = virtualKeycodeToVirtualKey(kb.VKey, kb.MakeCode, kb.Flags);
 
 		if (kb.Flags & RI_KEY_BREAK)
 		{
@@ -77,7 +64,6 @@ namespace Fusin
 		{
 			kbD->keys[keyc].press();
 			kbD->keys.getTypedKey(keyc).press();
-			Log::singleton() << keyc << "\n";
 		}
 	}
 
