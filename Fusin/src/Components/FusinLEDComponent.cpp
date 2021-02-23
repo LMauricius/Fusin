@@ -99,12 +99,19 @@ namespace Fusin
 
 	LEDFlags LEDComponent::nextLedFlags()
 	{
-		LEDFlags ret = LED_NONE;
-		for (int i=0; i<mLEDs.size(); i++)
+		if (mUseDefaults)
 		{
-			setFlag(ret, i, mLEDs[i]->nextValue());
+			return LED_AUTO;
 		}
-		return ret;
+		else
+		{
+			LEDFlags ret = LED_NONE;
+			for (int i=0; i<mLEDs.size(); i++)
+			{
+				setFlag(ret, i, mLEDs[i]->nextValue());
+			}
+			return ret;
+		}
 	}
 	
 	void LEDComponent::setUseDefaults(bool enable)

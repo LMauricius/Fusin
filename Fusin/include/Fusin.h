@@ -6,6 +6,7 @@
 #include "Commands/FusinPositionCommand.h"
 #include "Commands/FusinShakeCommand.h"
 #include "Commands/FusinRangeCommand.h"
+#include "Commands/FusinOutputCommand.h"
 //#include "FusinAnyListener.h"
 
 // Input codes
