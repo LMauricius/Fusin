@@ -1,7 +1,7 @@
 /*
-This example shows the basics of using Fusin.
-It reads and prints the left/right key inputs, mouse movement, and gamepad stick and DPad inputs.
-It shows how to setup the InputManager, assign several inputs, and read the input values.
+This example shows Fusin's output capabilities.
+It allows you to enter a sentence, which will then be spelled back using the Morse code,
+by flashing the LEDs and using vibration.
 */
 
 #include <iostream>
@@ -11,11 +11,14 @@ It shows how to setup the InputManager, assign several inputs, and read the inpu
 #include <cctype>
 #include "Fusin.h"
 #include "Devices/FusinKeyboardDevice.h"
+#include "Utilities/FusinLog.h"
 
 using namespace std::chrono_literals;
 
 std::string getMorse(char x)
 {
+	Fusin::Log::singleton().pipe(std::wcout);
+
 	switch (tolower(x))
 	{
     case 'a':
@@ -103,9 +106,23 @@ int main()
 
     Fusin::InputManager im;
 	im.initialize(true);
+    
+    Fusin::OutputCommand cMorse(&im);
+
+    cMorse.assignIOCode(Fusin::KEYBOARD_LED_CAPS);
+    cMorse.assignIOCode(Fusin::KEYBOARD_LED_NUM);
+    cMorse.assignIOCode(Fusin::KEYBOARD_LED_SCROLL);
+    cMorse.assignIOCode(Fusin::GAMEPAD_VIBRATION_LEFT_FORCE);
+    cMorse.assignIOCode(Fusin::GAMEPAD_VIBRATION_RIGHT_FORCE);
+    cMorse.assignIOCode(Fusin::NINTENDO_VIBRATION_LEFT_FORCE);
+    cMorse.assignIOCode(Fusin::NINTENDO_VIBRATION_RIGHT_FORCE);
+    cMorse.assignIOCode(Fusin::DS_VIBRATION_LEFT_FORCE);
+    cMorse.assignIOCode(Fusin::DS_VIBRATION_RIGHT_FORCE);
+    cMorse.assignIOCode(Fusin::XINPUT_VIBRATION_LEFT_FORCE);
+    cMorse.assignIOCode(Fusin::XINPUT_VIBRATION_RIGHT_FORCE);
 
 	std::string text, morse;
-    int pos = 0, morsePos = -1;
+    int pos = -1, morsePos = -1;
     bool spaceDelay = true;
 
     std::cout << "Enter your message: ";
@@ -114,7 +131,7 @@ int main()
 	im.update();
 	while (running)
 	{
-		Fusin::KeyboardDevice *globalKB = (Fusin::KeyboardDevice*)im.getDevice(Fusin::DT_KEYBOARD, 0);
+		//Fusin::KeyboardDevice *globalKB = (Fusin::KeyboardDevice*)im.getDevice(Fusin::DT_KEYBOARD, 0);
 		
         if (std::chrono::system_clock::now() - lastTime > nextStepDelay)
         {
@@ -122,7 +139,18 @@ int main()
 
             spaceDelay = !spaceDelay;
 
-            if (!spaceDelay)
+            if (spaceDelay)
+            {
+                if (morsePos+1 == morse.size() && pos == text.length()-1)// sentence wait
+                {
+                    nextStepDelay = 1500ms;
+                }
+                else
+                {
+                    nextStepDelay = 300ms;
+                }
+            }
+            else
             {
                 morsePos++;
                 if (morsePos >= morse.length())
@@ -139,7 +167,12 @@ int main()
                     std::cout.flush();
                 }
 
-                if (morse[morsePos] == '.')// short
+                if (morse.size() == 0)// space
+                {
+                    nextStepDelay = 900ms;
+                    spaceDelay = true;
+                }
+                else if (morse[morsePos] == '.')// short
                 {
                     nextStepDelay = 300ms;
                 }
@@ -151,18 +184,16 @@ int main()
                 std::cout << morse[morsePos];
                 std::cout.flush();
             }
-            else
-            {
-                nextStepDelay = 300ms;
-            }
         }
         if (spaceDelay)
         {
-            globalKB->leds.setLEDFlags(Fusin::LED_NONE);
+            cMorse.setValue(0);
+            //globalKB->leds.setLEDFlags(Fusin::LED_NONE);
         }
         else
         {
-            globalKB->leds.setLEDFlags(Fusin::LED_CAPS | Fusin::LED_NUM | Fusin::LED_SCROLL);
+            cMorse.setValue(1);
+            //globalKB->leds.setLEDFlags(Fusin::LED_CAPS | Fusin::LED_NUM | Fusin::LED_SCROLL);
         }
 
 		im.update();

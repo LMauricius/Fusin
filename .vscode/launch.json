@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "(gdb) Example basics",
             "type": "cppdbg",
@@ -43,10 +44,21 @@
             ]
         },
         {
-            "name": "VS ExampleBasics",
+            "name": "(VS) ExampleBasics",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/Debug/ExampleBasics.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console": "externalTerminal"
+        },
+        {
+            "name": "(VS) ExampleMorse",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Debug/ExampleMorse.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

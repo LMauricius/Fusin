@@ -8,14 +8,16 @@ It shows how to setup the InputManager, assign several inputs, and read the inpu
 #include <iomanip>
 #include <chrono>
 #include <thread>
-//#include <windows.h>
 #include "Fusin.h"
 #include "Devices/FusinKeyboardDevice.h"
+#include "Utilities/FusinLog.h"
 
 using namespace std::chrono_literals;
 
 int main()
 {
+	Fusin::Log::singleton().pipe(std::wcout);
+
 	bool running = true;
 	Fusin::InputManager im;
 	im.initialize(true);
