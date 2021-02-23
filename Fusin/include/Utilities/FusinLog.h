@@ -2,6 +2,7 @@
 #define _FUSIN_LOG_H
 
 #include <iostream>
+#include <ostream>
 
 namespace Fusin
 {
@@ -18,9 +19,22 @@ namespace Fusin
 		template<class T>
 		Log& operator << (T a)
 		{
-			std::wcout << a;
+			if (mStream)
+				(*mStream) << a;
 			return *this;
 		}
+
+		inline void pipe(std::wostream& target)
+		{
+			mStream = &target; 
+		}
+
+	private:
+		std::wostream *mStream;
+
+		inline Log():
+			mStream(nullptr)
+		{}
 	};
 
 
