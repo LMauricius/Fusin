@@ -30,8 +30,7 @@ namespace Fusin
 			
 			{FUSIN_STR("L_Alt"), CC_LALT},
 			{FUSIN_STR("R_Alt"), CC_RALT},
-			{FUSIN_STR("L_Menu"), CC_LMENU},
-			{FUSIN_STR("R_Menu"), CC_RMENU},
+			{FUSIN_STR("Menu"), CC_MENU},
 			{FUSIN_STR("L_Win"), CC_LSUPER},
 			{FUSIN_STR("R_Win"), CC_RSUPER},
 
@@ -93,8 +92,7 @@ namespace Fusin
 			
 			case CC_LALT: ss << "L_Alt"; break;
 			case CC_RALT: ss << "R_Alt"; break;
-			case CC_LMENU: ss << "L_Menu"; break;
-			case CC_RMENU: ss << "R_Menu"; break;
+			case CC_MENU: ss << "Menu"; break;
 			case CC_LSUPER: ss << "L_Win"; break;
 			case CC_RSUPER: ss << "R_Win"; break;
 

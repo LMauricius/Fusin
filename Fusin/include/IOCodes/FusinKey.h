@@ -59,8 +59,7 @@ namespace Fusin
 
 	const IOCode KEY_LALT = Key(CC_LALT);
 	const IOCode KEY_RALT = Key(CC_RALT);
-	const IOCode KEY_LMENU = Key(CC_LMENU);
-	const IOCode KEY_RMENU = Key(CC_RMENU);
+	const IOCode KEY_MENU = Key(CC_MENU);
 	const IOCode KEY_LSUPER = Key(CC_LSUPER);
 	const IOCode KEY_RSUPER = Key(CC_RSUPER);
 	const IOCode KEY_LWIN = KEY_LSUPER;

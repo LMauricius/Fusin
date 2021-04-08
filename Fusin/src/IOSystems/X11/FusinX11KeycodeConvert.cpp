@@ -37,7 +37,7 @@
 			case XK_Alt_L: return CC_LALT;
 			case XK_ISO_Level3_Shift:
 			case XK_Alt_R: return CC_RALT;
-			case XK_Menu: return CC_LMENU;
+			case XK_Menu: return CC_MENU;
 			case XK_Super_L: return CC_LSUPER;
 			case XK_Super_R: return CC_RSUPER;
 

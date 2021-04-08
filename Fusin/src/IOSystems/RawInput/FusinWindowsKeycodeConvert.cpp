@@ -25,7 +25,7 @@
 			case VK_LSHIFT: return CC_LSHIFT;
 			case VK_RSHIFT: return CC_RSHIFT;
 			case VK_CONTROL:
-				if ( flags & RI_KEY_E1 )
+				if ( flags & RI_KEY_E0 )
 					return CC_RCONTROL;
 				else
 					return CC_LCONTROL;
@@ -46,13 +46,13 @@
 			case VK_CAPITAL: return CC_CAPSLOCK;
 
 			case VK_MENU: 
-				if ( flags & RI_KEY_E1 )
+				if ( flags & RI_KEY_E0 )
 					return CC_RALT;
 				else
 					return CC_LALT;
 			case VK_LMENU: return CC_LALT;
 			case VK_RMENU: return CC_RALT;
-			case VK_APPS: return CC_RMENU;
+			case VK_APPS: return CC_MENU;
 			case VK_LWIN: return CC_LWIN;
 			case VK_RWIN: return CC_RWIN;
 

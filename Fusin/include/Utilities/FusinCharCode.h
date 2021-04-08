@@ -71,8 +71,7 @@ namespace Fusin
 
 	const Char CC_LALT = 0x15;
 	const Char CC_RALT = 0x16;
-	const Char CC_LMENU = 0x17;
-	const Char CC_RMENU = 0x18;
+	const Char CC_MENU = 0x18;
 	const Char CC_LSUPER = 0x19;
 	const Char CC_RSUPER = 0x1A;
 	const Char CC_LWIN = CC_LSUPER;
