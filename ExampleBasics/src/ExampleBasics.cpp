@@ -5,6 +5,7 @@ It shows how to setup the InputManager, assign several inputs, and read the inpu
 */
 
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <chrono>
 #include <thread>
@@ -42,10 +43,13 @@ int main()
 	cRight.assignIOCode(Fusin::MOUSE_MOVE_RIGHT);
 
 	std::wcout << std::fixed << std::setprecision(2);
+	std::wofstream file("Log.txt");
 	while (running)
 	{
 		im.update();
-		std::wcout << im.getDevice(Fusin::DT_KEYBOARD, 0)->getStateString() << std::endl;
+		Fusin::String str = im.getDevice(Fusin::DT_KEYBOARD, 0)->getStateString();
+		std::wcout << str << std::endl;
+		file << str << std::endl;
 		if (cQuit.check()) running = false;
 		if (cLeft.check() || cRight.check())
 		{
@@ -56,6 +60,7 @@ int main()
 
 		std::this_thread::sleep_for(33ms);
 	}
+	file.close();
 
 	return 0;
 }
