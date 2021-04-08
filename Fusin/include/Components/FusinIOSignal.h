@@ -12,11 +12,11 @@ namespace Fusin
 	{
 	public:
 		/*
-		code: The code of the ioType whose value is contained in this IOSignal.
-		positiveSignal: If specified, the positiveSignal's value is set to this signal's value if
+		@param code: The code of the ioType whose value is contained in this IOSignal.
+		@param positiveSignal: If specified, the positiveSignal's value is set to this signal's value if
 						the value is greater than 0, otherwise it is set to 0.
 						It is automatically updated during this signal's _update().
-		negativeSignal: If specified, the positiveSignal's value is set to abs(this signal's value) if
+		@param negativeSignal: If specified, the positiveSignal's value is set to abs(this signal's value) if
 						the value is less than 0, otherwise it is set to 0.
 						It is automatically updated during this signal's _update().
 
@@ -30,12 +30,12 @@ namespace Fusin
 		*/
 		inline float distance() const { return std::abs(mValue); }
 		/*
-		Returns the value that will be set during the next _update.
+		Returns the value that will be set during the next update.
 		*/
 		inline float nextValue() const { return mNextValue; }
 		inline float nextDistance() const { return std::abs(mNextValue); }
 		/*
-		Returns whether the value has been changed since the last _update.
+		Returns whether the value has been changed since the last update.
 		*/
 		inline bool changed() const { return mChanged; }
 		/*
@@ -45,7 +45,7 @@ namespace Fusin
 		inline IOSignal* positiveSignal() const { return mPositiveSignal; }
 		/*
 		Changes the value of this signal. Keep in mind that this only "posts" the new value,
-		so the change will only take effect after the next _update() call.
+		so the change will only take effect after the next update() call.
 		If you need to retrieve the new value immediately, use nextValue() instead of value().
 		*/
 		void setValue(float val);
