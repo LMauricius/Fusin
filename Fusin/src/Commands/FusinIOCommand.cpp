@@ -250,7 +250,7 @@ namespace Fusin
 		}
 
 		// handle slots
-		for (Index i = 0; i < mSignalIndexPairs.size(); i++)
+		for (Index i = 0; i < mIOCodes.size(); i++)
 		{
 			if (!mSignalIndexPairs.isSlotFree(i))
 			{
