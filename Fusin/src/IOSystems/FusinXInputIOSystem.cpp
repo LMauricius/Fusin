@@ -23,7 +23,7 @@
 			{
 				if (dev)
 				{
-					//mInputManager->enumerator.unregisterDevice(dev);
+					mDeviceEnumerator->unregisterDevice(dev);
 					delete dev;
 				}
 			}
