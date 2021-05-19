@@ -1,22 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(Fusin)
- 
-# Compiler stuff
-get_filename_component(COMPILER_NAME ${CMAKE_CXX_COMPILER} NAME_WE)
-
-string(REPLACE "." ";" COMPILER_VERSION ${CMAKE_CXX_COMPILER_VERSION})
-list(GET COMPILER_VERSION 0 COMPILER_VERSION_MAJOR)
-list(GET COMPILER_VERSION 1 COMPILER_VERSION_MINOR)
-set(COMPILER_VERSION "${COMPILER_VERSION_MAJOR}.${COMPILER_VERSION_MINOR}")
-
-# Decide on locations
-#if (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")#if (CMAKE_CXX_COMPILER_ID EQUAL "MSVC")# Visual studio
-#    set(OUTPUT_DIR_SUFFIX "/${COMPILER_NAME}_${CMAKE_VS_PLATFORM_TOOLSET}_${CMAKE_VS_PLATFORM_NAME}")
-#else()# Other compilers
-#    set(OUTPUT_DIR_SUFFIX "/${CMAKE_CXX_COMPILER_ID}_${CMAKE_CXX_COMPILER_VERSION}")
-#endif()
-set(OUTPUT_DIR_SUFFIX "")
 
 ######################################
 # User build configuration
@@ -41,14 +25,15 @@ endif()
 # Build non-essentials
 set(FUSIN_BUILD_EXAMPLES true CACHE BOOL "Build example executables")
 
+
 # =========================
 # Global settings
 # =========================
 
 # Output directories
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin${OUTPUT_DIR_SUFFIX}")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin${OUTPUT_DIR_SUFFIX}")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin${OUTPUT_DIR_SUFFIX}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 
 # Determine the library type
 if (FUSIN_STATIC_LIB)

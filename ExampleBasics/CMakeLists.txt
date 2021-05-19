@@ -17,6 +17,8 @@ set_target_properties(ExampleBasics PROPERTIES OUTPUT_NAME "ExampleBasics${OUTPU
 target_include_directories(ExampleBasics PRIVATE "./src")
 
 target_include_directories(ExampleBasics PRIVATE "../Fusin/include")
-target_link_libraries(ExampleBasics PRIVATE Fusin)
-
-target_compile_definitions(ExampleBasics PRIVATE FUSIN_BUILD)
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_link_libraries(${TARGET_NAME} PUBLIC Fusin_d)
+else()
+    target_link_libraries(${TARGET_NAME} PUBLIC Fusin)
+endif()

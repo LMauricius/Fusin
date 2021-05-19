@@ -17,6 +17,8 @@ set_target_properties(ExampleMorse PROPERTIES OUTPUT_NAME "ExampleMorse${OUTPUT_
 target_include_directories(ExampleMorse PRIVATE "./src")
 
 target_include_directories(ExampleMorse PRIVATE "../Fusin/include")
-target_link_libraries(ExampleMorse PRIVATE Fusin)
-
-target_compile_definitions(ExampleMorse PRIVATE FUSIN_BUILD)
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_link_libraries(${TARGET_NAME} PRIVATE Fusin_d)
+else()
+    target_link_libraries(${TARGET_NAME} PRIVATE Fusin)
+endif()
