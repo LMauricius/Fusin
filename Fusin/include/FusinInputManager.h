@@ -77,22 +77,6 @@ namespace Fusin
 		*/
 		void setInputWindow(void *handle);
 		void* getInputWindow();
-		/*
-		Enable this to receive ioType even when the window isn't in focus. This won't 
-		have effect if you don't specify your own window handle with setInputWindow().
-		Call this before initializing the InputManager.
-		Default is false.
-		*/
-		/*void receiveInputOutsideFocus(bool enable);
-		bool receivingInputOutsideFocus();*/
-		/*
-		The amount of window messages that will be accepted per device between two _update() calls.
-		Set this to 0 if you want all messages to be accepted, but keep in mind that might cause a severe lag
-		if the device sends too many messages in a short time.
-		Call this before initializing the InputManager.
-		Default is 10.
-		*/
-		//void setMaxMessagesPerDevice(int n);
 		
 		
 		/*
