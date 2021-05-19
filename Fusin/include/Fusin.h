@@ -7,7 +7,7 @@
 #include "Commands/FusinShakeCommand.h"
 #include "Commands/FusinRangeCommand.h"
 #include "Commands/FusinOutputCommand.h"
-//#include "FusinAnyListener.h"
+#include "Commands/FusinIORecorder.h"
 
 // Input codes
 #include "IOCodes/FusinKey.h"

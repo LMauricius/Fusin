@@ -7,10 +7,10 @@ namespace Fusin
 	IORecorder::IORecorder(DeviceEnumerator* de):
 		mInvalidated(false)
 	{
+		mDeviceIndices[DT_ANY] = 0;
+
 		mDeviceEnumerator = de;
 		trackProccess();
-
-		mDeviceIndices[DT_ANY] = 0;
 
 		mEnabledInputFlags = IOF_ANY;
 	}
@@ -93,8 +93,8 @@ namespace Fusin
 		if (mDeviceEnumerator != nullptr)
 		{
 			mDeviceEnumerator->addListener(this);
-			replug();
 		}
+		replug();
 	}
 
 	void IORecorder::untrackProccess()
@@ -102,16 +102,19 @@ namespace Fusin
 		if (mDeviceEnumerator != nullptr)
 		{
 			mDeviceEnumerator->removeListener(this);
-			replug();
 		}
+		replug();
 	}
 
 	void IORecorder::replug()
 	{
 		mDeviceIndexPairSets.clear();
-		for (DeviceType t : ALL_DEVICE_TYPES)
+		if (mDeviceEnumerator != nullptr)
 		{
-			replugDeviceType(t);
+			for (DeviceType t : ALL_DEVICE_TYPES)
+			{
+				replugDeviceType(t);
+			}
 		}
 		mInvalidated = false;
 	}
@@ -146,12 +149,12 @@ namespace Fusin
 		}
 	}
 
-	void IORecorder::deviceRegistered(InputManager* im, Device* d)
+	void IORecorder::deviceRegistered(DeviceEnumerator* de, Device* d)
 	{
 		replugDeviceType(d->type());
 	}
 
-	void IORecorder::deviceUnregistered(InputManager* im, Device* d)
+	void IORecorder::deviceUnregistered(DeviceEnumerator* de, Device* d)
 	{
 		replugDeviceType(d->type());
 	}
@@ -176,7 +179,7 @@ namespace Fusin
 			for (auto& devIndexPair : typeSetPair.second)
 			{
 				IOSignal *s = devIndexPair.first->getStrongestIOSignal(mEnabledInputFlags);
-				if (s->distance() > maxDis)
+				if (s && s->distance() > maxDis)
 				{
 					maxDis = s->distance();
 					mStrongestIOSignal = s;

@@ -151,7 +151,7 @@ namespace Fusin
 		// check ordered signals (listed in a vector)
 		for (auto& typeVectorPair : mOrderedSignalsByType)
 		{
-			if (FLAG_PER_IO[typeVectorPair.first] & filter)
+			if (FLAG_PER_IO[typeVectorPair.first] & filter & IOF_ANY_INPUT)
 			{
 				for (auto signal : *typeVectorPair.second)
 				{
@@ -190,7 +190,7 @@ namespace Fusin
 		// check mapped signals
 		for (auto& typeMapPair : mMappedSignalsByType)
 		{
-			if (FLAG_PER_IO[typeMapPair.first] & filter)
+			if (FLAG_PER_IO[typeMapPair.first] & filter & IOF_ANY_INPUT)
 			{
 				for (auto& indexSignalPair : *typeMapPair.second)
 				{

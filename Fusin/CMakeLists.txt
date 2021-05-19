@@ -7,6 +7,11 @@ file(
 	"./include/*.h"
 	"./src/*.cpp"
 )
+file(
+	GLOB
+	HEADERS
+	"./include/*"
+)
 
 ######################################
 # Setup target
@@ -14,6 +19,8 @@ file(
 add_library(Fusin ${FUSIN_LIB_TYPE} ${SOURCES})
 set_target_properties(Fusin PROPERTIES OUTPUT_NAME "Fusin${OUTPUT_FILE_SUFFIX}")
 target_include_directories(Fusin PUBLIC "./include")
+message("${HEADERS}")
+#set_target_properties(Fusin PROPERTIES PUBLIC_HEADER "${HEADERS}")
 
 # link libraries
 if (WIN32)

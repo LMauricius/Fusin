@@ -55,14 +55,16 @@ namespace Fusin
 
 	void DeviceEnumerator::registerComponent(DeviceComponent* comp)
 	{
-		SlotArray<DeviceComponent*>& slots = mComponentStructure[comp->deviceType()];
+		DeviceType t = comp->deviceType();
+		SlotArray<DeviceComponent*>& slots = mComponentStructure[t];
 		Index ind = slots.getFreeSlot();
 		slots[ind] = comp;
 	}
 
 	void DeviceEnumerator::unregisterComponent(DeviceComponent* comp)
 	{
-		SlotArray<DeviceComponent*>& slots = mComponentStructure[comp->deviceType()];
+		DeviceType t = comp->deviceType();
+		SlotArray<DeviceComponent*>& slots = mComponentStructure[t];
 		slots.freeSlot(slots.find(comp));
 	}
 

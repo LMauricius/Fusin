@@ -59,8 +59,9 @@ namespace Fusin
 			mWindow = XCreateSimpleWindow(mDisplay, XRootWindow(mDisplay, scrId),
 				10, 10, 400, 200, 1, BlackPixel(mDisplay, scrId), WhitePixel(mDisplay, scrId));
   			XStoreName(mDisplay, mWindow, "Fusin X11 Window");
-			XMapWindow(mDisplay, mWindow);
+			//XMapWindow(mDisplay, mWindow);
 
+			mReceiveInputOutsideFocus = true;
 			mCreatedWindow = true;
 		}
 		else
@@ -160,7 +161,7 @@ namespace Fusin
 			XDestroyWindow(mDisplay, mWindow);
 		}
 
-		for (auto& idKbPair : mMouseDevicesPerID)
+		for (auto& idKbPair : mKeyboardDevicesPerID)
 		{
 			mDeviceEnumerator->unregisterDevice(idKbPair.second);
 			delete idKbPair.second;
@@ -202,9 +203,9 @@ namespace Fusin
 						StringStream ss;
 						ss << dev->name;
 
-						MouseDevice *newKbD = new MouseDevice(ss.str(), 5);
-						mDeviceEnumerator->registerDevice(newKbD);
-						mMouseDevicesPerID[dev->deviceid] = newKbD;
+						MouseDevice *newMD = new MouseDevice(ss.str(), 5);
+						mDeviceEnumerator->registerDevice(newMD);
+						mMouseDevicesPerID[dev->deviceid] = newMD;
 
 						Log::singleton() << "Mouse Device found:" << dev->name << "\n    Xi index: " << dev->deviceid <<
 							//"\n    button number: " << mpDeviceInfo->mouse.dwNumberOfButtons <<
@@ -366,16 +367,19 @@ namespace Fusin
 			switch (msg->type)
 			{
 			case KeyPress:
-				a = XkbKeycodeToKeysym(mDisplay, msg->xkey.keycode, 0, 1);
-				b = XkbKeycodeToKeysym(mDisplay, msg->xkey.keycode, 1, 1);
-				c = XKeysymToString(XKeycodeToKeysym(mDisplay, msg->xkey.keycode, 0))[0];
-				Log::singleton() << a << " " << b << " " << c << " " << XKeysymToString(XKeycodeToKeysym(mDisplay, msg->xkey.keycode, 0)) << " " << "\n";
-				kbD.keys[msg->xkey.keycode].press();
+			{
+				KeySym keysym = XkbKeycodeToKeysym(mDisplay, msg->xkey.keycode, 0, 0);
+				Char key = keysymToVirtualKey(keysym);
+				kbD.keys[key].press();
 				break;
+			}
 			case KeyRelease:
-
-				kbD.keys[msg->xkey.keycode].release();
+			{
+				KeySym keysym = XkbKeycodeToKeysym(mDisplay, msg->xkey.keycode, 0, 0);
+				Char key = keysymToVirtualKey(keysym);
+				kbD.keys[key].release();
 				break;
+			}
 			case ButtonPress:
 				switch (msg->xbutton.button)
 				{
@@ -436,7 +440,7 @@ namespace Fusin
 							KeyboardDevice &kbD = *it->second;
 							KeySym keysym = XkbKeycodeToKeysym(mDisplay, keyEvent->detail, 0, 0);
 							Char key = keysymToVirtualKey(keysym);
-							Log::singleton() << std::hex << keysym << std::dec << "\n";
+							//Log::singleton() << std::hex << keysym << std::dec << "\n";
 							kbD.keys[key].press();
 						}
                 		
@@ -535,7 +539,7 @@ namespace Fusin
 								mD.movement.setPosition(motionEvent->event_x, motionEvent->event_y);
 								mLastMouseX = motionEvent->event_x;
 								mLastMouseY = motionEvent->event_y;
-								Log::singleton() << motionEvent->sourceid << " " << (motionEvent->event_x ) << "\n";
+								//Log::singleton() << motionEvent->sourceid << " " << (motionEvent->event_x ) << "\n";
 							}
 						}
 						break;
@@ -578,7 +582,7 @@ namespace Fusin
 							{
 								mD.movement.setPosition(win_x, win_y);
 								mD.movement.simulateMovement(motionEvent->event_x, motionEvent->event_y);
-								Log::singleton() << motionEvent->sourceid << " " << (win_x) << "\n";
+								//Log::singleton() << motionEvent->sourceid << " " << (win_x) << "\n";
 							}
 						}
 						break;

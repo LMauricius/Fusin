@@ -56,8 +56,8 @@ namespace Fusin
 		void replug();
 		void replugDeviceType(DeviceType t);
 
-		void deviceRegistered(InputManager* im, Device* d);
-		void deviceUnregistered(InputManager* im, Device* d);
+		void deviceRegistered(DeviceEnumerator* de, Device* d);
+		void deviceUnregistered(DeviceEnumerator* de, Device* d);
 		void preUpdate(DeviceEnumerator* de);
 		void postUpdate(DeviceEnumerator* de);
 	};

@@ -17,7 +17,7 @@ namespace Fusin
 	{
 	public:
 		DeviceEnumerator();
-		~DeviceEnumerator();
+		virtual ~DeviceEnumerator();
 
 		/*
 		If registerComponents is enabled, the DeviceComponents of the specified device

@@ -41,9 +41,9 @@ endif()
 # Build non-essentials
 set(FUSIN_BUILD_EXAMPLES true CACHE BOOL "Build example executables")
 
-######################################
+# =========================
 # Global settings
-######################################
+# =========================
 
 # Output directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin${OUTPUT_DIR_SUFFIX}")
@@ -64,18 +64,32 @@ else()
   set(OUTPUT_FILE_SUFFIX "")
 endif()
 
-######################################
+# =========================
 # Add subdirectories
-######################################
+# =========================
 add_subdirectory("./Fusin")
+set(TARGET_LIST "Fusin")
 if (FUSIN_BUILD_EXAMPLES)
   add_subdirectory("./ExampleBasics")
   add_subdirectory("./ExampleMorse")
+  #set(TARGET_LIST ${TARGET_LIST} ExampleBasics ExampleMorse) # Don't install examples
 endif()
 
-######################################
+# =========================
 # Install stuff
-######################################
+# =========================
+message("${TARGET_LIST}")
+install(
+  TARGETS ${TARGET_LIST}
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+install(
+  DIRECTORY ${PROJECT_SOURCE_DIR}/Fusin/include/
+  DESTINATION include/Fusin
+)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)

@@ -8,6 +8,10 @@
 	#include <windows.h>
 #endif
 
+#ifdef unix
+	#include <X11/Xlib.h>
+#endif
+
 #include <list>
 #include <map>
 #include <chrono>
@@ -118,6 +122,15 @@ namespace Fusin
 		*/
 		void handleMessage(const MSG* msg);
 #endif
+
+#ifdef unix
+		/*
+		Call this in the game window's message loop.
+		*/
+		void handleMessage(XEvent* msg);
+#endif
+
+		void handleMessage(void* msg);
 
 		/*
 		Returns the device that supports ioType of the specified type with the specified deviceIndex.

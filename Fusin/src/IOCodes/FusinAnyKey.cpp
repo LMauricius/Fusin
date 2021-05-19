@@ -5,7 +5,7 @@ namespace Fusin
 {
 	IOCode AnyKey(Char c)
 	{
-		return IOCode(DT_COMPONENT_TYPING, IO_TYPED_BUTTON, c);
+		return IOCode(DT_COMPONENT_TYPING, IO_BUTTON, c);
 	}
 
 	IOCode AnyKey(const IOCode& ic)

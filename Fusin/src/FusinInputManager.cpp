@@ -173,6 +173,26 @@ namespace Fusin
 	}
 #endif
 
+#ifdef unix
+	void InputManager::handleMessage(XEvent* msg)
+	{
+		for (auto& it : mIOSystems)
+		{
+			if (it->getFlags() & mEnabledTypes)
+				it->handleMessage(msg);
+		}
+	}
+#endif
+	void InputManager::handleMessage(void* msg)
+	{
+#ifdef _WIN32
+		handleMessage((const MSG*)msg);
+#endif
+#ifdef unix
+		handleMessage((XEvent*)msg);
+#endif
+	}
+
 
 	KeyboardDevice* InputManager::getKeyboardDevice(Index slot)
 	{

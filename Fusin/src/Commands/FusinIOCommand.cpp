@@ -267,8 +267,12 @@ namespace Fusin
 	void IOCommand::replug()
 	{
 		mSignalIndexPairs.clear();
-		for (Index i = 0; i < mIOCodes.size(); i++)
-			replugSlot(i);
+
+		if (mDeviceEnumerator)
+		{
+			for (Index i = 0; i < mIOCodes.size(); i++)
+				replugSlot(i);
+		}
 	}
 
 	void IOCommand::replugSlot(Index ind)
